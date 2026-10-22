@@ -33,8 +33,9 @@ CSS = """
   .tile { background:#fff; border-radius:18px; padding:0 0 15px; overflow:hidden; text-align:center; box-shadow:0 3px 14px rgba(90,60,20,.08); border:1px solid #f1e6d2; display:block; transition:transform .25s ease, box-shadow .25s ease; }
   .tile:active { transform:scale(.98); }
   .tile:hover { transform:translateY(-4px); box-shadow:0 12px 26px rgba(90,60,20,.16); }
-  .tile img.ph { width:100%; height:118px; object-fit:cover; display:block; transition:transform .45s ease; }
-  .tile:hover img.ph { transform:scale(1.07); }
+  .tile .phwrap { height:158px; display:flex; align-items:center; justify-content:center; background:radial-gradient(120% 130% at 50% 0%, color-mix(in srgb, var(--c) 20%, #fffdf8), color-mix(in srgb, var(--c) 7%, #fff9ef)); border-bottom:1px solid #f1e6d2; }
+  .tile img.ph { max-width:86%; max-height:138px; object-fit:contain; display:block; filter:drop-shadow(0 10px 12px rgba(60,35,10,.28)); transition:transform .45s ease; }
+  .tile:hover img.ph { transform:scale(1.06) rotate(-1deg); }
   .tile .nm { margin-top:10px; font-weight:700; font-size:16.5px; letter-spacing:.4px; padding:0 8px; }
   @keyframes rise { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:none; } }
   .js .tile { opacity:0; }
@@ -42,7 +43,8 @@ CSS = """
   header .cafe { animation:rise .7s ease both; }
   section.card { animation:rise .55s ease both; }
   li { animation:rise .5s ease both; animation-delay:var(--d,0ms); }
-  .hero { width:100%; height:190px; object-fit:cover; border-radius:12px; margin-bottom:14px; display:block; }
+  .herowrap { height:250px; display:flex; align-items:center; justify-content:center; border-radius:12px; margin-bottom:14px; background:radial-gradient(120% 130% at 50% 0%, color-mix(in srgb, var(--c) 20%, #fffdf8), color-mix(in srgb, var(--c) 7%, #fff9ef)); border:1px solid #f1e6d2; }
+  .hero { max-width:82%; max-height:225px; object-fit:contain; display:block; filter:drop-shadow(0 14px 16px rgba(60,35,10,.30)); }
   @media (prefers-reduced-motion: reduce) { * { animation:none !important; transition:none !important; } .js .tile { opacity:1; } }
   .tile .meta { margin-top:3px; font-size:13px; color:#8a6d4b; }
   .tile .bar { height:6px; border-radius:99px; margin-top:12px; }
@@ -83,7 +85,7 @@ def price_meta(items, single):
     return f"{len(ps)} items • <span class='rs'>₹</span>{min(ps)}–<span class='rs'>₹</span>{max(ps)}"
 
 tiles = "\n".join(
-    f'    <a class="tile" style="--d:{i*70}ms" href="{slug}/"><img class="ph" src="img/{slug}.jpg" alt="{name.title()}"><div class="nm">{name}</div><div class="meta">{price_meta(items, single)}</div><div class="bar" style="background:{color}"></div></a>'
+    f'    <a class="tile" style="--d:{i*70}ms;--c:{color}" href="{slug}/"><div class="phwrap"><img class="ph" src="img/{slug}.webp" alt="{name.title()}"></div><div class="nm">{name}</div><div class="meta">{price_meta(items, single)}</div><div class="bar" style="background:{color}"></div></a>'
     for i, (slug, name, emo, color, dark, items, single) in enumerate(CATS))
 
 index = HEAD.format(title="Old Bridge Cafe — Menu", desc="Old Bridge Cafe menu — shakes, fresh juices, mojitos, falooda, tea and more. Tap a category for details.", css=CSS) + f"""
@@ -128,7 +130,7 @@ for i, (slug, name, emo, color, dark, items, single) in enumerate(CATS):
 </header>
 <main>
   <section class="card">
-    <img class="hero" src="../img/{slug}.jpg" alt="{name.title()}">
+    <div class="herowrap" style="--c:{color}"><img class="hero" src="../img/{slug}.webp" alt="{name.title()}"></div>
     <span class="banner{' dark' if dark else ''}" style="background:{color}">{name} {emo}</span>
     {body}
   </section>

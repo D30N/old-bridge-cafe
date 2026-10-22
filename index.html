@@ -23,8 +23,9 @@
   .tile { background:#fff; border-radius:18px; padding:0 0 15px; overflow:hidden; text-align:center; box-shadow:0 3px 14px rgba(90,60,20,.08); border:1px solid #f1e6d2; display:block; transition:transform .25s ease, box-shadow .25s ease; }
   .tile:active { transform:scale(.98); }
   .tile:hover { transform:translateY(-4px); box-shadow:0 12px 26px rgba(90,60,20,.16); }
-  .tile img.ph { width:100%; height:118px; object-fit:cover; display:block; transition:transform .45s ease; }
-  .tile:hover img.ph { transform:scale(1.07); }
+  .tile .phwrap { height:158px; display:flex; align-items:center; justify-content:center; background:radial-gradient(120% 130% at 50% 0%, color-mix(in srgb, var(--c) 20%, #fffdf8), color-mix(in srgb, var(--c) 7%, #fff9ef)); border-bottom:1px solid #f1e6d2; }
+  .tile img.ph { max-width:86%; max-height:138px; object-fit:contain; display:block; filter:drop-shadow(0 10px 12px rgba(60,35,10,.28)); transition:transform .45s ease; }
+  .tile:hover img.ph { transform:scale(1.06) rotate(-1deg); }
   .tile .nm { margin-top:10px; font-weight:700; font-size:16.5px; letter-spacing:.4px; padding:0 8px; }
   @keyframes rise { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:none; } }
   .js .tile { opacity:0; }
@@ -32,7 +33,8 @@
   header .cafe { animation:rise .7s ease both; }
   section.card { animation:rise .55s ease both; }
   li { animation:rise .5s ease both; animation-delay:var(--d,0ms); }
-  .hero { width:100%; height:190px; object-fit:cover; border-radius:12px; margin-bottom:14px; display:block; }
+  .herowrap { height:250px; display:flex; align-items:center; justify-content:center; border-radius:12px; margin-bottom:14px; background:radial-gradient(120% 130% at 50% 0%, color-mix(in srgb, var(--c) 20%, #fffdf8), color-mix(in srgb, var(--c) 7%, #fff9ef)); border:1px solid #f1e6d2; }
+  .hero { max-width:82%; max-height:225px; object-fit:contain; display:block; filter:drop-shadow(0 14px 16px rgba(60,35,10,.30)); }
   @media (prefers-reduced-motion: reduce) { * { animation:none !important; transition:none !important; } .js .tile { opacity:1; } }
   .tile .meta { margin-top:3px; font-size:13px; color:#8a6d4b; }
   .tile .bar { height:6px; border-radius:99px; margin-top:12px; }
@@ -61,18 +63,18 @@
 </header>
 <main>
   <div class="grid">
-    <a class="tile" style="--d:0ms" href="lime/"><img class="ph" src="img/lime.jpg" alt="Lime"><div class="nm">LIME</div><div class="meta">4 items • <span class='rs'>₹</span>25–<span class='rs'>₹</span>50</div><div class="bar" style="background:#2e9e4f"></div></a>
-    <a class="tile" style="--d:70ms" href="shake/"><img class="ph" src="img/shake.jpg" alt="Shake"><div class="nm">SHAKE</div><div class="meta">12 items • <span class='rs'>₹</span>70–<span class='rs'>₹</span>80</div><div class="bar" style="background:#ec407a"></div></a>
-    <a class="tile" style="--d:140ms" href="mojito/"><img class="ph" src="img/mojito.jpg" alt="Mojito"><div class="nm">MOJITO</div><div class="meta">10 items • <span class='rs'>₹</span>70–<span class='rs'>₹</span>70</div><div class="bar" style="background:#43a047"></div></a>
-    <a class="tile" style="--d:210ms" href="juice/"><img class="ph" src="img/juice.jpg" alt="Juice"><div class="nm">JUICE</div><div class="meta">9 items • <span class='rs'>₹</span>60–<span class='rs'>₹</span>100</div><div class="bar" style="background:#f39c2c"></div></a>
-    <a class="tile" style="--d:280ms" href="lassi/"><img class="ph" src="img/lassi.jpg" alt="Lassi"><div class="nm">LASSI</div><div class="meta">4 items • <span class='rs'>₹</span>60–<span class='rs'>₹</span>80</div><div class="bar" style="background:#1e88c7"></div></a>
-    <a class="tile" style="--d:350ms" href="falooda/"><img class="ph" src="img/falooda.jpg" alt="Falooda"><div class="nm">FALOODA</div><div class="meta">4 items • <span class='rs'>₹</span>130–<span class='rs'>₹</span>150</div><div class="bar" style="background:#8e44ad"></div></a>
-    <a class="tile" style="--d:420ms" href="tea/"><img class="ph" src="img/tea.jpg" alt="Tea"><div class="nm">TEA</div><div class="meta">9 items • <span class='rs'>₹</span>10–<span class='rs'>₹</span>20</div><div class="bar" style="background:#6d4c41"></div></a>
-    <a class="tile" style="--d:490ms" href="fruit-salad/"><img class="ph" src="img/fruit-salad.jpg" alt="Fruit Salad"><div class="nm">FRUIT SALAD</div><div class="meta">4 items • <span class='rs'>₹</span>90–<span class='rs'>₹</span>150</div><div class="bar" style="background:#e53935"></div></a>
-    <a class="tile" style="--d:560ms" href="kannur-cocktail/"><img class="ph" src="img/kannur-cocktail.jpg" alt="Kannur Cocktail"><div class="nm">KANNUR COCKTAIL</div><div class="meta"><span class='rs'>₹</span>80</div><div class="bar" style="background:#fdd835"></div></a>
-    <a class="tile" style="--d:630ms" href="aval-milk/"><img class="ph" src="img/aval-milk.jpg" alt="Aval Milk"><div class="nm">AVAL MILK</div><div class="meta"><span class='rs'>₹</span>80</div><div class="bar" style="background:#29a8d8"></div></a>
-    <a class="tile" style="--d:700ms" href="cold-coffee/"><img class="ph" src="img/cold-coffee.jpg" alt="Cold Coffee"><div class="nm">COLD COFFEE</div><div class="meta">3 items • <span class='rs'>₹</span>70–<span class='rs'>₹</span>70</div><div class="bar" style="background:#5d4037"></div></a>
-    <a class="tile" style="--d:770ms" href="kulukki/"><img class="ph" src="img/kulukki.jpg" alt="Kulukki"><div class="nm">KULUKKI</div><div class="meta"><span class='rs'>₹</span>40</div><div class="bar" style="background:#f06292"></div></a>
+    <a class="tile" style="--d:0ms;--c:#2e9e4f" href="lime/"><div class="phwrap"><img class="ph" src="img/lime.webp" alt="Lime"></div><div class="nm">LIME</div><div class="meta">4 items • <span class='rs'>₹</span>25–<span class='rs'>₹</span>50</div><div class="bar" style="background:#2e9e4f"></div></a>
+    <a class="tile" style="--d:70ms;--c:#ec407a" href="shake/"><div class="phwrap"><img class="ph" src="img/shake.webp" alt="Shake"></div><div class="nm">SHAKE</div><div class="meta">12 items • <span class='rs'>₹</span>70–<span class='rs'>₹</span>80</div><div class="bar" style="background:#ec407a"></div></a>
+    <a class="tile" style="--d:140ms;--c:#43a047" href="mojito/"><div class="phwrap"><img class="ph" src="img/mojito.webp" alt="Mojito"></div><div class="nm">MOJITO</div><div class="meta">10 items • <span class='rs'>₹</span>70–<span class='rs'>₹</span>70</div><div class="bar" style="background:#43a047"></div></a>
+    <a class="tile" style="--d:210ms;--c:#f39c2c" href="juice/"><div class="phwrap"><img class="ph" src="img/juice.webp" alt="Juice"></div><div class="nm">JUICE</div><div class="meta">9 items • <span class='rs'>₹</span>60–<span class='rs'>₹</span>100</div><div class="bar" style="background:#f39c2c"></div></a>
+    <a class="tile" style="--d:280ms;--c:#1e88c7" href="lassi/"><div class="phwrap"><img class="ph" src="img/lassi.webp" alt="Lassi"></div><div class="nm">LASSI</div><div class="meta">4 items • <span class='rs'>₹</span>60–<span class='rs'>₹</span>80</div><div class="bar" style="background:#1e88c7"></div></a>
+    <a class="tile" style="--d:350ms;--c:#8e44ad" href="falooda/"><div class="phwrap"><img class="ph" src="img/falooda.webp" alt="Falooda"></div><div class="nm">FALOODA</div><div class="meta">4 items • <span class='rs'>₹</span>130–<span class='rs'>₹</span>150</div><div class="bar" style="background:#8e44ad"></div></a>
+    <a class="tile" style="--d:420ms;--c:#6d4c41" href="tea/"><div class="phwrap"><img class="ph" src="img/tea.webp" alt="Tea"></div><div class="nm">TEA</div><div class="meta">9 items • <span class='rs'>₹</span>10–<span class='rs'>₹</span>20</div><div class="bar" style="background:#6d4c41"></div></a>
+    <a class="tile" style="--d:490ms;--c:#e53935" href="fruit-salad/"><div class="phwrap"><img class="ph" src="img/fruit-salad.webp" alt="Fruit Salad"></div><div class="nm">FRUIT SALAD</div><div class="meta">4 items • <span class='rs'>₹</span>90–<span class='rs'>₹</span>150</div><div class="bar" style="background:#e53935"></div></a>
+    <a class="tile" style="--d:560ms;--c:#fdd835" href="kannur-cocktail/"><div class="phwrap"><img class="ph" src="img/kannur-cocktail.webp" alt="Kannur Cocktail"></div><div class="nm">KANNUR COCKTAIL</div><div class="meta"><span class='rs'>₹</span>80</div><div class="bar" style="background:#fdd835"></div></a>
+    <a class="tile" style="--d:630ms;--c:#29a8d8" href="aval-milk/"><div class="phwrap"><img class="ph" src="img/aval-milk.webp" alt="Aval Milk"></div><div class="nm">AVAL MILK</div><div class="meta"><span class='rs'>₹</span>80</div><div class="bar" style="background:#29a8d8"></div></a>
+    <a class="tile" style="--d:700ms;--c:#5d4037" href="cold-coffee/"><div class="phwrap"><img class="ph" src="img/cold-coffee.webp" alt="Cold Coffee"></div><div class="nm">COLD COFFEE</div><div class="meta">3 items • <span class='rs'>₹</span>70–<span class='rs'>₹</span>70</div><div class="bar" style="background:#5d4037"></div></a>
+    <a class="tile" style="--d:770ms;--c:#f06292" href="kulukki/"><div class="phwrap"><img class="ph" src="img/kulukki.webp" alt="Kulukki"></div><div class="nm">KULUKKI</div><div class="meta"><span class='rs'>₹</span>40</div><div class="bar" style="background:#f06292"></div></a>
   </div>
 </main>
 <footer>© 2026 Old Bridge Cafe • Fresh &amp; made to order</footer>
