@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Old Bridge Cafe — Menu</title>
+<meta name="description" content="Old Bridge Cafe menu — shakes, fresh juices, mojitos, falooda, tea and more.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Poppins',system-ui,sans-serif; background:#FFF9EF; color:#2a2320; padding-bottom:40px; }
+  header { text-align:center; padding:34px 16px 8px; }
+  header .cafe { font-family:'Pacifico',cursive; font-size:clamp(38px,9vw,58px); line-height:1.1; color:#3b2314; }
+  header .cafe span { color:#b33a1f; }
+  header .sub { margin-top:6px; font-size:15px; letter-spacing:3px; text-transform:uppercase; color:#8a6d4b; }
+  header .cup { font-size:30px; margin-top:4px; }
+  nav { position:sticky; top:0; z-index:10; background:rgba(255,249,239,.95); backdrop-filter:blur(6px); padding:10px 8px; display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; }
+  nav::-webkit-scrollbar { display:none; }
+  nav a { flex:0 0 auto; text-decoration:none; font-size:13px; font-weight:600; color:#5b4632; background:#fff; border:1.5px solid #e8dcc8; padding:6px 13px; border-radius:999px; }
+  nav a:active { background:#f3e7d3; }
+  main { max-width:1060px; margin:0 auto; padding:14px 14px 0; display:grid; grid-template-columns:1fr; gap:18px; }
+  @media (min-width:720px){ main { grid-template-columns:1fr 1fr; } }
+  section.card { background:#fff; border-radius:18px; padding:18px 18px 14px; box-shadow:0 3px 14px rgba(90,60,20,.08); border:1px solid #f1e6d2; }
+  .banner { display:inline-block; font-weight:700; letter-spacing:1px; font-size:19px; color:#fff; padding:5px 18px 6px; border-radius:6px; transform:rotate(-1.2deg); margin-bottom:12px; box-shadow:0 2px 6px rgba(0,0,0,.15); }
+  .dark { color:#4a3200; }
+  ul { list-style:none; }
+  li { display:flex; align-items:baseline; gap:8px; padding:4.5px 0; font-size:15.5px; }
+  li .dots { flex:1; border-bottom:2px dotted #ddd0ba; transform:translateY(-3px); }
+  li b { color:#c22e2e; font-weight:700; white-space:nowrap; }
+  .dash { border-top:2px dashed #cbb astonishing; }
+  .split { border-top:2px dashed #cdbd9d; margin:8px 0 4px; }
+  .single { text-align:center; padding:8px 0 6px; }
+  .single .price { font-size:34px; font-weight:700; color:#c22e2e; }
+  .single .note { font-size:13px; color:#8a6d4b; }
+  .note-inline { font-size:12.5px; color:#8a6d4b; }
+  footer { text-align:center; margin-top:28px; font-size:13px; color:#a08b6c; padding:0 16px; }
+</style>
+</head>
+<body>
+<header>
+  <div class="cafe">Old <span>Bridge</span> Cafe</div>
+  <div class="cup">☕</div>
+  <div class="sub">Menu</div>
+</header>
+
+<nav>
+  <a href="#lime">🍋 Lime</a><a href="#juice">🧃 Juice</a><a href="#shake">🥤 Shake</a><a href="#mojito">🌿 Mojito</a><a href="#lessi">🥛 Lassi</a><a href="#falooda">🍨 Falooda</a><a href="#tea">🍵 Tea</a><a href="#fruitsalad">🍓 Fruit Salad</a><a href="#kannur">🍹 Kannur Cocktail</a><a href="#avalmilk">🥣 Aval Milk</a><a href="#cold">🧋 Cold Coffee</a><a href="#kulukki">🍸 Kulukki</a>
+</nav>
+
+<main>
+  <section class="card" id="lime">
+    <span class="banner" style="background:#2e9e4f">LIME 🍋</span>
+    <ul>
+      <li>Soda Lime <span class="dots"></span><b>₹25</b></li>
+      <li>Fresh Lime <span class="dots"></span><b>₹30</b></li>
+      <li>Blue Lime <span class="dots"></span><b>₹50</b></li>
+      <li>Mint Lime <span class="dots"></span><b>₹50</b></li>
+    </ul>
+  </section>
+
+  <section class="card" id="shake">
+    <span class="banner" style="background:#ec407a">SHAKE 🥤</span>
+    <ul>
+      <li>Sharjah <span class="dots"></span><b>₹70</b></li>
+      <li>Butter Scotch <span class="dots"></span><b>₹70</b></li>
+      <li>Strawberry <span class="dots"></span><b>₹70</b></li>
+      <li>Pistha <span class="dots"></span><b>₹70</b></li>
+      <li>Mango <span class="dots"></span><b>₹70</b></li>
+      <li>Vanilla <span class="dots"></span><b>₹70</b></li>
+      <li>Chikoo <span class="dots"></span><b>₹70</b></li>
+      <li>Chocolate <span class="dots"></span><b>₹80</b></li>
+      <li>Oreo <span class="dots"></span><b>₹80</b></li>
+      <li>Tender Coconut <span class="dots"></span><b>₹80</b></li>
+      <li>Kitkat <span class="dots"></span><b>₹80</b></li>
+      <li>Dairy Milk <span class="dots"></span><b>₹80</b></li>
+    </ul>
+  </section>
+
+  <section class="card" id="mojito">
+    <span class="banner" style="background:#43a047">MOJITO 🌿</span>
+    <ul>
+      <li>Passion Fruit <span class="dots"></span><b>₹70</b></li>
+      <li>Blue Curaçao <span class="dots"></span><b>₹70</b></li>
+      <li>Green Apple <span class="dots"></span><b>₹70</b></li>
+      <li>Watermelon <span class="dots"></span><b>₹70</b></li>
+      <li>Mango <span class="dots"></span><b>₹70</b></li>
+      <li>Strawberry <span class="dots"></span><b>₹70</b></li>
+      <li>Lichi <span class="dots"></span><b>₹70</b></li>
+      <li>Black Currant <span class="dots"></span><b>₹70</b></li>
+      <li>Grape <span class="dots"></span><b>₹70</b></li>
+      <li>Mint Lime <span class="dots"></span><b>₹70</b></li>
+    </ul>
+  </section>
+
+  <section class="card" id="juice">
+    <span class="banner" style="background:#f39c2c">JUICE 🧃</span>
+    <ul>
+      <li>Watermelon <span class="dots"></span><b>₹60</b></li>
+      <li>Pineapple <span class="dots"></span><b>₹70</b></li>
+      <li>Orange <span class="dots"></span><b>₹80</b></li>
+      <li>Shamam <span class="dots"></span><b>₹80</b></li>
+      <li>Apple <span class="dots"></span><b>₹80</b></li>
+      <li>Grapes <span class="dots"></span><b>₹80</b></li>
+      <li>Papaya <span class="dots"></span><b>₹80</b></li>
+      <li>Anar <span class="dots"></span><b>₹90</b></li>
+      <li>Musambi <span class="dots"></span><b>₹100</b></li>
+    </ul>
+  </section>
+
+  <section class="card" id="lessi">
+    <span class="banner" style="background:#1e88c7">LASSI 🥛</span>
+    <ul>
+      <li>Normal <span class="dots"></span><b>₹60</b></li>
+      <li>Mango <span class="dots"></span><b>₹80</b></li>
+      <li>Butter Scotch <span class="dots"></span><b>₹80</b></li>
+      <li>Chocolate <span class="dots"></span><b>₹80</b></li>
+    </ul>
+  </section>
+
+  <section class="card" id="falooda">
+    <span class="banner" style="background:#8e44ad">FALOODA 🍨</span>
+    <ul>
+      <li>Normal <span class="dots"></span><b>₹130</b></li>
+      <li>Classic <span class="dots"></span><b>₹130</b></li>
+      <li>Royal <span class="dots"></span><b>₹150</b></li>
+      <li>Mumbai <span class="dots"></span><b>₹150</b></li>
+    </ul>
+  </section>
+
+  <section class="card" id="tea">
+    <span class="banner" style="background:#6d4c41">TEA 🍵</span>
+    <ul>
+      <li>Normal Tea <span class="dots"></span><b>₹15</b></li>
+      <li>Black Tea <span class="dots"></span><b>₹10</b></li>
+      <li>Coffee <span class="dots"></span><b>₹20</b></li>
+      <li>Black Coffee <span class="dots"></span><b>₹12</b></li>
+      <li>Mint Tea <span class="dots"></span><b>₹12</b></li>
+      <li>Lemon Tea <span class="dots"></span><b>₹12</b></li>
+      <li>Ginger Tea <span class="dots"></span><b>₹12</b></li>
+    </ul>
+    <div class="split"></div>
+    <ul>
+      <li>Badam Tea <span class="dots"></span><b>₹20</b></li>
+      <li>Chocolate Tea <span class="dots"></span><b>₹20</b></li>
+    </ul>
+  </section>
+
+  <section class="card" id="fruitsalad">
+    <span class="banner" style="background:#e53935">FRUIT SALAD 🍓</span>
+    <ul>
+      <li>Cutfruit <span class="dots"></span><b>₹90</b></li>
+      <li>Normal <span class="dots"></span><b>₹100</b></li>
+      <li>Normal with Ice Cream <span class="dots"></span><b>₹120</b></li>
+      <li>Royal Special <span class="dots"></span><b>₹150</b></li>
+    </ul>
+  </section>
+
+  <section class="card" id="kannur">
+    <span class="banner dark" style="background:#fdd835">KANNUR COCKTAIL 🍹</span>
+    <div class="single"><div class="price">₹80</div><div class="note">The house special!</div></div>
+  </section>
+
+  <section class="card" id="avalmilk">
+    <span class="banner" style="background:#29a8d8">AVAL MILK 🥣</span>
+    <div class="single"><div class="price">₹80</div></div>
+  </section>
+
+  <section class="card" id="cold">
+    <span class="banner" style="background:#5d4037">COLD COFFEE 🧋</span>
+    <ul>
+      <li>Cold Coffee <span class="dots"></span><b>₹70</b></li>
+      <li>Cold Boost <span class="dots"></span><b>₹70</b></li>
+      <li>Cold Horlicks <span class="dots"></span><b>₹70</b></li>
+    </ul>
+  </section>
+
+  <section class="card" id="kulukki">
+    <span class="banner" style="background:#f06292">KULUKKI 🍸</span>
+    <div class="single"><div class="price">₹40</div></div>
+  </section>
+</main>
+
+<footer>© 2026 Old Bridge Cafe • Fresh &amp; made to order</footer>
+</body>
+</html>
