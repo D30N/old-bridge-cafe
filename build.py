@@ -20,10 +20,12 @@ CATS = [
 CSS = """
   * { margin:0; padding:0; box-sizing:border-box; }
   body { font-family:'Poppins',system-ui,sans-serif; background:#FFF9EF; color:#2a2320; padding-bottom:40px; }
-  header { text-align:center; padding:30px 16px 4px; }
+  header { text-align:center; padding:30px 16px 22px; background:linear-gradient(160deg,#ffdf9e 0%,#ffc98a 45%,#ffb59e 100%); border-radius:0 0 26px 26px; box-shadow:0 6px 24px rgba(160,90,20,.18); }
   header .cafe { font-family:'Pacifico',cursive; font-size:clamp(34px,8vw,52px); line-height:1.1; color:#3b2314; }
   header .cafe span { color:inherit; }
-  header .sub { margin-top:4px; font-size:14px; letter-spacing:3px; text-transform:uppercase; color:#8a6d4b; }
+  header .tagline { margin-top:2px; font-size:13px; letter-spacing:2.5px; text-transform:uppercase; color:#7c4a21; }
+  .info { margin-top:14px; font-size:13.5px; color:#6b4423; font-weight:500; }
+  .info a.loc { display:inline-block; margin-top:5px; color:#8a4b12; font-weight:700; text-decoration:underline; text-underline-offset:2px; }
   a { text-decoration:none; color:inherit; }
   .back { display:inline-block; margin:14px 0 0 14px; font-size:14px; font-weight:600; color:#5b4632; background:#fff; border:1.5px solid #e8dcc8; padding:7px 14px; border-radius:999px; }
   body { background:radial-gradient(600px 300px at 15% -40px, #ffe9c9 0, transparent 60%), radial-gradient(700px 340px at 90% -60px, #ffd9e2 0, transparent 55%), #FFF9EF; }
@@ -34,7 +36,7 @@ CSS = """
   @media (min-width:720px){ .tile { border-radius:18px; padding:0 0 15px; } }
   .tile:active { transform:scale(.98); }
   .tile:hover { transform:translateY(-4px); box-shadow:0 12px 26px rgba(90,60,20,.16); }
-  .tile .phwrap { height:118px; display:flex; align-items:center; justify-content:center; background:#fff; border-bottom:1px solid #f1e6d2; overflow:hidden; }
+  .tile .phwrap { position:relative; height:118px; display:flex; align-items:center; justify-content:center; background:#fff; border-bottom:1px solid #f1e6d2; overflow:hidden; }
   .tile img.ph { width:100%; height:100%; object-fit:contain; display:block; transition:transform .45s ease; }
   .tile:hover img.ph { transform:scale(1.04); }
   .tile .nm { margin-top:7px; font-weight:700; font-size:12.5px; letter-spacing:.2px; padding:0 4px; }
@@ -50,11 +52,15 @@ CSS = """
   @media (prefers-reduced-motion: reduce) { * { animation:none !important; transition:none !important; } .js .tile { opacity:1; } }
   .tile .meta { margin-top:2px; font-size:10.5px; color:#8a6d4b; padding:0 3px; }
   @media (min-width:720px){ .tile .meta { margin-top:3px; font-size:13px; } }
-  .insta { display:inline-flex; align-items:center; gap:8px; margin-top:14px; color:#3b2314; font-size:15px; font-weight:500; }
+  .insta { display:inline-flex; align-items:center; gap:8px; margin-top:14px; padding:9px 20px; color:#fff; font-size:15.5px; font-weight:700; background:linear-gradient(45deg,#f09433,#dc2743,#bc1888); border-radius:999px; box-shadow:0 4px 14px rgba(188,24,136,.35); }
   .insta svg { flex:none; }
-  .insta .un { font-weight:700; background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); -webkit-background-clip:text; background-clip:text; color:transparent; }
-  .insta:active { opacity:.65; }
-  .tile .bar { height:6px; border-radius:99px; margin-top:12px; }
+  .insta:active { opacity:.85; }
+  .tile .price { position:absolute; top:7px; right:7px; background:#c22e2e; color:#fff; font-size:11px; font-weight:700; padding:3px 9px; border-radius:999px; box-shadow:0 2px 6px rgba(0,0,0,.25); }
+  .tile .pop { position:absolute; top:7px; left:7px; background:#ffb300; color:#4a3200; font-size:10.5px; font-weight:700; padding:3px 8px; border-radius:999px; box-shadow:0 2px 6px rgba(0,0,0,.18); }
+  .search { max-width:1060px; margin:18px auto 0; padding:0 14px; }
+  .search input { width:100%; padding:13px 18px; border-radius:999px; border:1.5px solid #e8dcc8; font-size:15px; font-family:inherit; background:#fff; outline:none; }
+  .search input:focus { border-color:#e0a458; }
+  .noresults { display:none; text-align:center; color:#8a6d4b; font-size:14px; padding:26px 0 6px; }
   section.card { background:#fff; border-radius:18px; padding:20px 18px 14px; box-shadow:0 3px 14px rgba(90,60,20,.08); border:1px solid #f1e6d2; max-width:640px; margin:0 auto; }
   .banner { display:inline-block; font-weight:700; letter-spacing:1px; font-size:20px; color:#fff; padding:5px 18px 6px; border-radius:6px; transform:rotate(-1.2deg); margin-bottom:12px; box-shadow:0 2px 6px rgba(0,0,0,.15); }
   .dark { color:#4a3200; }
@@ -86,30 +92,53 @@ HEAD = """<!DOCTYPE html>
 <body>
 """
 
-def price_meta(items, single):
-    if single: return f"<span class='rs'>₹</span>{single}"
-    ps = [p for _, p in items if p]
-    return f"{len(ps)} items • <span class='rs'>₹</span>{min(ps)}–<span class='rs'>₹</span>{max(ps)}"
-
-tiles = "\n".join(
-    f'    <a class="tile" style="--d:{i*70}ms;--c:{color}" href="{slug}/"><div class="phwrap"><img class="ph" src="img/menu/{slug}.jpg?v=2" alt="{name.title()}"></div><div class="nm">{name}</div><div class="meta">{price_meta(items, single)}</div><div class="bar" style="background:{color}"></div></a>'
-    for i, (slug, name, emo, color, dark, items, single) in enumerate(CATS))
-
-index = HEAD.format(title="Old Bridge Cafe — Menu", desc="Old Bridge Cafe menu — shakes, fresh juices, mojitos, falooda, tea and more. Tap a category for details.", css=CSS) + f"""
+HEADER_HTML = """
 <header>
   <div class="cafe">Old <span>Bridge</span> Cafe</div>
-  <a class="insta" href="https://www.instagram.com/oldbridge_cafe/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke-width="2"><defs><linearGradient id="igG" x1="0" y1="24" x2="24" y2="0"><stop offset="0" stop-color="#f09433"/><stop offset=".35" stop-color="#e6683c"/><stop offset=".6" stop-color="#dc2743"/><stop offset=".8" stop-color="#cc2366"/><stop offset="1" stop-color="#bc1888"/></linearGradient></defs><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" stroke="url(#igG)"/><circle cx="12" cy="12" r="4.2" stroke="url(#igG)"/><circle cx="17.6" cy="6.4" r="1.4" fill="url(#igG)" stroke="none"/></svg>Follow us on Instagram <span class="un">@oldbridge_cafe</span></a>
+  <div class="tagline">Fresh • Juices • Shakes • Snacks</div>
+  <a class="insta" href="https://www.instagram.com/oldbridge_cafe/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="#fff" stroke-width="2"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.4" fill="#fff" stroke="none"/></svg>Follow us on Instagram</a>
+  <div class="info">🕚 Open Daily · 11:00 AM – 11:00 PM<br><a class="loc" href="https://maps.app.goo.gl/h8bwZFAta8rJe4m89?g_st=ac" target="_blank" rel="noopener">📍 Oldbridge, Murinjapuzha</a></div>
 </header>
+"""
+
+POPULAR = {"shake", "falooda"}
+
+def price_badge(items, single):
+    if single: return f"<span class='rs'>₹</span>{single}"
+    ps = [p for _, p in items if p]
+    if min(ps) == max(ps): return f"<span class='rs'>₹</span>{min(ps)}"
+    return f"<span class='rs'>₹</span>{min(ps)}–{max(ps)}"
+
+def tile_meta(items, single):
+    if single: return "Special"
+    return f"{len(items)} items"
+
+def tile_html(i, cat):
+    slug, name, emo, color, dark, items, single = cat
+    pop = '<span class="pop">★ Popular</span>' if slug in POPULAR else ''
+    search = (name + ' ' + ' '.join(nm for nm, _ in items)).lower()
+    return (f'    <a class="tile" style="--d:{i*70}ms;--c:{color}" href="{slug}/" data-search="{search}">'
+            f'<div class="phwrap"><img class="ph" src="img/menu/{slug}.jpg?v=2" alt="{name.title()}">{pop}<span class="price">{price_badge(items, single)}</span></div>'
+            f'<div class="nm">{name}</div><div class="meta">{tile_meta(items, single)}</div></a>')
+
+tiles = "\n".join(tile_html(i, cat) for i, cat in enumerate(CATS))
+
+index = HEAD.format(title="Old Bridge Cafe — Menu", desc="Old Bridge Cafe menu — shakes, fresh juices, mojitos, falooda, tea and more. Tap a category for details.", css=CSS) + f"""
+{HEADER_HTML}
+<div class="search"><input id="q" type="search" placeholder="🔍 Search items… try 'falooda'" aria-label="Search menu items"></div>
 <main>
   <div class="grid">
 {tiles}
   </div>
+  <div class="noresults" id="nr">No items found — try another name</div>
 </main>
 <footer>© 2026 Old Bridge Cafe • Fresh &amp; made to order</footer>
 <script>
 document.documentElement.classList.add('js');
 var io = new IntersectionObserver(function(es){{ es.forEach(function(e){{ if (e.isIntersecting) {{ e.target.classList.add('in'); io.unobserve(e.target); }} }}); }}, {{ threshold:.12 }});
 document.querySelectorAll('.tile').forEach(function(t){{ io.observe(t); }});
+var q = document.getElementById('q');
+if (q) {{ q.addEventListener('input', function(){{ var v = q.value.toLowerCase().trim(); var n = 0; document.querySelectorAll('.tile').forEach(function(t){{ var show = !v || (t.dataset.search || '').includes(v) || t.textContent.toLowerCase().includes(v); t.style.display = show ? '' : 'none'; if (show) n++; }}); document.getElementById('nr').style.display = n ? 'none' : 'block'; }}); }}
 </script>
 </body>
 </html>
@@ -132,10 +161,7 @@ for i, (slug, name, emo, color, dark, items, single) in enumerate(CATS):
     pn = '<div class="pn">' + (f'<a href="../{prev[0]}/">← {prev[1].title()}</a>' if prev else '<span></span>') + (f'<a href="../{nxt[0]}/">{nxt[1].title()} →</a>' if nxt else '<span></span>') + '</div>'
     page = HEAD.format(title=f"{name.title()} — Old Bridge Cafe", desc=f"{name.title()} at Old Bridge Cafe — items and prices.", css=CSS) + f"""
 <a class="back" href="../">← All Categories</a>
-<header>
-  <div class="cafe">Old <span>Bridge</span> Cafe</div>
-  <a class="insta" href="https://www.instagram.com/oldbridge_cafe/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke-width="2"><defs><linearGradient id="igG" x1="0" y1="24" x2="24" y2="0"><stop offset="0" stop-color="#f09433"/><stop offset=".35" stop-color="#e6683c"/><stop offset=".6" stop-color="#dc2743"/><stop offset=".8" stop-color="#cc2366"/><stop offset="1" stop-color="#bc1888"/></linearGradient></defs><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" stroke="url(#igG)"/><circle cx="12" cy="12" r="4.2" stroke="url(#igG)"/><circle cx="17.6" cy="6.4" r="1.4" fill="url(#igG)" stroke="none"/></svg>Follow us on Instagram <span class="un">@oldbridge_cafe</span></a>
-</header>
+{HEADER_HTML}
 <main>
   <section class="card">
     <div class="herowrap" style="--c:{color}"><img class="hero" src="../img/menu/{slug}.jpg?v=2" alt="{name.title()}"></div>
