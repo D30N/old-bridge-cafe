@@ -77,6 +77,7 @@ CSS = """
   .pn a { font-size:14px; font-weight:600; color:#5b4632; background:#fff; border:1.5px solid #e8dcc8; padding:8px 14px; border-radius:999px; }
   footer { text-align:center; margin-top:28px; font-size:13px; color:#a08b6c; padding:0 16px; }
   footer .imgnote { font-style:italic; }
+  footer .copy { margin-top:12px; }
 """
 
 HEAD = """<!DOCTYPE html>
@@ -133,7 +134,7 @@ index = HEAD.format(title="Old Bridge Cafe — Menu", desc="Old Bridge Cafe menu
   </div>
   <div class="noresults" id="nr">No items found — try another name</div>
 </main>
-<footer><span class="imgnote">Images shown are for illustration only — the actual product may vary slightly.</span><br>© 2026 Old Bridge Cafe • Fresh &amp; made to order</footer>
+<footer><span class="imgnote">Images shown are for illustration only — the actual product may vary slightly.</span><div class="copy">© 2026 Old Bridge Cafe • Fresh &amp; made to order</div></footer>
 <script>
 document.documentElement.classList.add('js');
 var io = new IntersectionObserver(function(es){{ es.forEach(function(e){{ if (e.isIntersecting) {{ e.target.classList.add('in'); io.unobserve(e.target); }} }}); }}, {{ threshold:.12 }});
@@ -171,7 +172,7 @@ for i, (slug, name, emo, color, dark, items, single) in enumerate(CATS):
   </section>
   {pn}
 </main>
-<footer><span class="imgnote">Images shown are for illustration only — the actual product may vary slightly.</span><br>© 2026 Old Bridge Cafe • Fresh &amp; made to order</footer>
+<footer><span class="imgnote">Images shown are for illustration only — the actual product may vary slightly.</span><div class="copy">© 2026 Old Bridge Cafe • Fresh &amp; made to order</div></footer>
 </body>
 </html>
 """
