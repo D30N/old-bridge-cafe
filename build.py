@@ -58,7 +58,6 @@ CSS = """
   .insta svg { flex:none; }
   .insta:active { opacity:.85; }
   .tile .price { position:absolute; top:7px; right:7px; background:#c22e2e; color:#fff; font-size:11px; font-weight:700; padding:3px 9px; border-radius:999px; box-shadow:0 2px 6px rgba(0,0,0,.25); }
-  .tile .pop { position:absolute; top:7px; left:7px; background:#ffb300; color:#4a3200; font-size:10.5px; font-weight:700; padding:3px 8px; border-radius:999px; box-shadow:0 2px 6px rgba(0,0,0,.18); }
   .search { max-width:1060px; margin:18px auto 0; padding:0 14px; }
   .search input { width:100%; padding:13px 18px; border-radius:999px; border:1.5px solid #e8dcc8; font-size:15px; font-family:inherit; background:#fff; outline:none; }
   .search input:focus { border-color:#e0a458; }
@@ -127,7 +126,7 @@ def tile_meta(items, single):
 
 def tile_html(i, cat):
     slug, name, emo, color, dark, items, single = cat
-    pop = '<span class="pop">★ Popular</span>' if slug in POPULAR else ''
+    pop = ''
     search = (name + ' ' + ' '.join(nm for nm, _ in items)).lower()
     return (f'    <a class="tile" style="--d:{i*70}ms;--c:{color}" href="{slug}/" data-search="{search}">'
             f'<div class="phwrap"><img class="ph" src="img/menu/{slug}.jpg?v=2" alt="{name.title()}">{pop}<span class="price">{price_badge(items, single)}</span></div>'
