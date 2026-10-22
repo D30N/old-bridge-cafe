@@ -33,7 +33,7 @@ CSS = """
   main { max-width:1060px; margin:0 auto; padding:16px 14px 0; }
   .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
   @media (min-width:720px){ .grid { gap:14px; } }
-  .tile { background:#fff; border-radius:15px; padding:0; overflow:hidden; text-align:center; box-shadow:0 3px 14px rgba(90,60,20,.08); border:1px solid #f1e6d2; display:block; transition:transform .25s ease, box-shadow .25s ease; }
+  .tile { background:#fff; border-radius:15px; padding:0; overflow:hidden; text-align:center; box-shadow:0 3px 14px rgba(90,60,20,.08); border:1px solid #f1e6d2; display:flex; flex-direction:column; transition:transform .25s ease, box-shadow .25s ease; }
   @media (min-width:720px){ .tile { border-radius:18px; } }
   .tile:active { transform:scale(.98); }
   .tile:hover { transform:translateY(-4px); box-shadow:0 12px 26px rgba(90,60,20,.16); }
@@ -53,7 +53,7 @@ CSS = """
   @media (prefers-reduced-motion: reduce) { * { animation:none !important; transition:none !important; } .js .tile { opacity:1; } }
   .tile .meta { margin-top:2px; font-size:10.5px; color:#8a6d4b; padding:0 3px; }
   @media (min-width:720px){ .tile .meta { margin-top:3px; font-size:13px; } }
-  .tile .tbody { padding:3px 0 11px; background:color-mix(in srgb, var(--c) 10%, #ffffff); border-top:1px solid #f1e6d2; }
+  .tile .tbody { flex:1; padding:3px 0 11px; background:color-mix(in srgb, var(--c) 10%, #ffffff); border-top:1px solid #f1e6d2; }
   .insta { display:inline-flex; align-items:center; gap:8px; margin-top:14px; padding:9px 20px; color:#fff; font-size:15.5px; font-weight:700; background:linear-gradient(45deg,#f09433,#dc2743,#bc1888); border-radius:999px; box-shadow:0 4px 14px rgba(188,24,136,.35); }
   .insta svg { flex:none; }
   .insta:active { opacity:.85; }
