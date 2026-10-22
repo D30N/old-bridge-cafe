@@ -60,7 +60,7 @@ CSS = """
   li { display:flex; align-items:baseline; gap:8px; padding:5px 0; font-size:16px; }
   li .dots { flex:1; border-bottom:2px dotted #ddd0ba; transform:translateY(-3px); }
   li b { color:#c22e2e; font-weight:700; white-space:nowrap; }
-  .rs { font-size:.72em; font-weight:600; vertical-align:.32em; margin-right:1px; letter-spacing:0; }
+  .rs { font-family:Roboto,'Noto Sans',Arial,system-ui,sans-serif; font-size:.9em; font-weight:600; vertical-align:baseline; margin-right:2px; letter-spacing:0; }
   .split { border-top:2px dashed #cdbd9d; margin:8px 0 4px; }
   .single { text-align:center; padding:10px 0 8px; }
   .single .price { font-size:38px; font-weight:700; color:#c22e2e; }
