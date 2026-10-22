@@ -42,6 +42,7 @@ CSS = """
   li { display:flex; align-items:baseline; gap:8px; padding:5px 0; font-size:16px; }
   li .dots { flex:1; border-bottom:2px dotted #ddd0ba; transform:translateY(-3px); }
   li b { color:#c22e2e; font-weight:700; white-space:nowrap; }
+  .rs { font-size:.72em; font-weight:600; vertical-align:.32em; margin-right:1px; letter-spacing:0; }
   .split { border-top:2px dashed #cdbd9d; margin:8px 0 4px; }
   .single { text-align:center; padding:10px 0 8px; }
   .single .price { font-size:38px; font-weight:700; color:#c22e2e; }
@@ -66,9 +67,9 @@ HEAD = """<!DOCTYPE html>
 """
 
 def price_meta(items, single):
-    if single: return f"₹{single}"
+    if single: return f"<span class='rs'>₹</span>{single}"
     ps = [p for _, p in items if p]
-    return f"{len(ps)} items • ₹{min(ps)}–₹{max(ps)}"
+    return f"{len(ps)} items • <span class='rs'>₹</span>{min(ps)}–<span class='rs'>₹</span>{max(ps)}"
 
 tiles = "\n".join(
     f'    <a class="tile" href="{slug}/"><div class="emo">{emo}</div><div class="nm">{name}</div><div class="meta">{price_meta(items, single)}</div><div class="bar" style="background:{color}"></div></a>'
@@ -92,14 +93,14 @@ open("index.html", "w", encoding="utf-8").write(index)
 
 for i, (slug, name, emo, color, dark, items, single) in enumerate(CATS):
     if single:
-        body = f'<div class="single"><div class="price">₹{single}</div><div class="note">{"The house special!" if slug=="kannur-cocktail" else ""}</div></div>'
+        body = f'<div class="single"><div class="price"><span class="rs">₹</span>{single}</div><div class="note">{"The house special!" if slug=="kannur-cocktail" else ""}</div></div>'
     else:
         rows = []
         for nm, p in items:
             if nm == "—split—":
                 rows.append('</ul><div class="split"></div><ul>')
             else:
-                rows.append(f'<li>{nm} <span class="dots"></span><b>₹{p}</b></li>')
+                rows.append(f'<li>{nm} <span class="dots"></span><b><span class="rs">₹</span>{p}</b></li>')
         body = "<ul>\n" + "\n".join(rows) + "\n</ul>"
     prev = CATS[i-1] if i > 0 else None
     nxt = CATS[i+1] if i < len(CATS)-1 else None
