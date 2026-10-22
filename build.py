@@ -33,10 +33,10 @@ CSS = """
   main { max-width:1060px; margin:0 auto; padding:16px 14px 0; }
   .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
   @media (min-width:720px){ .grid { gap:14px; } }
-  .tile { background:#fff; border-radius:15px; padding:0; overflow:hidden; text-align:center; box-shadow:0 3px 14px rgba(90,60,20,.08); border:1px solid #f1e6d2; display:flex; flex-direction:column; transition:transform .25s ease, box-shadow .25s ease; }
+  .tile { background:#fff; border-radius:15px; padding:0; overflow:hidden; text-align:center; box-shadow:0 6px 18px color-mix(in srgb, var(--c) 26%, transparent); border:1px solid #f1e6d2; display:flex; flex-direction:column; transition:transform .25s ease, box-shadow .25s ease; }
   @media (min-width:720px){ .tile { border-radius:18px; } }
   .tile:active { transform:scale(.98); }
-  .tile:hover { transform:translateY(-4px); box-shadow:0 12px 26px rgba(90,60,20,.16); }
+  .tile:hover { transform:translateY(-4px); box-shadow:0 14px 30px color-mix(in srgb, var(--c) 40%, transparent); }
   .tile .phwrap { position:relative; height:150px; display:flex; align-items:center; justify-content:center; background:#fff; border-bottom:1px solid #f1e6d2; overflow:hidden; }
   .tile img.ph { width:100%; height:100%; object-fit:contain; display:block; transition:transform .45s ease; }
   .tile:hover img.ph { transform:scale(1.04); }
@@ -48,7 +48,7 @@ CSS = """
   header .cafe { animation:rise .7s ease both; }
   section.card { animation:rise .55s ease both; }
   li { animation:rise .5s ease both; animation-delay:var(--d,0ms); }
-  .herowrap { display:flex; align-items:center; justify-content:center; border-radius:12px; margin-bottom:14px; background:#fff; border:1px solid #f1e6d2; padding:10px; }
+  .herowrap { display:flex; align-items:center; justify-content:center; border-radius:16px; margin-bottom:14px; background:#fff; border:3px solid var(--c); box-shadow:0 16px 36px color-mix(in srgb, var(--c) 34%, transparent); padding:10px; }
   .hero { max-width:min(100%,440px); max-height:320px; object-fit:contain; display:block; }
   @media (prefers-reduced-motion: reduce) { * { animation:none !important; transition:none !important; } .js .tile { opacity:1; } }
   .tile .meta { margin-top:2px; font-size:10.5px; color:#8a6d4b; padding:0 3px; }
