@@ -10,7 +10,8 @@
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
   body { font-family:'Poppins',system-ui,sans-serif; background:#FFF9EF; color:#2a2320; padding-bottom:40px; }
-  header { text-align:center; padding:30px 16px 22px; background:linear-gradient(160deg,#ffdf9e 0%,#ffc98a 45%,#ffb59e 100%); border-radius:0 0 26px 26px; box-shadow:0 6px 24px rgba(160,90,20,.18); }
+  header { text-align:center; padding:30px 16px 22px; background:linear-gradient(160deg,#ffdf9e 0%,#ffc98a 45%,#ffb59e 100%); }
+  .wave { display:block; width:100%; height:44px; margin-top:-1px; }
   header .cafe { font-family:'Pacifico',cursive; font-size:clamp(34px,8vw,52px); line-height:1.1; color:#3b2314; }
   header .cafe span { color:inherit; }
   header .tagline { margin-top:2px; font-size:13px; letter-spacing:2.5px; text-transform:uppercase; color:#7c4a21; }
@@ -22,15 +23,15 @@
   main { max-width:1060px; margin:0 auto; padding:16px 14px 0; }
   .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
   @media (min-width:720px){ .grid { gap:14px; } }
-  .tile { background:#fff; border-radius:15px; padding:0 0 10px; overflow:hidden; text-align:center; box-shadow:0 3px 14px rgba(90,60,20,.08); border:1px solid #f1e6d2; display:block; transition:transform .25s ease, box-shadow .25s ease; }
-  @media (min-width:720px){ .tile { border-radius:18px; padding:0 0 15px; } }
+  .tile { background:#fff; border-radius:15px; padding:0; overflow:hidden; text-align:center; box-shadow:0 3px 14px rgba(90,60,20,.08); border:1px solid #f1e6d2; display:block; transition:transform .25s ease, box-shadow .25s ease; }
+  @media (min-width:720px){ .tile { border-radius:18px; } }
   .tile:active { transform:scale(.98); }
   .tile:hover { transform:translateY(-4px); box-shadow:0 12px 26px rgba(90,60,20,.16); }
-  .tile .phwrap { position:relative; height:118px; display:flex; align-items:center; justify-content:center; background:#fff; border-bottom:1px solid #f1e6d2; overflow:hidden; }
+  .tile .phwrap { position:relative; height:150px; display:flex; align-items:center; justify-content:center; background:#fff; border-bottom:1px solid #f1e6d2; overflow:hidden; }
   .tile img.ph { width:100%; height:100%; object-fit:contain; display:block; transition:transform .45s ease; }
   .tile:hover img.ph { transform:scale(1.04); }
   .tile .nm { margin-top:7px; font-weight:700; font-size:12.5px; letter-spacing:.2px; padding:0 4px; }
-  @media (min-width:720px){ .tile .phwrap { height:180px; } .tile .nm { margin-top:10px; font-size:16.5px; letter-spacing:.4px; padding:0 8px; } }
+  @media (min-width:720px){ .tile .phwrap { height:215px; } .tile .nm { margin-top:10px; font-size:16.5px; letter-spacing:.4px; padding:0 8px; } }
   @keyframes rise { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:none; } }
   .js .tile { opacity:0; }
   .js .tile.in { animation:rise .6s cubic-bezier(.2,.7,.3,1) forwards; animation-delay:var(--d,0ms); }
@@ -42,6 +43,7 @@
   @media (prefers-reduced-motion: reduce) { * { animation:none !important; transition:none !important; } .js .tile { opacity:1; } }
   .tile .meta { margin-top:2px; font-size:10.5px; color:#8a6d4b; padding:0 3px; }
   @media (min-width:720px){ .tile .meta { margin-top:3px; font-size:13px; } }
+  .tile .tbody { padding:3px 0 11px; background:color-mix(in srgb, var(--c) 10%, #ffffff); border-top:1px solid #f1e6d2; }
   .insta { display:inline-flex; align-items:center; gap:8px; margin-top:14px; padding:9px 20px; color:#fff; font-size:15.5px; font-weight:700; background:linear-gradient(45deg,#f09433,#dc2743,#bc1888); border-radius:999px; box-shadow:0 4px 14px rgba(188,24,136,.35); }
   .insta svg { flex:none; }
   .insta:active { opacity:.85; }
@@ -62,7 +64,7 @@
   ul { list-style:none; }
   li { display:flex; align-items:baseline; gap:8px; padding:5px 0; font-size:16px; }
   li .dots { flex:1; border-bottom:2px dotted #ddd0ba; transform:translateY(-3px); }
-  li b { color:#c22e2e; font-weight:700; white-space:nowrap; }
+  li b { background:#fdecec; color:#c22e2e; font-weight:700; font-size:.92em; padding:2.5px 11px; border-radius:999px; white-space:nowrap; }
   .rs { font-family:Roboto,'Noto Sans',Arial,system-ui,sans-serif; font-size:.9em; font-weight:600; vertical-align:baseline; margin-right:2px; letter-spacing:0; }
   .split { border-top:2px dashed #cdbd9d; margin:8px 0 4px; }
   .single { text-align:center; padding:10px 0 8px; }
@@ -87,6 +89,7 @@
   <a class="insta" href="https://www.instagram.com/oldbridge_cafe/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="#fff" stroke-width="2"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.4" fill="#fff" stroke="none"/></svg>Follow us on Instagram</a>
   <div class="info">🕚 Open Daily · 11:00 AM – 11:00 PM<br><a class="loc" href="https://maps.app.goo.gl/h8bwZFAta8rJe4m89?g_st=ac" target="_blank" rel="noopener">📍 Oldbridge, Murinjapuzha</a></div>
 </header>
+<svg class="wave" viewBox="0 0 1440 90" preserveAspectRatio="none"><path d="M0,0 L1440,0 L1440,26 C1150,86 900,88 640,52 C420,22 180,58 0,34 Z" fill="#ffb59e"/></svg>
 
 <main>
   <section class="card">
