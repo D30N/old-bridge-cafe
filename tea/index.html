@@ -16,13 +16,24 @@
   header .sub { margin-top:4px; font-size:14px; letter-spacing:3px; text-transform:uppercase; color:#8a6d4b; }
   a { text-decoration:none; color:inherit; }
   .back { display:inline-block; margin:14px 0 0 14px; font-size:14px; font-weight:600; color:#5b4632; background:#fff; border:1.5px solid #e8dcc8; padding:7px 14px; border-radius:999px; }
+  body { background:radial-gradient(600px 300px at 15% -40px, #ffe9c9 0, transparent 60%), radial-gradient(700px 340px at 90% -60px, #ffd9e2 0, transparent 55%), #FFF9EF; }
   main { max-width:1060px; margin:0 auto; padding:16px 14px 0; }
   .grid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
   @media (min-width:720px){ .grid { grid-template-columns:repeat(3,1fr); } }
-  .tile { background:#fff; border-radius:18px; padding:20px 14px 16px; text-align:center; box-shadow:0 3px 14px rgba(90,60,20,.08); border:1px solid #f1e6d2; display:block; }
+  .tile { background:#fff; border-radius:18px; padding:0 0 15px; overflow:hidden; text-align:center; box-shadow:0 3px 14px rgba(90,60,20,.08); border:1px solid #f1e6d2; display:block; transition:transform .25s ease, box-shadow .25s ease; }
   .tile:active { transform:scale(.98); }
-  .tile .emo { font-size:40px; }
-  .tile .nm { margin-top:8px; font-weight:700; font-size:16.5px; letter-spacing:.4px; }
+  .tile:hover { transform:translateY(-4px); box-shadow:0 12px 26px rgba(90,60,20,.16); }
+  .tile img.ph { width:100%; height:118px; object-fit:cover; display:block; transition:transform .45s ease; }
+  .tile:hover img.ph { transform:scale(1.07); }
+  .tile .nm { margin-top:10px; font-weight:700; font-size:16.5px; letter-spacing:.4px; padding:0 8px; }
+  @keyframes rise { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:none; } }
+  .js .tile { opacity:0; }
+  .js .tile.in { animation:rise .6s cubic-bezier(.2,.7,.3,1) forwards; animation-delay:var(--d,0ms); }
+  header .cafe { animation:rise .7s ease both; }
+  section.card { animation:rise .55s ease both; }
+  li { animation:rise .5s ease both; animation-delay:var(--d,0ms); }
+  .hero { width:100%; height:190px; object-fit:cover; border-radius:12px; margin-bottom:14px; display:block; }
+  @media (prefers-reduced-motion: reduce) { * { animation:none !important; transition:none !important; } .js .tile { opacity:1; } }
   .tile .meta { margin-top:3px; font-size:13px; color:#8a6d4b; }
   .tile .bar { height:6px; border-radius:99px; margin-top:12px; }
   section.card { background:#fff; border-radius:18px; padding:20px 18px 14px; box-shadow:0 3px 14px rgba(90,60,20,.08); border:1px solid #f1e6d2; max-width:640px; margin:0 auto; }
@@ -50,18 +61,19 @@
 </header>
 <main>
   <section class="card">
+    <img class="hero" src="../img/tea.jpg" alt="Tea">
     <span class="banner" style="background:#6d4c41">TEA 🍵</span>
     <ul>
-<li>Normal Tea <span class="dots"></span><b><span class="rs">₹</span>15</b></li>
-<li>Black Tea <span class="dots"></span><b><span class="rs">₹</span>10</b></li>
-<li>Coffee <span class="dots"></span><b><span class="rs">₹</span>20</b></li>
-<li>Black Coffee <span class="dots"></span><b><span class="rs">₹</span>12</b></li>
-<li>Mint Tea <span class="dots"></span><b><span class="rs">₹</span>12</b></li>
-<li>Lemon Tea <span class="dots"></span><b><span class="rs">₹</span>12</b></li>
-<li>Ginger Tea <span class="dots"></span><b><span class="rs">₹</span>12</b></li>
+<li style="--d:0ms">Normal Tea <span class="dots"></span><b><span class="rs">₹</span>15</b></li>
+<li style="--d:55ms">Black Tea <span class="dots"></span><b><span class="rs">₹</span>10</b></li>
+<li style="--d:110ms">Coffee <span class="dots"></span><b><span class="rs">₹</span>20</b></li>
+<li style="--d:165ms">Black Coffee <span class="dots"></span><b><span class="rs">₹</span>12</b></li>
+<li style="--d:220ms">Mint Tea <span class="dots"></span><b><span class="rs">₹</span>12</b></li>
+<li style="--d:275ms">Lemon Tea <span class="dots"></span><b><span class="rs">₹</span>12</b></li>
+<li style="--d:330ms">Ginger Tea <span class="dots"></span><b><span class="rs">₹</span>12</b></li>
 </ul><div class="split"></div><ul>
-<li>Badam Tea <span class="dots"></span><b><span class="rs">₹</span>20</b></li>
-<li>Chocolate Tea <span class="dots"></span><b><span class="rs">₹</span>20</b></li>
+<li style="--d:440ms">Badam Tea <span class="dots"></span><b><span class="rs">₹</span>20</b></li>
+<li style="--d:495ms">Chocolate Tea <span class="dots"></span><b><span class="rs">₹</span>20</b></li>
 </ul>
   </section>
   <div class="pn"><a href="../falooda/">← Falooda</a><a href="../fruit-salad/">Fruit Salad →</a></div>
