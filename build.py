@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """Old Bridge Cafe menu site generator: grid homepage + one details page per category."""
-import os
+import os, json
 
 CATS = [
     ("lime", "LIME", "🍋", "#2e9e4f", False, [("Soda Lime",25),("Fresh Lime",30),("Blue Lime",50),("Mint Lime",50)], None),
@@ -61,6 +61,11 @@ CSS = """
   .search input { width:100%; padding:13px 18px; border-radius:999px; border:1.5px solid #e8dcc8; font-size:15px; font-family:inherit; background:#fff; outline:none; }
   .search input:focus { border-color:#e0a458; }
   .noresults { display:none; text-align:center; color:#8a6d4b; font-size:14px; padding:26px 0 6px; }
+  .res { display:none; margin-top:10px; }
+  .res a { display:flex; align-items:baseline; gap:8px; background:#fff; border:1px solid #f1e6d2; border-radius:12px; padding:10px 14px; margin-bottom:8px; font-size:15px; box-shadow:0 2px 8px rgba(90,60,20,.06); }
+  .res .cat { color:#8a6d4b; font-size:12px; white-space:nowrap; }
+  .res .dots { flex:1; border-bottom:2px dotted #ddd0ba; transform:translateY(-3px); }
+  .res b { color:#c22e2e; white-space:nowrap; }
   section.card { background:#fff; border-radius:18px; padding:20px 18px 14px; box-shadow:0 3px 14px rgba(90,60,20,.08); border:1px solid #f1e6d2; max-width:640px; margin:0 auto; }
   .banner { display:inline-block; font-weight:700; letter-spacing:1px; font-size:20px; color:#fff; padding:5px 18px 6px; border-radius:6px; transform:rotate(-1.2deg); margin-bottom:12px; box-shadow:0 2px 6px rgba(0,0,0,.15); }
   .dark { color:#4a3200; }
@@ -127,9 +132,19 @@ def tile_html(i, cat):
 
 tiles = "\n".join(tile_html(i, cat) for i, cat in enumerate(CATS))
 
+ITEMS = []
+for _slug, _name, _emo, _color, _dark, _items, _single in CATS:
+    if _single:
+        ITEMS.append({"n": _name.title(), "p": _single, "c": _name.title(), "u": _slug + "/"})
+    else:
+        for _nm, _p in _items:
+            if _nm == "—split—": continue
+            ITEMS.append({"n": _nm, "p": _p, "c": _name.title(), "u": _slug + "/"})
+ITEMS_JS = json.dumps(ITEMS)
+
 index = HEAD.format(title="Old Bridge Cafe — Menu", desc="Old Bridge Cafe menu — shakes, fresh juices, mojitos, falooda, tea and more. Tap a category for details.", css=CSS) + f"""
 {HEADER_HTML}
-<div class="search"><input id="q" type="search" placeholder="🔍 Search items… try 'falooda'" aria-label="Search menu items"></div>
+<div class="search"><input id="q" type="search" placeholder="🔍 Search items… try 'falooda'" aria-label="Search menu items"><div class="res" id="res"></div></div>
 <main>
   <div class="grid">
 {tiles}
@@ -143,6 +158,9 @@ var io = new IntersectionObserver(function(es){{ es.forEach(function(e){{ if (e.
 document.querySelectorAll('.tile').forEach(function(t){{ io.observe(t); }});
 var q = document.getElementById('q');
 if (q) {{ q.addEventListener('input', function(){{ var v = q.value.toLowerCase().trim(); var n = 0; document.querySelectorAll('.tile').forEach(function(t){{ var show = !v || (t.dataset.search || '').includes(v) || t.textContent.toLowerCase().includes(v); t.style.display = show ? '' : 'none'; if (show) n++; }}); document.getElementById('nr').style.display = n ? 'none' : 'block'; }}); }}
+var ITEMS = {ITEMS_JS};
+var res = document.getElementById('res');
+if (q && res) {{ q.addEventListener('input', function(){{ var v = q.value.toLowerCase().trim(); if (!v) {{ res.style.display = 'none'; res.innerHTML = ''; return; }} var m = ITEMS.filter(function(it){{ return it.n.toLowerCase().includes(v); }}).slice(0, 15); res.innerHTML = m.map(function(it){{ return '<a href="' + it.u + '">' + it.n + ' <span class="cat">' + it.c + '</span><span class="dots"></span><b><span class="rs">₹</span>' + it.p + '</b></a>'; }}).join(''); res.style.display = m.length ? 'block' : 'none'; }}); }}
 </script>
 </body>
 </html>
