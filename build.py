@@ -34,19 +34,19 @@ CSS = """
   @media (min-width:720px){ .tile { border-radius:18px; padding:0 0 15px; } }
   .tile:active { transform:scale(.98); }
   .tile:hover { transform:translateY(-4px); box-shadow:0 12px 26px rgba(90,60,20,.16); }
-  .tile .phwrap { height:94px; display:flex; align-items:center; justify-content:center; background:radial-gradient(120% 130% at 50% 0%, color-mix(in srgb, var(--c) 20%, #fffdf8), color-mix(in srgb, var(--c) 7%, #fff9ef)); border-bottom:1px solid #f1e6d2; }
-  .tile img.ph { max-width:88%; max-height:82px; object-fit:contain; display:block; filter:drop-shadow(0 10px 12px rgba(60,35,10,.28)); transition:transform .45s ease; }
-  .tile:hover img.ph { transform:scale(1.06) rotate(-1deg); }
+  .tile .phwrap { height:118px; display:flex; align-items:center; justify-content:center; background:#fff; border-bottom:1px solid #f1e6d2; overflow:hidden; }
+  .tile img.ph { width:100%; height:100%; object-fit:contain; display:block; transition:transform .45s ease; }
+  .tile:hover img.ph { transform:scale(1.04); }
   .tile .nm { margin-top:7px; font-weight:700; font-size:12.5px; letter-spacing:.2px; padding:0 4px; }
-  @media (min-width:720px){ .tile .phwrap { height:158px; } .tile img.ph { max-height:138px; } .tile .nm { margin-top:10px; font-size:16.5px; letter-spacing:.4px; padding:0 8px; } }
+  @media (min-width:720px){ .tile .phwrap { height:180px; } .tile .nm { margin-top:10px; font-size:16.5px; letter-spacing:.4px; padding:0 8px; } }
   @keyframes rise { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:none; } }
   .js .tile { opacity:0; }
   .js .tile.in { animation:rise .6s cubic-bezier(.2,.7,.3,1) forwards; animation-delay:var(--d,0ms); }
   header .cafe { animation:rise .7s ease both; }
   section.card { animation:rise .55s ease both; }
   li { animation:rise .5s ease both; animation-delay:var(--d,0ms); }
-  .herowrap { height:250px; display:flex; align-items:center; justify-content:center; border-radius:12px; margin-bottom:14px; background:radial-gradient(120% 130% at 50% 0%, color-mix(in srgb, var(--c) 20%, #fffdf8), color-mix(in srgb, var(--c) 7%, #fff9ef)); border:1px solid #f1e6d2; }
-  .hero { max-width:82%; max-height:225px; object-fit:contain; display:block; filter:drop-shadow(0 14px 16px rgba(60,35,10,.30)); }
+  .herowrap { display:flex; align-items:center; justify-content:center; border-radius:12px; margin-bottom:14px; background:#fff; border:1px solid #f1e6d2; padding:10px; }
+  .hero { max-width:min(100%,440px); max-height:320px; object-fit:contain; display:block; }
   @media (prefers-reduced-motion: reduce) { * { animation:none !important; transition:none !important; } .js .tile { opacity:1; } }
   .tile .meta { margin-top:2px; font-size:10.5px; color:#8a6d4b; padding:0 3px; }
   @media (min-width:720px){ .tile .meta { margin-top:3px; font-size:13px; } }
@@ -92,7 +92,7 @@ def price_meta(items, single):
     return f"{len(ps)} items • <span class='rs'>₹</span>{min(ps)}–<span class='rs'>₹</span>{max(ps)}"
 
 tiles = "\n".join(
-    f'    <a class="tile" style="--d:{i*70}ms;--c:{color}" href="{slug}/"><div class="phwrap"><img class="ph" src="img/{slug}.webp" alt="{name.title()}"></div><div class="nm">{name}</div><div class="meta">{price_meta(items, single)}</div><div class="bar" style="background:{color}"></div></a>'
+    f'    <a class="tile" style="--d:{i*70}ms;--c:{color}" href="{slug}/"><div class="phwrap"><img class="ph" src="img/{slug}.jpg" alt="{name.title()}"></div><div class="nm">{name}</div><div class="meta">{price_meta(items, single)}</div><div class="bar" style="background:{color}"></div></a>'
     for i, (slug, name, emo, color, dark, items, single) in enumerate(CATS))
 
 index = HEAD.format(title="Old Bridge Cafe — Menu", desc="Old Bridge Cafe menu — shakes, fresh juices, mojitos, falooda, tea and more. Tap a category for details.", css=CSS) + f"""
@@ -138,7 +138,7 @@ for i, (slug, name, emo, color, dark, items, single) in enumerate(CATS):
 </header>
 <main>
   <section class="card">
-    <div class="herowrap" style="--c:{color}"><img class="hero" src="../img/{slug}.webp" alt="{name.title()}"></div>
+    <div class="herowrap" style="--c:{color}"><img class="hero" src="../img/{slug}.jpg" alt="{name.title()}"></div>
     <span class="banner{' dark' if dark else ''}" style="background:{color}">{name} {emo}</span>
     {body}
   </section>
