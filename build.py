@@ -92,7 +92,7 @@ def price_meta(items, single):
     return f"{len(ps)} items • <span class='rs'>₹</span>{min(ps)}–<span class='rs'>₹</span>{max(ps)}"
 
 tiles = "\n".join(
-    f'    <a class="tile" style="--d:{i*70}ms;--c:{color}" href="{slug}/"><div class="phwrap"><img class="ph" src="img/{slug}.jpg" alt="{name.title()}"></div><div class="nm">{name}</div><div class="meta">{price_meta(items, single)}</div><div class="bar" style="background:{color}"></div></a>'
+    f'    <a class="tile" style="--d:{i*70}ms;--c:{color}" href="{slug}/"><div class="phwrap"><img class="ph" src="img/menu/{slug}.jpg" alt="{name.title()}"></div><div class="nm">{name}</div><div class="meta">{price_meta(items, single)}</div><div class="bar" style="background:{color}"></div></a>'
     for i, (slug, name, emo, color, dark, items, single) in enumerate(CATS))
 
 index = HEAD.format(title="Old Bridge Cafe — Menu", desc="Old Bridge Cafe menu — shakes, fresh juices, mojitos, falooda, tea and more. Tap a category for details.", css=CSS) + f"""
@@ -138,7 +138,7 @@ for i, (slug, name, emo, color, dark, items, single) in enumerate(CATS):
 </header>
 <main>
   <section class="card">
-    <div class="herowrap" style="--c:{color}"><img class="hero" src="../img/{slug}.jpg" alt="{name.title()}"></div>
+    <div class="herowrap" style="--c:{color}"><img class="hero" src="../img/menu/{slug}.jpg" alt="{name.title()}"></div>
     <span class="banner{' dark' if dark else ''}" style="background:{color}">{name} {emo}</span>
     {body}
   </section>
