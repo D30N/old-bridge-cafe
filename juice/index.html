@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Juice — Old Bridge Cafe</title>
+<meta name="description" content="Juice at Old Bridge Cafe — items and prices.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Poppins',system-ui,sans-serif; background:#FFF9EF; color:#2a2320; padding-bottom:40px; }
+  header { text-align:center; padding:30px 16px 4px; }
+  header .cafe { font-family:'Pacifico',cursive; font-size:clamp(34px,8vw,52px); line-height:1.1; color:#3b2314; }
+  header .cafe span { color:#b33a1f; }
+  header .sub { margin-top:4px; font-size:14px; letter-spacing:3px; text-transform:uppercase; color:#8a6d4b; }
+  a { text-decoration:none; color:inherit; }
+  .back { display:inline-block; margin:14px 0 0 14px; font-size:14px; font-weight:600; color:#5b4632; background:#fff; border:1.5px solid #e8dcc8; padding:7px 14px; border-radius:999px; }
+  main { max-width:1060px; margin:0 auto; padding:16px 14px 0; }
+  .grid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+  @media (min-width:720px){ .grid { grid-template-columns:repeat(3,1fr); } }
+  .tile { background:#fff; border-radius:18px; padding:20px 14px 16px; text-align:center; box-shadow:0 3px 14px rgba(90,60,20,.08); border:1px solid #f1e6d2; display:block; }
+  .tile:active { transform:scale(.98); }
+  .tile .emo { font-size:40px; }
+  .tile .nm { margin-top:8px; font-weight:700; font-size:16.5px; letter-spacing:.4px; }
+  .tile .meta { margin-top:3px; font-size:13px; color:#8a6d4b; }
+  .tile .bar { height:6px; border-radius:99px; margin-top:12px; }
+  section.card { background:#fff; border-radius:18px; padding:20px 18px 14px; box-shadow:0 3px 14px rgba(90,60,20,.08); border:1px solid #f1e6d2; max-width:640px; margin:0 auto; }
+  .banner { display:inline-block; font-weight:700; letter-spacing:1px; font-size:20px; color:#fff; padding:5px 18px 6px; border-radius:6px; transform:rotate(-1.2deg); margin-bottom:12px; box-shadow:0 2px 6px rgba(0,0,0,.15); }
+  .dark { color:#4a3200; }
+  ul { list-style:none; }
+  li { display:flex; align-items:baseline; gap:8px; padding:5px 0; font-size:16px; }
+  li .dots { flex:1; border-bottom:2px dotted #ddd0ba; transform:translateY(-3px); }
+  li b { color:#c22e2e; font-weight:700; white-space:nowrap; }
+  .split { border-top:2px dashed #cdbd9d; margin:8px 0 4px; }
+  .single { text-align:center; padding:10px 0 8px; }
+  .single .price { font-size:38px; font-weight:700; color:#c22e2e; }
+  .single .note { font-size:13px; color:#8a6d4b; }
+  .pn { display:flex; justify-content:space-between; gap:10px; max-width:640px; margin:16px auto 0; }
+  .pn a { font-size:14px; font-weight:600; color:#5b4632; background:#fff; border:1.5px solid #e8dcc8; padding:8px 14px; border-radius:999px; }
+  footer { text-align:center; margin-top:28px; font-size:13px; color:#a08b6c; padding:0 16px; }
+</style>
+</head>
+<body>
+
+<a class="back" href="../">← All Categories</a>
+<header>
+  <div class="cafe">Old <span>Bridge</span> Cafe</div>
+</header>
+<main>
+  <section class="card">
+    <span class="banner" style="background:#f39c2c">JUICE 🧃</span>
+    <ul>
+<li>Watermelon <span class="dots"></span><b>₹60</b></li>
+<li>Pineapple <span class="dots"></span><b>₹70</b></li>
+<li>Orange <span class="dots"></span><b>₹80</b></li>
+<li>Shamam <span class="dots"></span><b>₹80</b></li>
+<li>Apple <span class="dots"></span><b>₹80</b></li>
+<li>Grapes <span class="dots"></span><b>₹80</b></li>
+<li>Papaya <span class="dots"></span><b>₹80</b></li>
+<li>Anar <span class="dots"></span><b>₹90</b></li>
+<li>Musambi <span class="dots"></span><b>₹100</b></li>
+</ul>
+  </section>
+  <div class="pn"><a href="../mojito/">← Mojito</a><a href="../lassi/">Lassi →</a></div>
+</main>
+<footer>© 2026 Old Bridge Cafe • Fresh &amp; made to order</footer>
+</body>
+</html>
