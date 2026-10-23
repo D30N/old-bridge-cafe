@@ -72,6 +72,15 @@
   .insta svg { flex:none; }
   .insta:active { opacity:.85; }
   .tile .price { position:absolute; top:7px; right:7px; background:#c22e2e; color:#fff; font-size:11px; font-weight:700; padding:3px 9px; border-radius:999px; box-shadow:0 2px 6px rgba(0,0,0,.25); }
+  .mq { display:flex; align-items:center; gap:10px; max-width:1032px; margin:16px auto 0; background:linear-gradient(90deg,#b3392e,#d3543a); border-radius:999px; padding:8px 10px 8px 16px; box-shadow:0 6px 16px rgba(179,57,46,.30); }
+  .mq[hidden] { display:none; }
+  .mqtag { flex:0 0 auto; color:#ffd98a; font-size:11.5px; font-weight:700; letter-spacing:.5px; }
+  .mqwin { overflow:hidden; flex:1; }
+  .mqtrack { display:inline-flex; white-space:nowrap; will-change:transform; }
+  .mqtrack span { color:#fff; font-size:14.5px; font-weight:600; padding-right:56px; }
+  .mqtrack.scroll { animation:mqmove linear infinite; }
+  @keyframes mqmove { from { transform:translateX(0); } to { transform:translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .mqtrack.scroll { animation:none; } }
   .search { max-width:1060px; margin:18px auto 0; padding:0 14px; }
   .search input { width:100%; padding:13px 18px; border-radius:999px; border:1.5px solid #e8dcc8; font-size:15px; font-family:inherit; background:#fff; outline:none; }
   .search input:focus { border-color:#e0a458; }
@@ -225,6 +234,12 @@
 })();
 </script>
 
+
+<div class="mq" id="mq" hidden>
+  <span class="mqtag">🔥 TODAY'S SPECIAL</span>
+  <div class="mqwin"><div class="mqtrack" id="mqtrack"><span id="mqtext"></span><span id="mqtext2"></span></div></div>
+</div>
+
 <div class="search"><input id="q" type="search" placeholder="🔍 Search items… try 'falooda'" aria-label="Search menu items"><div class="res" id="res"></div></div>
 <main>
   <div class="grid">
@@ -254,6 +269,34 @@ var ITEMS = [{"n": "Soda Lime", "p": 25, "c": "Lime", "u": "lime/"}, {"n": "Fres
 var res = document.getElementById('res');
 if (q && res) { q.addEventListener('input', function(){ var v = q.value.toLowerCase().trim(); if (!v) { res.style.display = 'none'; res.innerHTML = ''; return; } var m = ITEMS.filter(function(it){ return it.n.toLowerCase().includes(v); }).slice(0, 15); res.innerHTML = m.map(function(it){ return '<a href="' + it.u + '">' + it.n + ' <span class="cat">' + it.c + '</span><span class="dots"></span><b><span class="rs">₹</span>' + it.p + '</b></a>'; }).join(''); res.style.display = m.length ? 'block' : 'none'; }); }
 </script>
+
+<script>
+fetch('special.json', { cache: 'no-store' })
+  .then(function (r) { return r.json(); })
+  .then(function (j) {
+    var t = (j && j.text ? String(j.text) : '').trim();
+    if (!t) return;
+    var mq = document.getElementById('mq');
+    if (!mq) return;
+    document.getElementById('mqtext').textContent = t;
+    document.getElementById('mqtext2').textContent = t;
+    mq.hidden = false;
+    var track = document.getElementById('mqtrack');
+    var win = document.querySelector('.mqwin');
+    requestAnimationFrame(function () {
+      if (track.scrollWidth / 2 > win.clientWidth) {
+        track.classList.add('scroll');
+        track.style.animationDuration = Math.max(9, t.length * 0.45) + 's';
+      } else {
+        document.getElementById('mqtext2').style.display = 'none';
+        track.style.display = 'block';
+        track.style.textAlign = 'center';
+      }
+    });
+  })
+  .catch(function () {});
+</script>
+
 <script data-goatcounter="https://oldbridgecafe.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
