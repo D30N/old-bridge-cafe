@@ -95,11 +95,11 @@ def publish(text):
         return False
 
 
-HELP = ("Send me today's special as one message and it appears on the "
-        "website in 1-2 minutes.\n"
-        "Send OFF to hide the marquee.\n"
-        "Send /status to see the current marquee.\n"
-        "Example: Chicken Biryani ₹199 — today only!")
+HELP = ("ഇന്നത്തെ സ്പെഷ്യൽ ഒരു മെസ്സേജായി അയക്കൂ — 1-2 മിനിറ്റിനകം "
+        "വെബ്സൈറ്റിൽ വരും.\n"
+        "മാർക്വീ നിർത്താൻ OFF എന്ന് അയക്കൂ.\n"
+        "ഇപ്പോഴത്തെ മാർക്വീ കാണാൻ /status അയക്കൂ.\n"
+        "ഉദാഹരണം: ചിക്കൻ ബിരിയാണി ₹199 — ഇന്ന് മാത്രം!")
 
 
 def main():
@@ -148,8 +148,8 @@ def main():
                 save(CONFIG, cfg)
                 log(f"Setup: admin captured id={sender}")
                 reply(token, chat_id,
-                      "✅ You are now the admin for the Old Bridge Cafe "
-                      "website special.\n\n" + HELP)
+                      "✅ നിങ്ങൾ ഇപ്പോൾ Old Bridge Cafe വെബ്സൈറ്റ് സ്പെഷ്യലിന്റെ "
+                      "അഡ്മിൻ ആണ്.\n\n" + HELP)
                 continue
             if sender not in allowed:
                 log(f"Ignored message from non-admin id={sender}")
@@ -165,22 +165,22 @@ def main():
                     except Exception:
                         cur = ""
                     reply(token, chat_id,
-                          f"\U0001F4E2 Ippolathe marquee:\n{cur}" if cur else
-                          "\U0001F6D1 Marquee ippo OFF aanu \u2014 website-il onnum kanikkunnilla.")
+                          f"\U0001F4E2 ഇപ്പോഴത്തെ മാർക്വീ:\n{cur}" if cur else
+                          "\U0001F6D1 മാർക്വീ ഇപ്പോൾ OFF ആണ് \u2014 വെബ്സൈറ്റിൽ ഒന്നും കാണിക്കുന്നില്ല.")
                 else:
                     reply(token, chat_id, HELP)
                 continue
             if text.lower() in ("off", "stop", "ഓഫ്"):
                 ok = publish("")
                 reply(token, chat_id,
-                      "✅ Marquee OFF — website-il ini special kanikkilla."
-                      if ok else "⚠️ Off cheyyan pattiyilla, kurach kazhinj try cheyyu.")
+                      "✅ മാർക്വീ OFF ചെയ്തു — വെബ്സൈറ്റിൽ ഇനി സ്പെഷ്യൽ കാണിക്കില്ല."
+                      if ok else "⚠️ OFF ചെയ്യാൻ പറ്റിയില്ല, കുറച്ച് കഴിഞ്ഞ് വീണ്ടും ശ്രമിക്കൂ.")
                 continue
             text = text[:MAXLEN]
             ok = publish(text)
             reply(token, chat_id,
-                  f"✅ Updated! 1-2 minute-inakam website-il kanum:\n{text}"
-                  if ok else "⚠️ Update cheyyan pattiyilla, kurach kazhinj try cheyyu.")
+                  f"✅ അപ്ഡേറ്റ് ചെയ്തു! 1-2 മിനിറ്റിനകം വെബ്സൈറ്റിൽ കാണും:\n{text}"
+                  if ok else "⚠️ അപ്ഡേറ്റ് ചെയ്യാൻ പറ്റിയില്ല, കുറച്ച് കഴിഞ്ഞ് വീണ്ടും ശ്രമിക്കൂ.")
 
 
 if __name__ == "__main__":
