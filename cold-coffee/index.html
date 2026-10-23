@@ -201,6 +201,21 @@
       else if(mode==='snow') cls='wx-snow';
       if(wind>=18&&day&&(mode==='clear'||mode==='cloud'||mode==='fog')) cls='wx-wind';
       var wrap=document.querySelector('.hdrwrap'); if(wrap) wrap.classList.add(cls);
+      var wxEl=document.getElementById('wxnow');
+      if(wxEl){
+        var lbl, emo;
+        if(code===0){ lbl=day?'Clear sky':'Clear night'; emo=day?'☀️':'🌙'; }
+        else if(code===1){ lbl='Mainly clear'; emo=day?'🌤️':'🌙'; }
+        else if(code===2){ lbl='Partly cloudy'; emo='⛅'; }
+        else if(code===3){ lbl='Overcast'; emo='☁️'; }
+        else if(code===45||code===48){ lbl='Foggy'; emo='🌫️'; }
+        else if(code>=51&&code<=57){ lbl='Drizzle'; emo='🌦️'; }
+        else if((code>=61&&code<=67)||(code>=80&&code<=82)){ lbl='Rain'; emo='🌧️'; }
+        else if(code>=71&&code<=86){ lbl='Snow'; emo='❄️'; }
+        else { lbl='Thunderstorm'; emo='⛈️'; }
+        var tmp=(c.temperature_2m!=null)?Math.round(c.temperature_2m)+'°C · ':'';
+        wxEl.textContent=emo+' '+tmp+lbl;
+      }
       var fills={'wx-clear':'none','wx-night':'none','wx-rain':'none','wx-drizzle':'none','wx-storm':'none','wx-cloud':'none','wx-fog':'none','wx-snow':'none','wx-wind':'none'};
       var wp=document.querySelector('.wave path'); if(wp&&fills[cls]) wp.setAttribute('fill',fills[cls]);
       make();
