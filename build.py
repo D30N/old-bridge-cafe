@@ -377,7 +377,7 @@ fetch('special.json', { cache: 'no-store' })
 index = HEAD.format(title="Old Bridge Cafe — Menu", desc="Old Bridge Cafe menu — shakes, fresh juices, mojitos, falooda, tea and more. Tap a category for details.", css=CSS) + f"""
 {HEADER_HTML}
 {LANGROW}
-<div class="search"><input id="q" type="search" data-en-ph="🔍 Search items… try 'falooda'" data-ml-ph="🔍 ഐറ്റങ്ങൾ തിരയൂ… 'ഫലൂദ' എന്ന് നോക്കൂ" placeholder="🔍 Search items… try 'falooda'" aria-label="Search menu items"><div class="res" id="res"></div></div>
+<div class="search"><input id="q" type="search" data-en-ph="🔍 Search Items" data-ml-ph="🔍 ഐറ്റങ്ങൾ തിരയൂ" placeholder="🔍 Search Items" aria-label="Search menu items"><div class="res" id="res"></div></div>
 <main>
   <div class="grid">
 {tiles}
