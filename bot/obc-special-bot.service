@@ -4,6 +4,7 @@ After=network-online.target
 Wants=network-online.target
 
 [Service]
+Environment="HOME=/home/hatch"
 Environment="https_proxy=http://hatch-runtime:c9c93bcc76f248fcb7f4f028f59ea5a4@hatch-egress-proxy:3128"
 Environment="http_proxy=http://hatch-runtime:c9c93bcc76f248fcb7f4f028f59ea5a4@hatch-egress-proxy:3128"
 Environment="HTTPS_PROXY=http://hatch-runtime:c9c93bcc76f248fcb7f4f028f59ea5a4@hatch-egress-proxy:3128"

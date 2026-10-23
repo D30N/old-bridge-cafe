@@ -98,6 +98,7 @@ def publish(text):
 HELP = ("Send me today's special as one message and it appears on the "
         "website in 1-2 minutes.\n"
         "Send OFF to hide the marquee.\n"
+        "Send /status to see the current marquee.\n"
         "Example: Chicken Biryani ₹199 — today only!")
 
 
@@ -156,7 +157,18 @@ def main():
             if not text:
                 continue
             if text.startswith("/"):
-                reply(token, chat_id, HELP)
+                if text.lower() == "/status":
+                    cur = ""
+                    try:
+                        with open(SPECIAL, encoding="utf-8") as fh:
+                            cur = str(json.load(fh).get("text", "")).strip()
+                    except Exception:
+                        cur = ""
+                    reply(token, chat_id,
+                          f"\U0001F4E2 Ippolathe marquee:\n{cur}" if cur else
+                          "\U0001F6D1 Marquee ippo OFF aanu \u2014 website-il onnum kanikkunnilla.")
+                else:
+                    reply(token, chat_id, HELP)
                 continue
             if text.lower() in ("off", "stop", "ഓഫ്"):
                 ok = publish("")
