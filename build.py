@@ -142,7 +142,7 @@ CSS = """
   .revbtn { display:inline-flex; align-items:center; gap:7px; margin-bottom:14px; padding:9px 18px; background:#fff; border:1.5px solid #e8dcc8; border-radius:999px; font-size:14px; font-weight:600; color:#5b4632; box-shadow:0 3px 10px rgba(90,60,20,.08); }
   .revbtn:active { opacity:.7; }
   footer .copy { margin-top:12px; }
-  .langrow { max-width:1060px; margin:12px auto 0; padding:0 16px; text-align:right; }
+  .langrow { max-width:1060px; margin:12px auto 0; padding:0 16px; text-align:center; }
   .langbtn { display:inline-block; font-size:14.5px; color:#7a3b12; background:transparent; }
   .langbtn button { border:0; background:transparent; padding:2px 1px; font-size:14.5px; font-family:inherit; color:inherit; cursor:pointer; opacity:.5; font-weight:600; }
   .langbtn button.on { opacity:1; font-weight:800; text-decoration:underline; text-underline-offset:3px; }
