@@ -20,7 +20,20 @@ CATS = [
 CSS = """
   * { margin:0; padding:0; box-sizing:border-box; }
   body { font-family:'Poppins',system-ui,sans-serif; background:#FFF9EF; color:#2a2320; padding-bottom:40px; }
-  .hdrwrap { position:relative; background:linear-gradient(160deg,#ffdf9e 0%,#ffc98a 45%,#ffb59e 100%); }
+  .hdrwrap { position:relative; background:linear-gradient(160deg,#ffdf9e 0%,#ffc98a 45%,#ffb59e 100%); transition:background 1s ease; }
+  .hdrwrap.wx-night { background:linear-gradient(160deg,#1f2a5a 0%,#2c3e70 45%,#3a4a7d 100%); }
+  .hdrwrap.wx-night .cafe { color:#f2f5ff; } .hdrwrap.wx-night .tagline { color:#c3cdef; } .hdrwrap.wx-night .info { color:#d6ddf5; } .hdrwrap.wx-night .info a.loc { color:#ffe9a8; }
+  .hdrwrap.wx-storm { background:linear-gradient(160deg,#6d7f9c 0%,#55677f 45%,#46586e 100%); }
+  .hdrwrap.wx-storm .cafe { color:#eef2f8; } .hdrwrap.wx-storm .tagline { color:#c9d4e4; } .hdrwrap.wx-storm .info { color:#d3dce9; } .hdrwrap.wx-storm .info a.loc { color:#ffd98a; }
+  .hdrwrap.wx-rain { background:linear-gradient(160deg,#aebfd4 0%,#93a9c4 45%,#7e97b5 100%); }
+  .hdrwrap.wx-rain .cafe { color:#1f3049; } .hdrwrap.wx-rain .tagline { color:#40597a; } .hdrwrap.wx-rain .info { color:#3c5878; } .hdrwrap.wx-rain .info a.loc { color:#173a5e; }
+  .hdrwrap.wx-drizzle { background:linear-gradient(160deg,#c3d2e2 0%,#a9bfd6 45%,#97aec6 100%); }
+  .hdrwrap.wx-drizzle .cafe { color:#243b57; } .hdrwrap.wx-drizzle .tagline { color:#4a6484; } .hdrwrap.wx-drizzle .info { color:#42607f; } .hdrwrap.wx-drizzle .info a.loc { color:#1d4266; }
+  .hdrwrap.wx-cloud { background:linear-gradient(160deg,#e8e2d4 0%,#ddd3bf 45%,#cfc0a4 100%); }
+  .hdrwrap.wx-fog { background:linear-gradient(160deg,#dfe3e6 0%,#ccd2d6 45%,#bcc4c9 100%); }
+  .hdrwrap.wx-snow { background:linear-gradient(160deg,#e8f1f8 0%,#d5e6f2 45%,#bfd9ec 100%); }
+  .hdrwrap.wx-snow .cafe { color:#2c4a66; } .hdrwrap.wx-snow .tagline { color:#52748f; } .hdrwrap.wx-snow .info { color:#486a88; } .hdrwrap.wx-snow .info a.loc { color:#2c5a82; }
+  .hdrwrap.wx-wind { background:linear-gradient(160deg,#ffe3ae 0%,#cfe8d8 45%,#a8d5ba 100%); }
   header { position:relative; z-index:2; text-align:center; padding:30px 16px 22px; }
   #wxfx { position:absolute; inset:0; width:100%; height:100%; z-index:1; pointer-events:none; }
   .wave { position:relative; z-index:0; display:block; width:100%; height:44px; margin-top:-1px; }
@@ -198,6 +211,18 @@ HEADER_HTML = """
       else if(code===3) mode='cloud';
       else if(code===2){ mode='cloud'; partly=day===1; }
       else mode='clear';
+      var cls='wx-clear';
+      if(mode==='clear'&&!day) cls='wx-night';
+      else if(mode==='rain') cls='wx-rain';
+      else if(mode==='drizzle') cls='wx-drizzle';
+      else if(mode==='storm') cls='wx-storm';
+      else if(mode==='cloud') cls='wx-cloud';
+      else if(mode==='fog') cls='wx-fog';
+      else if(mode==='snow') cls='wx-snow';
+      if(wind>=18&&day&&(mode==='clear'||mode==='cloud'||mode==='fog')) cls='wx-wind';
+      var wrap=document.querySelector('.hdrwrap'); if(wrap) wrap.classList.add(cls);
+      var fills={'wx-clear':'#ffb59e','wx-night':'#3a4a7d','wx-rain':'#7e97b5','wx-drizzle':'#97aec6','wx-storm':'#46586e','wx-cloud':'#cfc0a4','wx-fog':'#bcc4c9','wx-snow':'#bfd9ec','wx-wind':'#a8d5ba'};
+      var wp=document.querySelector('.wave path'); if(wp&&fills[cls]) wp.setAttribute('fill',fills[cls]);
       make();
       if(!reduced) requestAnimationFrame(frame);
     })
