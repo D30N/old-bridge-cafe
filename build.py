@@ -50,6 +50,14 @@ CSS = """
   li { animation:rise .5s ease both; animation-delay:var(--d,0ms); }
   .herowrap { display:flex; align-items:center; justify-content:center; border-radius:16px; margin-bottom:14px; background:#fff; border:3px solid var(--c); box-shadow:0 16px 36px color-mix(in srgb, var(--c) 34%, transparent); padding:10px; }
   .hero { width:min(100%,440px); aspect-ratio:380/341; max-height:320px; object-fit:contain; display:block; }
+  @keyframes slideFromRight { from { transform:translateX(56px); opacity:0; } to { transform:none; opacity:1; } }
+  @keyframes slideFromLeft { from { transform:translateX(-56px); opacity:0; } to { transform:none; opacity:1; } }
+  main.enter-next { animation:slideFromRight .38s cubic-bezier(.2,.7,.3,1); }
+  main.enter-prev { animation:slideFromLeft .38s cubic-bezier(.2,.7,.3,1); }
+  main.enter-next section.card, main.enter-prev section.card { animation:none; }
+  main.leaving-next { transform:translateX(-56px); opacity:0; transition:transform .26s ease, opacity .26s ease; }
+  main.leaving-prev { transform:translateX(56px); opacity:0; transition:transform .26s ease, opacity .26s ease; }
+  .herowrap { touch-action:pan-y; cursor:grab; }
   @media (prefers-reduced-motion: reduce) { * { animation:none !important; transition:none !important; } .js .tile { opacity:1; } }
   .tile .meta { margin-top:2px; font-size:10.5px; color:#8a6d4b; padding:0 3px; }
   @media (min-width:720px){ .tile .meta { margin-top:3px; font-size:13px; } }
@@ -183,9 +191,24 @@ for i, (slug, name, emo, color, dark, items, single) in enumerate(CATS):
     prev = CATS[i-1] if i > 0 else None
     nxt = CATS[i+1] if i < len(CATS)-1 else None
     pn = '<div class="pn">' + (f'<a href="../{prev[0]}/">← {prev[1].title()}</a>' if prev else '<span></span>') + (f'<a href="../{nxt[0]}/">{nxt[1].title()} →</a>' if nxt else '<span></span>') + '</div>'
+    entry_js = "<script>try{var d=sessionStorage.getItem('obc-dir');if(d){sessionStorage.removeItem('obc-dir');document.currentScript.parentElement.classList.add(d==='next'?'enter-next':'enter-prev');}}catch(e){}</script>"
+    prev_js = f"'../{prev[0]}/'" if prev else "null"
+    next_js = f"'../{nxt[0]}/'" if nxt else "null"
+    swipe_js = ("""<script>
+var PREV_URL = __P__, NEXT_URL = __N__;
+function obcGo(url, dir){ if(!url) return; try{ sessionStorage.setItem('obc-sy', String(window.scrollY)); sessionStorage.setItem('obc-dir', dir); }catch(e){} var m=document.querySelector('main'); if(m) m.classList.add(dir==='next'?'leaving-next':'leaving-prev'); setTimeout(function(){ location.href=url; }, 250); }
+(function(){ var hero=document.querySelector('.herowrap'); if(!hero) return; var sx=0, sy=0, on=false;
+function done(dx, dy){ if (Math.abs(dx)>60 && Math.abs(dx)>1.4*Math.abs(dy)) { if (dx<0) obcGo(NEXT_URL,'next'); else obcGo(PREV_URL,'prev'); } }
+hero.addEventListener('touchstart', function(e){ var t=e.changedTouches[0]; sx=t.clientX; sy=t.clientY; on=true; }, {passive:true});
+hero.addEventListener('touchend', function(e){ if(!on) return; on=false; var t=e.changedTouches[0]; done(t.clientX-sx, t.clientY-sy); }, {passive:true});
+hero.addEventListener('mousedown', function(e){ sx=e.clientX; sy=e.clientY; on=true; });
+hero.addEventListener('mouseup', function(e){ if(!on) return; on=false; done(e.clientX-sx, e.clientY-sy); });
+})();
+</script>""").replace('__P__', prev_js).replace('__N__', next_js)
     page = HEAD.format(title=f"{name.title()} — Old Bridge Cafe", desc=f"{name.title()} at Old Bridge Cafe — items and prices.", css=CSS) + f"""
 {HEADER_HTML}
 <main>
+{entry_js}
   <a class="back" href="../">← All Categories</a>
   <section class="card">
     <div class="herowrap" style="--c:{color}"><img class="hero" src="../img/menu/{slug}.jpg?v=3" alt="{name.title()}"></div>
@@ -203,6 +226,7 @@ obcRestore();
 window.addEventListener('load', obcRestore);
 document.querySelectorAll('.pn a').forEach(function(a){{ a.addEventListener('click', function(){{ try {{ sessionStorage.setItem('obc-sy', String(window.scrollY)); }} catch(e) {{}} }}); }});
 </script>
+{swipe_js}
 </body>
 </html>
 """

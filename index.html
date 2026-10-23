@@ -40,6 +40,14 @@
   li { animation:rise .5s ease both; animation-delay:var(--d,0ms); }
   .herowrap { display:flex; align-items:center; justify-content:center; border-radius:16px; margin-bottom:14px; background:#fff; border:3px solid var(--c); box-shadow:0 16px 36px color-mix(in srgb, var(--c) 34%, transparent); padding:10px; }
   .hero { width:min(100%,440px); aspect-ratio:380/341; max-height:320px; object-fit:contain; display:block; }
+  @keyframes slideFromRight { from { transform:translateX(56px); opacity:0; } to { transform:none; opacity:1; } }
+  @keyframes slideFromLeft { from { transform:translateX(-56px); opacity:0; } to { transform:none; opacity:1; } }
+  main.enter-next { animation:slideFromRight .38s cubic-bezier(.2,.7,.3,1); }
+  main.enter-prev { animation:slideFromLeft .38s cubic-bezier(.2,.7,.3,1); }
+  main.enter-next section.card, main.enter-prev section.card { animation:none; }
+  main.leaving-next { transform:translateX(-56px); opacity:0; transition:transform .26s ease, opacity .26s ease; }
+  main.leaving-prev { transform:translateX(56px); opacity:0; transition:transform .26s ease, opacity .26s ease; }
+  .herowrap { touch-action:pan-y; cursor:grab; }
   @media (prefers-reduced-motion: reduce) { * { animation:none !important; transition:none !important; } .js .tile { opacity:1; } }
   .tile .meta { margin-top:2px; font-size:10.5px; color:#8a6d4b; padding:0 3px; }
   @media (min-width:720px){ .tile .meta { margin-top:3px; font-size:13px; } }
