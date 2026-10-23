@@ -175,6 +175,16 @@ HEADER_HTML = """
 <canvas id="wxfx" aria-hidden="true"></canvas>
 </div>
 <script>
+try {
+  var _c = localStorage.getItem('obc-wxcls');
+  var _w = document.querySelector('.hdrwrap');
+  if (_c && _w) _w.classList.add(_c);
+  var _l = localStorage.getItem('obc-wxlbl');
+  var _e = document.getElementById('wxnow');
+  if (_l && _e) _e.textContent = _l;
+} catch (err) {}
+</script>
+<script>
 (function(){
   var cv = document.getElementById('wxfx'); if(!cv) return;
   var ctx = cv.getContext('2d');
@@ -258,7 +268,7 @@ HEADER_HTML = """
       else if(mode==='fog') cls='wx-fog';
       else if(mode==='snow') cls='wx-snow';
       if(wind>=18&&day&&(mode==='clear'||mode==='cloud'||mode==='fog')) cls='wx-wind';
-      var wrap=document.querySelector('.hdrwrap'); if(wrap) wrap.classList.add(cls);
+      var wrap=document.querySelector('.hdrwrap'); if(wrap){ wrap.classList.remove('wx-clear','wx-night','wx-rain','wx-drizzle','wx-storm','wx-cloud','wx-fog','wx-snow','wx-wind'); wrap.classList.add(cls); try{ localStorage.setItem('obc-wxcls', cls); }catch(e){} }
       var wxEl=document.getElementById('wxnow');
       if(wxEl){
         var lbl, emo;
@@ -272,7 +282,7 @@ HEADER_HTML = """
         else if(code>=71&&code<=86){ lbl='Snow'; emo='❄️'; }
         else { lbl='Thunderstorm'; emo='⛈️'; }
         var tmp=(c.temperature_2m!=null)?Math.round(c.temperature_2m)+'°C · ':'';
-        wxEl.textContent=emo+' '+tmp+lbl;
+        wxEl.textContent=emo+' '+tmp+lbl; try{ localStorage.setItem('obc-wxlbl', wxEl.textContent); }catch(e){}
       }
       var fills={'wx-clear':'none','wx-night':'none','wx-rain':'none','wx-drizzle':'none','wx-storm':'none','wx-cloud':'none','wx-fog':'none','wx-snow':'none','wx-wind':'none'};
       var wp=document.querySelector('.wave path'); if(wp&&fills[cls]) wp.setAttribute('fill',fills[cls]);
