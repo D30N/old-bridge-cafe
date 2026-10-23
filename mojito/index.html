@@ -110,5 +110,9 @@
   <div class="pn"><a href="../shake/">← Shake</a><a href="../juice/">Juice →</a></div>
 </main>
 <footer><a class="revbtn" href="https://share.google/u73ZKqA6gACjDoqhO" target="_blank" rel="noopener">⭐ Review us on Google</a><span class="imgnote">Images shown are for illustration only — the actual product may vary slightly.</span><div class="copy">© 2026 Old Bridge Cafe • Fresh &amp; made to order</div></footer>
+<script>
+try { var y = sessionStorage.getItem('obc-sy'); if (y !== null) { sessionStorage.removeItem('obc-sy'); window.scrollTo(0, parseInt(y, 10)); } } catch(e) {}
+document.querySelectorAll('.pn a').forEach(function(a){ a.addEventListener('click', function(){ try { sessionStorage.setItem('obc-sy', String(window.scrollY)); } catch(e) {} }); });
+</script>
 </body>
 </html>
