@@ -10,10 +10,10 @@
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
   body { font-family:'Poppins',system-ui,sans-serif; background:#FFF9EF; color:#2a2320; padding-bottom:40px; }
-  header { position:relative; overflow:hidden; text-align:center; padding:30px 16px 22px; background:linear-gradient(160deg,#ffdf9e 0%,#ffc98a 45%,#ffb59e 100%); }
-  #wxfx { position:absolute; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; }
-  header > :not(#wxfx) { position:relative; z-index:1; }
-  .wave { display:block; width:100%; height:44px; margin-top:-1px; }
+  .hdrwrap { position:relative; background:linear-gradient(160deg,#ffdf9e 0%,#ffc98a 45%,#ffb59e 100%); }
+  header { position:relative; z-index:2; text-align:center; padding:30px 16px 22px; }
+  #wxfx { position:absolute; inset:0; width:100%; height:100%; z-index:1; pointer-events:none; }
+  .wave { position:relative; z-index:0; display:block; width:100%; height:44px; margin-top:-1px; }
   header .cafe { font-family:'Pacifico',cursive; font-size:clamp(34px,8vw,52px); line-height:1.1; color:#3b2314; }
   header .cafe span { color:inherit; }
   header .tagline { margin-top:2px; font-size:13px; letter-spacing:2.5px; text-transform:uppercase; color:#7c4a21; }
@@ -91,21 +91,24 @@
 <body>
 
 
+<div class="hdrwrap">
 <header>
-  <canvas id="wxfx" aria-hidden="true"></canvas>
   <div class="cafe">Old <span>Bridge</span> Cafe</div>
   <div class="tagline">Fresh • Juices • Shakes • Snacks</div>
   <a class="insta" href="https://www.instagram.com/oldbridge_cafe/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="#fff" stroke-width="2"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.4" fill="#fff" stroke="none"/></svg>Follow us on Instagram</a>
   <div class="info">🕚 Open Daily · 11:00 AM – 11:00 PM<br><a class="loc" href="https://maps.app.goo.gl/h8bwZFAta8rJe4m89?g_st=ac" target="_blank" rel="noopener">📍 Oldbridge, Murinjapuzha</a></div>
 </header>
 <svg class="wave" viewBox="0 0 1440 90" preserveAspectRatio="none"><path d="M0,0 L1440,0 L1440,26 C1150,86 900,88 640,52 C420,22 180,58 0,34 Z" fill="#ffb59e"/></svg>
+<canvas id="wxfx" aria-hidden="true"></canvas>
+</div>
 <script>
 (function(){
   var cv = document.getElementById('wxfx'); if(!cv) return;
   var ctx = cv.getContext('2d');
-  var W=0,H=0, parts=[], mode='clear', partly=false, day=1, wind=0, t=0, flash=0;
+  var W=0,H=0, parts=[], mode='clear', partly=false, day=1, wind=0, t=0, flash=0, clipP=null;
   function rnd(a,b){ return a+Math.random()*(b-a); }
-  function size(){ var DPR=Math.min(window.devicePixelRatio||1,2); var r=cv.parentElement.getBoundingClientRect(); W=r.width; H=r.height; cv.width=W*DPR; cv.height=H*DPR; ctx.setTransform(DPR,0,0,DPR,0,0); }
+  function size(){ var DPR=Math.min(window.devicePixelRatio||1,2); var r=cv.parentElement.getBoundingClientRect(); W=r.width; H=r.height; cv.width=W*DPR; cv.height=H*DPR; ctx.setTransform(DPR,0,0,DPR,0,0);
+    try { var p=new Path2D(); p.rect(0,0,W,Math.max(0,H-44)); var m=new DOMMatrix().translate(0,H-44).scale(W/1440,44/90); p.addPath(new Path2D('M0,0 L1440,0 L1440,26 C1150,86 900,88 640,52 C420,22 180,58 0,34 Z'), m); clipP=p; } catch(e){ clipP=null; } }
   size(); window.addEventListener('resize', function(){ size(); make(); });
   function make(){
     parts=[]; var i;
@@ -139,6 +142,8 @@
   function frame(){
     t++;
     ctx.clearRect(0,0,W,H);
+    ctx.save();
+    if(clipP) ctx.clip(clipP);
     if(mode==='rain'||mode==='storm'||mode==='drizzle'){ ctx.fillStyle='rgba(90,110,140,.10)'; ctx.fillRect(0,0,W,H); }
     if(mode==='cloud'||mode==='fog'){ ctx.fillStyle='rgba(120,120,130,.07)'; ctx.fillRect(0,0,W,H); }
     if(!day){ ctx.fillStyle='rgba(30,35,80,.16)'; ctx.fillRect(0,0,W,H); }
@@ -155,6 +160,7 @@
       else if(p.k==='t'){ ctx.fillStyle='rgba(255,255,255,'+(.35+.4*Math.abs(Math.sin(t*.03+p.ph)))+')'; ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,6.3); ctx.fill(); }
       else if(p.k==='w'){ p.x+=p.s; p.y+=Math.sin(t*.05+p.x*.01)*.3; if(p.x-p.l>W){p.x=-p.l;p.y=rnd(0,H);} ctx.strokeStyle='rgba(255,255,255,.4)'; ctx.lineWidth=1.4; ctx.lineCap='round'; ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(p.x+p.l,p.y); ctx.stroke(); }
     }
+    ctx.restore();
     if(!document.hidden) requestAnimationFrame(frame); else setTimeout(function(){ requestAnimationFrame(frame); },400);
   }
   var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
