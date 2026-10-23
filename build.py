@@ -22,17 +22,17 @@ CSS = """
   body { font-family:'Poppins',system-ui,sans-serif; background:#FFF9EF; color:#2a2320; padding-bottom:40px; }
   .hdrwrap { position:relative; background:linear-gradient(180deg,#ffdf9e 0%,#ffc98a 50%,#ffb59e 76%,transparent 100%); transition:background 1s ease; }
   .hdrwrap.wx-night { background:linear-gradient(180deg,#1f2a5a 0%,#2c3e70 50%,#3a4a7d 76%,transparent 100%); }
-  .hdrwrap.wx-night .cafe { color:#f2f5ff; } .hdrwrap.wx-night .tagline { color:#c3cdef; } .hdrwrap.wx-night .info { color:#d6ddf5; } .hdrwrap.wx-night .info a.loc { color:#ffe9a8; }
+  .hdrwrap.wx-night .cafe { color:#f2f5ff; } .hdrwrap.wx-night .tagline { color:#c3cdef; } .hdrwrap.wx-night .info { color:#d6ddf5; } .hdrwrap.wx-night .wxnow { color:#d6ddf5; } .hdrwrap.wx-night .info a.loc { color:#ffe9a8; }
   .hdrwrap.wx-storm { background:linear-gradient(180deg,#6d7f9c 0%,#55677f 50%,#46586e 76%,transparent 100%); }
-  .hdrwrap.wx-storm .cafe { color:#eef2f8; } .hdrwrap.wx-storm .tagline { color:#c9d4e4; } .hdrwrap.wx-storm .info { color:#d3dce9; } .hdrwrap.wx-storm .info a.loc { color:#ffd98a; }
+  .hdrwrap.wx-storm .cafe { color:#eef2f8; } .hdrwrap.wx-storm .tagline { color:#c9d4e4; } .hdrwrap.wx-storm .info { color:#d3dce9; } .hdrwrap.wx-storm .wxnow { color:#d3dce9; } .hdrwrap.wx-storm .info a.loc { color:#ffd98a; }
   .hdrwrap.wx-rain { background:linear-gradient(180deg,#aebfd4 0%,#93a9c4 50%,#7e97b5 76%,transparent 100%); }
-  .hdrwrap.wx-rain .cafe { color:#1f3049; } .hdrwrap.wx-rain .tagline { color:#40597a; } .hdrwrap.wx-rain .info { color:#3c5878; } .hdrwrap.wx-rain .info a.loc { color:#173a5e; }
+  .hdrwrap.wx-rain .cafe { color:#1f3049; } .hdrwrap.wx-rain .tagline { color:#40597a; } .hdrwrap.wx-rain .info { color:#3c5878; } .hdrwrap.wx-rain .wxnow { color:#3c5878; } .hdrwrap.wx-rain .info a.loc { color:#173a5e; }
   .hdrwrap.wx-drizzle { background:linear-gradient(180deg,#c3d2e2 0%,#a9bfd6 50%,#97aec6 76%,transparent 100%); }
-  .hdrwrap.wx-drizzle .cafe { color:#243b57; } .hdrwrap.wx-drizzle .tagline { color:#4a6484; } .hdrwrap.wx-drizzle .info { color:#42607f; } .hdrwrap.wx-drizzle .info a.loc { color:#1d4266; }
+  .hdrwrap.wx-drizzle .cafe { color:#243b57; } .hdrwrap.wx-drizzle .tagline { color:#4a6484; } .hdrwrap.wx-drizzle .info { color:#42607f; } .hdrwrap.wx-drizzle .wxnow { color:#42607f; } .hdrwrap.wx-drizzle .info a.loc { color:#1d4266; }
   .hdrwrap.wx-cloud { background:linear-gradient(180deg,#e8e2d4 0%,#ddd3bf 50%,#cfc0a4 76%,transparent 100%); }
   .hdrwrap.wx-fog { background:linear-gradient(180deg,#dfe3e6 0%,#ccd2d6 50%,#bcc4c9 76%,transparent 100%); }
   .hdrwrap.wx-snow { background:linear-gradient(180deg,#e8f1f8 0%,#d5e6f2 50%,#bfd9ec 76%,transparent 100%); }
-  .hdrwrap.wx-snow .cafe { color:#2c4a66; } .hdrwrap.wx-snow .tagline { color:#52748f; } .hdrwrap.wx-snow .info { color:#486a88; } .hdrwrap.wx-snow .info a.loc { color:#2c5a82; }
+  .hdrwrap.wx-snow .cafe { color:#2c4a66; } .hdrwrap.wx-snow .tagline { color:#52748f; } .hdrwrap.wx-snow .info { color:#486a88; } .hdrwrap.wx-snow .wxnow { color:#486a88; } .hdrwrap.wx-snow .info a.loc { color:#2c5a82; }
   .hdrwrap.wx-wind { background:linear-gradient(180deg,#ffe3ae 0%,#cfe8d8 50%,#a8d5ba 76%,transparent 100%); }
   header { position:relative; z-index:2; text-align:center; padding:30px 16px 22px; }
   #wxfx { position:absolute; inset:0; width:100%; height:100%; z-index:1; pointer-events:none; }
@@ -41,6 +41,7 @@ CSS = """
   header .cafe span { color:inherit; }
   header .tagline { margin-top:2px; font-size:13px; letter-spacing:2.5px; text-transform:uppercase; color:#7c4a21; }
   .info { margin-top:14px; font-size:13.5px; color:#6b4423; font-weight:500; }
+  .wxnow { margin-top:5px; font-size:12.5px; font-weight:500; color:#6b4423; opacity:.85; }
   .info a.loc { display:inline-block; margin-top:5px; color:#8a4b12; font-weight:700; text-decoration:underline; text-underline-offset:2px; }
   a { text-decoration:none; color:inherit; }
   .back { display:inline-block; margin:-16px 0 12px 14px; font-size:14px; font-weight:600; color:#5b4632; background:#fff; border:1.5px solid #e8dcc8; padding:7px 14px; border-radius:999px; }
@@ -132,6 +133,7 @@ HEADER_HTML = """
   <div class="tagline">Fresh • Juices • Shakes • Snacks</div>
   <a class="insta" href="https://www.instagram.com/oldbridge_cafe/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="#fff" stroke-width="2"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.4" fill="#fff" stroke="none"/></svg>Follow us on Instagram</a>
   <div class="info">🕚 Open Daily · 11:00 AM – 11:00 PM<br><a class="loc" href="https://maps.app.goo.gl/h8bwZFAta8rJe4m89?g_st=ac" target="_blank" rel="noopener">📍 Oldbridge, Murinjapuzha</a></div>
+  <div class="wxnow" id="wxnow"></div>
 </header>
 <svg class="wave" viewBox="0 0 1440 90" preserveAspectRatio="none"><path d="M0,0 L1440,0 L1440,26 C1150,86 900,88 640,52 C420,22 180,58 0,34 Z" fill="none"/></svg>
 <canvas id="wxfx" aria-hidden="true"></canvas>
@@ -199,7 +201,7 @@ HEADER_HTML = """
     if(!document.hidden) requestAnimationFrame(frame); else setTimeout(function(){ requestAnimationFrame(frame); },400);
   }
   var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  fetch('https://api.open-meteo.com/v1/forecast?latitude=9.807&longitude=76.402&current=weather_code,wind_speed_10m,is_day&timezone=Asia%2FKolkata')
+  fetch('https://api.open-meteo.com/v1/forecast?latitude=9.807&longitude=76.402&current=weather_code,temperature_2m,wind_speed_10m,is_day&timezone=Asia%2FKolkata')
     .then(function(r){ return r.json(); })
     .then(function(j){
       var c=j.current||{}; var code=c.weather_code||0; wind=c.wind_speed_10m||0; day=(c.is_day===0?0:1);
@@ -221,6 +223,21 @@ HEADER_HTML = """
       else if(mode==='snow') cls='wx-snow';
       if(wind>=18&&day&&(mode==='clear'||mode==='cloud'||mode==='fog')) cls='wx-wind';
       var wrap=document.querySelector('.hdrwrap'); if(wrap) wrap.classList.add(cls);
+      var wxEl=document.getElementById('wxnow');
+      if(wxEl){
+        var lbl, emo;
+        if(code===0){ lbl=day?'Clear sky':'Clear night'; emo=day?'☀️':'🌙'; }
+        else if(code===1){ lbl='Mainly clear'; emo=day?'🌤️':'🌙'; }
+        else if(code===2){ lbl='Partly cloudy'; emo='⛅'; }
+        else if(code===3){ lbl='Overcast'; emo='☁️'; }
+        else if(code===45||code===48){ lbl='Foggy'; emo='🌫️'; }
+        else if(code>=51&&code<=57){ lbl='Drizzle'; emo='🌦️'; }
+        else if((code>=61&&code<=67)||(code>=80&&code<=82)){ lbl='Rain'; emo='🌧️'; }
+        else if(code>=71&&code<=86){ lbl='Snow'; emo='❄️'; }
+        else { lbl='Thunderstorm'; emo='⛈️'; }
+        var tmp=(c.temperature_2m!=null)?Math.round(c.temperature_2m)+'°C · ':'';
+        wxEl.textContent=emo+' '+tmp+lbl;
+      }
       var fills={'wx-clear':'none','wx-night':'none','wx-rain':'none','wx-drizzle':'none','wx-storm':'none','wx-cloud':'none','wx-fog':'none','wx-snow':'none','wx-wind':'none'};
       var wp=document.querySelector('.wave path'); if(wp&&fills[cls]) wp.setAttribute('fill',fills[cls]);
       make();
