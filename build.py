@@ -309,7 +309,7 @@ def tile_html(i, cat):
     meta_ml = "സ്പെഷ്യൽ" if single else f"{len(items)} ഐറ്റങ്ങൾ"
     return (f'    <a class="tile" style="--d:{i*70}ms;--c:{color}" href="{slug}/" data-search="{search}">'
             f'<div class="phwrap"><img class="ph" src="img/menu/{slug}.jpg?v=3" alt="{name.title()}">{pop}<span class="price">{price_badge(items, single)}</span></div>'
-            f'<div class="tbody"><div class="nm" data-en="{name}" data-ml="{CAT_ML.get(slug, name)}">{CAT_ML.get(slug, name)}</div><div class="meta" data-en="{meta_en}" data-ml="{meta_ml}">{meta_ml}</div></div></a>')
+            f'<div class="tbody"><div class="nm" data-en="{name}" data-ml="{CAT_ML.get(slug, name)}">{name}</div><div class="meta" data-en="{meta_en}" data-ml="{meta_ml}">{meta_en}</div></div></a>')
 
 tiles = "\n".join(tile_html(i, cat) for i, cat in enumerate(CATS))
 
@@ -325,7 +325,7 @@ ITEMS_JS = json.dumps(ITEMS)
 
 I18N_JS = """
 <script>
-window.OBC_LANG = 'ml';
+window.OBC_LANG = 'en';
 function obcSetLang(l) {
   window.OBC_LANG = l;
   try { localStorage.setItem('obc-lang', l); } catch (e) {}
@@ -341,13 +341,13 @@ function obcSetLang(l) {
   if (q && q.value) q.dispatchEvent(new Event('input'));
 }
 (function () {
-  var saved = 'ml';
-  try { saved = localStorage.getItem('obc-lang') || 'ml'; } catch (e) {}
+  var saved = 'en';
+  try { saved = localStorage.getItem('obc-lang') || 'en'; } catch (e) {}
   document.querySelectorAll('.langbtn button').forEach(function (b) {
-    b.classList.toggle('on', b.getAttribute('data-l') === (saved === 'en' ? 'en' : 'ml'));
+    b.classList.toggle('on', b.getAttribute('data-l') === (saved === 'ml' ? 'ml' : 'en'));
     b.addEventListener('click', function () { obcSetLang(b.getAttribute('data-l')); });
   });
-  if (saved === 'en') obcSetLang('en');
+  if (saved === 'ml') obcSetLang('ml');
   var lastY = 0;
   window.addEventListener('scroll', function () {
     var y = window.scrollY || 0;
@@ -384,14 +384,14 @@ fetch('special.json', { cache: 'no-store' })
 
 index = HEAD.format(title="Old Bridge Cafe — Menu", desc="Old Bridge Cafe menu — shakes, fresh juices, mojitos, falooda, tea and more. Tap a category for details.", css=CSS) + f"""
 {HEADER_HTML}
-<div class="search"><input id="q" type="search" data-en-ph="🔍 Search items… try 'falooda'" data-ml-ph="🔍 ഐറ്റങ്ങൾ തിരയൂ… 'ഫലൂദ' എന്ന് നോക്കൂ" placeholder="🔍 ഐറ്റങ്ങൾ തിരയൂ… 'ഫലൂദ' എന്ന് നോക്കൂ" aria-label="Search menu items"><div class="res" id="res"></div></div>
+<div class="search"><input id="q" type="search" data-en-ph="🔍 Search items… try 'falooda'" data-ml-ph="🔍 ഐറ്റങ്ങൾ തിരയൂ… 'ഫലൂദ' എന്ന് നോക്കൂ" placeholder="🔍 Search items… try 'falooda'" aria-label="Search menu items"><div class="res" id="res"></div></div>
 <main>
   <div class="grid">
 {tiles}
   </div>
-  <div class="noresults" id="nr" data-en="No items found — try another name" data-ml="ഐറ്റങ്ങൾ കണ്ടെത്തിയില്ല — വേറൊരു പേര് നോക്കൂ">ഐറ്റങ്ങൾ കണ്ടെത്തിയില്ല — വേറൊരു പേര് നോക്കൂ</div>
+  <div class="noresults" id="nr" data-en="No items found — try another name" data-ml="ഐറ്റങ്ങൾ കണ്ടെത്തിയില്ല — വേറൊരു പേര് നോക്കൂ">No items found — try another name</div>
 </main>
-<footer><a class="revbtn" href="https://share.google/u73ZKqA6gACjDoqhO" target="_blank" rel="noopener" data-en="⭐ Review us on Google" data-ml="⭐ Google-ൽ റിവ്യൂ ചെയ്യൂ">⭐ Google-ൽ റിവ്യൂ ചെയ്യൂ</a><span class="imgnote" data-en="Images shown are for illustration only — the actual product may vary slightly." data-ml="കാണിച്ചിരിക്കുന്ന ചിത്രങ്ങൾ ഇല്ലസ്ട്രേഷനു വേണ്ടി മാത്രം — യഥാർത്ഥ ഉൽപ്പന്നം ചെറുതായി വ്യത്യാസപ്പെട്ടേക്കാം.">കാണിച്ചിരിക്കുന്ന ചിത്രങ്ങൾ ഇല്ലസ്ട്രേഷനു വേണ്ടി മാത്രം — യഥാർത്ഥ ഉൽപ്പന്നം ചെറുതായി വ്യത്യാസപ്പെട്ടേക്കാം.</span><div class="copy" data-en="© 2026 Old Bridge Cafe • Fresh &amp; made to order" data-ml="© 2026 Old Bridge Cafe • ഫ്രഷ് &amp; ഓർഡറിനനുസരിച്ച് തയ്യാറാക്കുന്നത്">© 2026 Old Bridge Cafe • ഫ്രഷ് &amp; ഓർഡറിനനുസരിച്ച് തയ്യാറാക്കുന്നത്</div></footer>
+<footer><a class="revbtn" href="https://share.google/u73ZKqA6gACjDoqhO" target="_blank" rel="noopener" data-en="⭐ Review us on Google" data-ml="⭐ Google-ൽ റിവ്യൂ ചെയ്യൂ">⭐ Review us on Google</a><span class="imgnote" data-en="Images shown are for illustration only — the actual product may vary slightly." data-ml="കാണിച്ചിരിക്കുന്ന ചിത്രങ്ങൾ ഇല്ലസ്ട്രേഷനു വേണ്ടി മാത്രം — യഥാർത്ഥ ഉൽപ്പന്നം ചെറുതായി വ്യത്യാസപ്പെട്ടേക്കാം.">Images shown are for illustration only — the actual product may vary slightly.</span><div class="copy">© 2026 Old Bridge Cafe</div></footer>
 <script>
 document.documentElement.classList.add('js');
 var io = new IntersectionObserver(function(es){{ es.forEach(function(e){{ if (e.isIntersecting) {{ e.target.classList.add('in'); io.unobserve(e.target); }} }}); }}, {{ threshold:.12 }});
@@ -412,18 +412,18 @@ open("index.html", "w", encoding="utf-8").write(index)
 
 for i, (slug, name, emo, color, dark, items, single) in enumerate(CATS):
     if single:
-        body = f'<div class="single"><div class="price"><span class="rs">₹</span>{single}</div>' + ('<div class="note" data-en="The house special!" data-ml="ഹൗസ് സ്പെഷ്യൽ!">ഹൗസ് സ്പെഷ്യൽ!</div>' if slug == "kannur-cocktail" else '<div class="note"></div>') + '</div>'
+        body = f'<div class="single"><div class="price"><span class="rs">₹</span>{single}</div>' + ('<div class="note" data-en="The house special!" data-ml="ഹൗസ് സ്പെഷ്യൽ!">The house special!</div>' if slug == "kannur-cocktail" else '<div class="note"></div>') + '</div>'
     else:
         rows = []
         for rn, (nm, p) in enumerate(items):
             if nm == "—split—":
                 rows.append('</ul><div class="split"></div><ul>')
             else:
-                rows.append(f'<li style="--d:{rn*55}ms"><span data-en="{nm}" data-ml="{ITEM_ML.get(nm, nm)}">{ITEM_ML.get(nm, nm)}</span> <span class="dots"></span><b><span class="rs">₹</span>{p}</b></li>')
+                rows.append(f'<li style="--d:{rn*55}ms"><span data-en="{nm}" data-ml="{ITEM_ML.get(nm, nm)}">{nm}</span> <span class="dots"></span><b><span class="rs">₹</span>{p}</b></li>')
         body = "<ul>\n" + "\n".join(rows) + "\n</ul>"
     prev = CATS[i-1] if i > 0 else None
     nxt = CATS[i+1] if i < len(CATS)-1 else None
-    pn = '<div class="pn">' + (f'<a href="../{prev[0]}/">← <span data-en="{prev[1].title()}" data-ml="{CAT_ML.get(prev[0], prev[1].title())}">{CAT_ML.get(prev[0], prev[1].title())}</span></a>' if prev else '<span></span>') + (f'<a href="../{nxt[0]}/"><span data-en="{nxt[1].title()}" data-ml="{CAT_ML.get(nxt[0], nxt[1].title())}">{CAT_ML.get(nxt[0], nxt[1].title())}</span> →</a>' if nxt else '<span></span>') + '</div>'
+    pn = '<div class="pn">' + (f'<a href="../{prev[0]}/">← <span data-en="{prev[1].title()}" data-ml="{CAT_ML.get(prev[0], prev[1].title())}">{prev[1].title()}</span></a>' if prev else '<span></span>') + (f'<a href="../{nxt[0]}/"><span data-en="{nxt[1].title()}" data-ml="{CAT_ML.get(nxt[0], nxt[1].title())}">{nxt[1].title()}</span> →</a>' if nxt else '<span></span>') + '</div>'
     entry_js = "<script>try{var d=sessionStorage.getItem('obc-dir');if(d){sessionStorage.removeItem('obc-dir');document.currentScript.parentElement.classList.add(d==='next'?'enter-next':'enter-prev');}}catch(e){}</script>"
     prev_js = f"'../{prev[0]}/'" if prev else "null"
     next_js = f"'../{nxt[0]}/'" if nxt else "null"
@@ -442,15 +442,15 @@ hero.addEventListener('mouseup', function(e){ if(!on) return; on=false; done(e.c
 {HEADER_HTML}
 <main>
 {entry_js}
-  <a class="back" href="../" data-en="← All Categories" data-ml="← എല്ലാ വിഭാഗങ്ങളും">← എല്ലാ വിഭാഗങ്ങളും</a>
+  <a class="back" href="../" data-en="← All Categories" data-ml="← എല്ലാ വിഭാഗങ്ങളും">← All Categories</a>
   <section class="card">
     <div class="herowrap" style="--c:{color}"><img class="hero" src="../img/menu/{slug}.jpg?v=3" alt="{name.title()}"></div>
-    <span class="banner{' dark' if dark else ''}" style="background:{color}"><span data-en="{name}" data-ml="{CAT_ML.get(slug, name)}">{CAT_ML.get(slug, name)}</span> {emo}</span>
+    <span class="banner{' dark' if dark else ''}" style="background:{color}"><span data-en="{name}" data-ml="{CAT_ML.get(slug, name)}">{name}</span> {emo}</span>
     {body}
   </section>
   {pn}
 </main>
-<footer><a class="revbtn" href="https://share.google/u73ZKqA6gACjDoqhO" target="_blank" rel="noopener" data-en="⭐ Review us on Google" data-ml="⭐ Google-ൽ റിവ്യൂ ചെയ്യൂ">⭐ Google-ൽ റിവ്യൂ ചെയ്യൂ</a><span class="imgnote" data-en="Images shown are for illustration only — the actual product may vary slightly." data-ml="കാണിച്ചിരിക്കുന്ന ചിത്രങ്ങൾ ഇല്ലസ്ട്രേഷനു വേണ്ടി മാത്രം — യഥാർത്ഥ ഉൽപ്പന്നം ചെറുതായി വ്യത്യാസപ്പെട്ടേക്കാം.">കാണിച്ചിരിക്കുന്ന ചിത്രങ്ങൾ ഇല്ലസ്ട്രേഷനു വേണ്ടി മാത്രം — യഥാർത്ഥ ഉൽപ്പന്നം ചെറുതായി വ്യത്യാസപ്പെട്ടേക്കാം.</span><div class="copy" data-en="© 2026 Old Bridge Cafe • Fresh &amp; made to order" data-ml="© 2026 Old Bridge Cafe • ഫ്രഷ് &amp; ഓർഡറിനനുസരിച്ച് തയ്യാറാക്കുന്നത്">© 2026 Old Bridge Cafe • ഫ്രഷ് &amp; ഓർഡറിനനുസരിച്ച് തയ്യാറാക്കുന്നത്</div></footer>
+<footer><a class="revbtn" href="https://share.google/u73ZKqA6gACjDoqhO" target="_blank" rel="noopener" data-en="⭐ Review us on Google" data-ml="⭐ Google-ൽ റിവ്യൂ ചെയ്യൂ">⭐ Review us on Google</a><span class="imgnote" data-en="Images shown are for illustration only — the actual product may vary slightly." data-ml="കാണിച്ചിരിക്കുന്ന ചിത്രങ്ങൾ ഇല്ലസ്ട്രേഷനു വേണ്ടി മാത്രം — യഥാർത്ഥ ഉൽപ്പന്നം ചെറുതായി വ്യത്യാസപ്പെട്ടേക്കാം.">Images shown are for illustration only — the actual product may vary slightly.</span><div class="copy">© 2026 Old Bridge Cafe</div></footer>
 <script>
 var obcY = null;
 try {{ obcY = sessionStorage.getItem('obc-sy'); if (obcY !== null) sessionStorage.removeItem('obc-sy'); }} catch(e) {{}}
