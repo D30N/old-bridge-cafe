@@ -184,9 +184,9 @@ for i, (slug, name, emo, color, dark, items, single) in enumerate(CATS):
     nxt = CATS[i+1] if i < len(CATS)-1 else None
     pn = '<div class="pn">' + (f'<a href="../{prev[0]}/">← {prev[1].title()}</a>' if prev else '<span></span>') + (f'<a href="../{nxt[0]}/">{nxt[1].title()} →</a>' if nxt else '<span></span>') + '</div>'
     page = HEAD.format(title=f"{name.title()} — Old Bridge Cafe", desc=f"{name.title()} at Old Bridge Cafe — items and prices.", css=CSS) + f"""
-<a class="back" href="../">← All Categories</a>
 {HEADER_HTML}
 <main>
+  <a class="back" href="../">← All Categories</a>
   <section class="card">
     <div class="herowrap" style="--c:{color}"><img class="hero" src="../img/menu/{slug}.jpg?v=3" alt="{name.title()}"></div>
     <span class="banner{' dark' if dark else ''}" style="background:{color}">{name} {emo}</span>
