@@ -129,7 +129,7 @@ def tile_html(i, cat):
     pop = ''
     search = (name + ' ' + ' '.join(nm for nm, _ in items)).lower()
     return (f'    <a class="tile" style="--d:{i*70}ms;--c:{color}" href="{slug}/" data-search="{search}">'
-            f'<div class="phwrap"><img class="ph" src="img/menu/{slug}.jpg?v=2" alt="{name.title()}">{pop}<span class="price">{price_badge(items, single)}</span></div>'
+            f'<div class="phwrap"><img class="ph" src="img/menu/{slug}.jpg?v=3" alt="{name.title()}">{pop}<span class="price">{price_badge(items, single)}</span></div>'
             f'<div class="tbody"><div class="nm">{name}</div><div class="meta">{tile_meta(items, single)}</div></div></a>')
 
 tiles = "\n".join(tile_html(i, cat) for i, cat in enumerate(CATS))
@@ -188,7 +188,7 @@ for i, (slug, name, emo, color, dark, items, single) in enumerate(CATS):
 {HEADER_HTML}
 <main>
   <section class="card">
-    <div class="herowrap" style="--c:{color}"><img class="hero" src="../img/menu/{slug}.jpg?v=2" alt="{name.title()}"></div>
+    <div class="herowrap" style="--c:{color}"><img class="hero" src="../img/menu/{slug}.jpg?v=3" alt="{name.title()}"></div>
     <span class="banner{' dark' if dark else ''}" style="background:{color}">{name} {emo}</span>
     {body}
   </section>
