@@ -142,12 +142,11 @@ CSS = """
   .revbtn { display:inline-flex; align-items:center; gap:7px; margin-bottom:14px; padding:9px 18px; background:#fff; border:1.5px solid #e8dcc8; border-radius:999px; font-size:14px; font-weight:600; color:#5b4632; box-shadow:0 3px 10px rgba(90,60,20,.08); }
   .revbtn:active { opacity:.7; }
   footer .copy { margin-top:12px; }
-  .langbtn { position:absolute; top:14px; right:14px; z-index:6; font-size:14px; color:#7a3b12; background:transparent; transition:opacity .3s ease, transform .3s ease; }
-  .langbtn.hide { opacity:0; transform:translateY(-6px); pointer-events:none; }
-  .langbtn button { border:0; background:transparent; padding:2px 1px; font-size:14px; font-family:inherit; color:inherit; cursor:pointer; opacity:.5; font-weight:600; }
+  .langrow { max-width:1060px; margin:12px auto 0; padding:0 16px; text-align:right; }
+  .langbtn { display:inline-block; font-size:14.5px; color:#7a3b12; background:transparent; }
+  .langbtn button { border:0; background:transparent; padding:2px 1px; font-size:14.5px; font-family:inherit; color:inherit; cursor:pointer; opacity:.5; font-weight:600; }
   .langbtn button.on { opacity:1; font-weight:800; text-decoration:underline; text-underline-offset:3px; }
   .langbtn .sep { opacity:.45; }
-  .hdrwrap.wx-night .langbtn, .hdrwrap.wx-storm .langbtn { color:#e8edff; }
 """
 
 HEAD = """<!DOCTYPE html>
@@ -167,7 +166,6 @@ HEAD = """<!DOCTYPE html>
 HEADER_HTML = """
 <div class="hdrwrap">
 <header>
-  <div class="langbtn" id="langbtn"><button type="button" data-l="ml" class="on">ML</button><span class="sep">|</span><button type="button" data-l="en">EN</button></div>
   <div class="cafe">Old <span>Bridge</span> Cafe</div>
   <div class="tagline">Fresh • Juices • Shakes • Snacks</div>
   <a class="insta" href="https://www.instagram.com/oldbridge_cafe/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="#fff" stroke-width="2"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.4" fill="#fff" stroke="none"/></svg>Follow us on Instagram</a>
@@ -323,6 +321,8 @@ for _slug, _name, _emo, _color, _dark, _items, _single in CATS:
             ITEMS.append({"n": _nm, "p": _p, "c": _name.title(), "u": _slug + "/", "ml": ITEM_ML.get(_nm, _nm), "cml": CAT_ML.get(_slug, _name.title())})
 ITEMS_JS = json.dumps(ITEMS)
 
+LANGROW = '<div class="langrow"><div class="langbtn" id="langbtn"><button type="button" data-l="en" class="on">English</button><span class="sep">|</span><button type="button" data-l="ml">മലയാളം</button></div></div>'
+
 I18N_JS = """
 <script>
 window.OBC_LANG = 'en';
@@ -348,14 +348,6 @@ function obcSetLang(l) {
     b.addEventListener('click', function () { obcSetLang(b.getAttribute('data-l')); });
   });
   if (saved === 'ml') obcSetLang('ml');
-  var lastY = 0;
-  window.addEventListener('scroll', function () {
-    var y = window.scrollY || 0;
-    var btn = document.getElementById('langbtn');
-    if (!btn) return;
-    if (y > 50 && y > lastY) btn.classList.add('hide'); else btn.classList.remove('hide');
-    lastY = y;
-  }, { passive: true });
 })();
 </script>
 """
@@ -384,6 +376,7 @@ fetch('special.json', { cache: 'no-store' })
 
 index = HEAD.format(title="Old Bridge Cafe — Menu", desc="Old Bridge Cafe menu — shakes, fresh juices, mojitos, falooda, tea and more. Tap a category for details.", css=CSS) + f"""
 {HEADER_HTML}
+{LANGROW}
 <div class="search"><input id="q" type="search" data-en-ph="🔍 Search items… try 'falooda'" data-ml-ph="🔍 ഐറ്റങ്ങൾ തിരയൂ… 'ഫലൂദ' എന്ന് നോക്കൂ" placeholder="🔍 Search items… try 'falooda'" aria-label="Search menu items"><div class="res" id="res"></div></div>
 <main>
   <div class="grid">
@@ -442,6 +435,7 @@ hero.addEventListener('mouseup', function(e){ if(!on) return; on=false; done(e.c
 {HEADER_HTML}
 <main>
 {entry_js}
+  {LANGROW}
   <a class="back" href="../" data-en="← All Categories" data-ml="← എല്ലാ വിഭാഗങ്ങളും">← All Categories</a>
   <section class="card">
     <div class="herowrap" style="--c:{color}"><img class="hero" src="../img/menu/{slug}.jpg?v=3" alt="{name.title()}"></div>
