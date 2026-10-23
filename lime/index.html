@@ -25,7 +25,7 @@
   .hdrwrap.wx-snow .cafe { color:#2c4a66; } .hdrwrap.wx-snow .tagline { color:#52748f; } .hdrwrap.wx-snow .info { color:#486a88; } .hdrwrap.wx-snow .wxnow { color:#486a88; } .hdrwrap.wx-snow .mq { color:#B71C1C; } .hdrwrap.wx-snow .info a.loc { color:#2c5a82; }
   .hdrwrap.wx-wind { background:linear-gradient(180deg,#ffe3ae 0%,#cfe8d8 50%,#a8d5ba 58%,transparent 94%); }
   header { position:relative; z-index:2; text-align:center; padding:30px 16px 22px; }
-  #wxfx { position:absolute; inset:0; width:100%; height:100%; z-index:1; pointer-events:none; }
+  #wxfx { position:absolute; inset:0; width:100%; height:100%; z-index:1; pointer-events:none; -webkit-mask-image:linear-gradient(180deg,#000 52%,transparent 90%); mask-image:linear-gradient(180deg,#000 52%,transparent 90%); }
   .wave { position:relative; z-index:0; display:block; width:100%; height:44px; margin-top:-1px; }
   header .cafe { font-family:'Pacifico',cursive; font-size:clamp(34px,8vw,52px); line-height:1.1; color:#3b2314; }
   header .cafe span { color:inherit; }
@@ -182,7 +182,6 @@ try {
     t++;
     ctx.clearRect(0,0,W,H);
     ctx.save();
-    if(clipP) ctx.clip(clipP);
     if(mode==='rain'||mode==='storm'||mode==='drizzle'){ ctx.fillStyle='rgba(90,110,140,.10)'; ctx.fillRect(0,0,W,H); }
     if(mode==='cloud'||mode==='fog'){ ctx.fillStyle='rgba(120,120,130,.07)'; ctx.fillRect(0,0,W,H); }
     if(!day){ ctx.fillStyle='rgba(30,35,80,.16)'; ctx.fillRect(0,0,W,H); }
