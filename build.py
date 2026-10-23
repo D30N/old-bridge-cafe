@@ -69,7 +69,7 @@ CSS = """
   .wxnow { margin-top:5px; font-size:12.5px; font-weight:500; color:#6b4423; opacity:.85; }
   .info a.loc { display:inline-block; margin-top:5px; color:#8a4b12; font-weight:700; text-decoration:underline; text-underline-offset:2px; }
   a { text-decoration:none; color:inherit; }
-  .back { display:inline-block; margin:-16px 0 12px 14px; font-size:14px; font-weight:600; color:#5b4632; background:#fff; border:1.5px solid #e8dcc8; padding:7px 14px; border-radius:999px; }
+  .back { display:inline-block; margin:8px 0 12px 14px; font-size:14px; font-weight:600; color:#5b4632; background:#fff; border:1.5px solid #e8dcc8; padding:7px 14px; border-radius:999px; }
   body { background:radial-gradient(600px 300px at 15% -40px, #ffe9c9 0, transparent 60%), radial-gradient(700px 340px at 90% -60px, #ffd9e2 0, transparent 55%), #FFF9EF; }
   main { max-width:1060px; margin:0 auto; padding:16px 14px 0; }
   .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
@@ -142,7 +142,7 @@ CSS = """
   .revbtn { display:inline-flex; align-items:center; gap:7px; margin-bottom:14px; padding:9px 18px; background:#fff; border:1.5px solid #e8dcc8; border-radius:999px; font-size:14px; font-weight:600; color:#5b4632; box-shadow:0 3px 10px rgba(90,60,20,.08); }
   .revbtn:active { opacity:.7; }
   footer .copy { margin-top:12px; }
-  .langrow { max-width:1060px; margin:12px auto 0; padding:0 16px; text-align:center; }
+  .langrow { max-width:1060px; margin:4px auto 0; padding:0 16px; text-align:center; }
   .langbtn { display:inline-block; font-size:14.5px; color:#7a3b12; background:transparent; }
   .langbtn button { border:0; background:transparent; padding:2px 1px; font-size:14.5px; font-family:inherit; color:inherit; cursor:pointer; opacity:.5; font-weight:600; }
   .langbtn button.on { opacity:1; font-weight:800; text-decoration:underline; text-underline-offset:3px; }
