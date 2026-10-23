@@ -31,7 +31,7 @@ ITEM_ML = {
     "Tender Coconut": "കരിക്ക്", "Kitkat": "കിറ്റ്കാറ്റ്", "Dairy Milk": "ഡെയറി മിൽക്ക്",
     "Passion Fruit": "പാഷൻ ഫ്രൂട്ട്", "Blue Curaçao": "ബ്ലൂ കുറസാവോ", "Green Apple": "ഗ്രീൻ ആപ്പിൾ",
     "Watermelon": "തണ്ണിമത്തൻ", "Lichi": "ലിച്ചി", "Black Currant": "ബ്ലാക്ക് കറന്റ്", "Grape": "മുന്തിരി",
-    "Pineapple": "കൈതച്ചക്ക", "Orange": "ഓറഞ്ച്", "Shamam": "ഷാമം", "Apple": "ആപ്പിൾ", "Grapes": "മുന്തിരി",
+    "Pineapple": "കൈതച്ചക്ക", "Orange": "ഓറഞ്ച്", "Shamam": "ഷമാം", "Apple": "ആപ്പിൾ", "Grapes": "മുന്തിരി",
     "Papaya": "പപ്പായ", "Anar": "മാതളം", "Musambi": "മുസമ്പി",
     "Normal": "സാധാ", "Classic": "ക്ലാസിക്", "Royal": "റോയൽ", "Mumbai": "മുംബൈ",
     "Normal Tea": "സാധാ ചായ", "Black Tea": "കട്ടൻ ചായ", "Coffee": "കാപ്പി", "Black Coffee": "കട്ടൻ കാപ്പി",
