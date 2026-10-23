@@ -17,6 +17,31 @@ CATS = [
     ("kulukki", "KULUKKI", "🍸", "#f06292", False, [], 40),
 ]
 
+
+CAT_ML = {
+    "lime": "ലൈം", "shake": "ഷെയ്ക്ക്", "mojito": "മോഹിറ്റോ", "juice": "ജ്യൂസ്",
+    "lassi": "ലസ്സി", "falooda": "ഫലൂദ", "tea": "ചായ", "fruit-salad": "ഫ്രൂട്ട് സാലഡ്",
+    "kannur-cocktail": "കണ്ണൂർ കോക്ടെയിൽ", "aval-milk": "അവൽ മിൽക്ക്",
+    "cold-coffee": "കോൾഡ് കോഫി", "kulukki": "കുലുക്കി",
+}
+ITEM_ML = {
+    "Soda Lime": "സോഡാ ലൈം", "Fresh Lime": "ഫ്രഷ് ലൈം", "Blue Lime": "ബ്ലൂ ലൈം", "Mint Lime": "പുതിന ലൈം",
+    "Sharjah": "ഷാർജ", "Butter Scotch": "ബട്ടർ സ്കോച്ച്", "Strawberry": "സ്ട്രോബെറി", "Pistha": "പിസ്ത",
+    "Mango": "മാങ്ങ", "Vanilla": "വാനില", "Chikoo": "ചിക്കു", "Chocolate": "ചോക്ലേറ്റ്", "Oreo": "ഓറിയോ",
+    "Tender Coconut": "കരിക്ക്", "Kitkat": "കിറ്റ്കാറ്റ്", "Dairy Milk": "ഡെയറി മിൽക്ക്",
+    "Passion Fruit": "പാഷൻ ഫ്രൂട്ട്", "Blue Curaçao": "ബ്ലൂ കുറസാവോ", "Green Apple": "ഗ്രീൻ ആപ്പിൾ",
+    "Watermelon": "തണ്ണിമത്തൻ", "Lichi": "ലിച്ചി", "Black Currant": "ബ്ലാക്ക് കറന്റ്", "Grape": "മുന്തിരി",
+    "Pineapple": "കൈതച്ചക്ക", "Orange": "ഓറഞ്ച്", "Shamam": "ഷാമം", "Apple": "ആപ്പിൾ", "Grapes": "മുന്തിരി",
+    "Papaya": "പപ്പായ", "Anar": "മാതളം", "Musambi": "മുസമ്പി",
+    "Normal": "സാധാ", "Classic": "ക്ലാസിക്", "Royal": "റോയൽ", "Mumbai": "മുംബൈ",
+    "Normal Tea": "സാധാ ചായ", "Black Tea": "കട്ടൻ ചായ", "Coffee": "കാപ്പി", "Black Coffee": "കട്ടൻ കാപ്പി",
+    "Mint Tea": "പുതിന ചായ", "Lemon Tea": "നാരങ്ങ ചായ", "Ginger Tea": "ഇഞ്ചി ചായ", "Badam Tea": "ബദാം ചായ",
+    "Chocolate Tea": "ചോക്ലേറ്റ് ചായ",
+    "Cutfruit": "കട്ട്ഫ്രൂട്ട്", "Normal with Ice Cream": "ഐസ്ക്രീമോടു കൂടിയ സാധാ", "Royal Special": "റോയൽ സ്പെഷ്യൽ",
+    "Cold Coffee": "കോൾഡ് കോഫി", "Cold Boost": "കോൾഡ് ബൂസ്റ്റ്", "Cold Horlicks": "കോൾഡ് ഹോർലിക്സ്",
+    "Kannur Cocktail": "കണ്ണൂർ കോക്ടെയിൽ", "Aval Milk": "അവൽ മിൽക്ക്", "Kulukki": "കുലുക്കി",
+}
+
 CSS = """
   * { margin:0; padding:0; box-sizing:border-box; }
   body { font-family:'Poppins',system-ui,sans-serif; background:#FFF9EF; color:#2a2320; padding-bottom:40px; }
@@ -117,6 +142,12 @@ CSS = """
   .revbtn { display:inline-flex; align-items:center; gap:7px; margin-bottom:14px; padding:9px 18px; background:#fff; border:1.5px solid #e8dcc8; border-radius:999px; font-size:14px; font-weight:600; color:#5b4632; box-shadow:0 3px 10px rgba(90,60,20,.08); }
   .revbtn:active { opacity:.7; }
   footer .copy { margin-top:12px; }
+  .langbtn { position:absolute; top:14px; right:14px; z-index:6; font-size:14px; color:#7a3b12; background:transparent; transition:opacity .3s ease, transform .3s ease; }
+  .langbtn.hide { opacity:0; transform:translateY(-6px); pointer-events:none; }
+  .langbtn button { border:0; background:transparent; padding:2px 1px; font-size:14px; font-family:inherit; color:inherit; cursor:pointer; opacity:.5; font-weight:600; }
+  .langbtn button.on { opacity:1; font-weight:800; text-decoration:underline; text-underline-offset:3px; }
+  .langbtn .sep { opacity:.45; }
+  .hdrwrap.wx-night .langbtn, .hdrwrap.wx-storm .langbtn { color:#e8edff; }
 """
 
 HEAD = """<!DOCTYPE html>
@@ -136,6 +167,7 @@ HEAD = """<!DOCTYPE html>
 HEADER_HTML = """
 <div class="hdrwrap">
 <header>
+  <div class="langbtn" id="langbtn"><button type="button" data-l="ml" class="on">ML</button><span class="sep">|</span><button type="button" data-l="en">EN</button></div>
   <div class="cafe">Old <span>Bridge</span> Cafe</div>
   <div class="tagline">Fresh • Juices • Shakes • Snacks</div>
   <a class="insta" href="https://www.instagram.com/oldbridge_cafe/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="#fff" stroke-width="2"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.4" fill="#fff" stroke="none"/></svg>Follow us on Instagram</a>
@@ -271,22 +303,62 @@ def tile_meta(items, single):
 def tile_html(i, cat):
     slug, name, emo, color, dark, items, single = cat
     pop = ''
-    search = (name + ' ' + ' '.join(nm for nm, _ in items)).lower()
+    search = ((name + ' ' + ' '.join(nm for nm, _ in items)).lower() + ' ' +
+              (CAT_ML.get(slug, '') + ' ' + ' '.join(ITEM_ML.get(nm, '') for nm, _ in items)).lower())
+    meta_en = tile_meta(items, single)
+    meta_ml = "സ്പെഷ്യൽ" if single else f"{len(items)} ഐറ്റങ്ങൾ"
     return (f'    <a class="tile" style="--d:{i*70}ms;--c:{color}" href="{slug}/" data-search="{search}">'
             f'<div class="phwrap"><img class="ph" src="img/menu/{slug}.jpg?v=3" alt="{name.title()}">{pop}<span class="price">{price_badge(items, single)}</span></div>'
-            f'<div class="tbody"><div class="nm">{name}</div><div class="meta">{tile_meta(items, single)}</div></div></a>')
+            f'<div class="tbody"><div class="nm" data-en="{name}" data-ml="{CAT_ML.get(slug, name)}">{CAT_ML.get(slug, name)}</div><div class="meta" data-en="{meta_en}" data-ml="{meta_ml}">{meta_ml}</div></div></a>')
 
 tiles = "\n".join(tile_html(i, cat) for i, cat in enumerate(CATS))
 
 ITEMS = []
 for _slug, _name, _emo, _color, _dark, _items, _single in CATS:
     if _single:
-        ITEMS.append({"n": _name.title(), "p": _single, "c": _name.title(), "u": _slug + "/"})
+        ITEMS.append({"n": _name.title(), "p": _single, "c": _name.title(), "u": _slug + "/", "ml": CAT_ML.get(_slug, _name.title()), "cml": CAT_ML.get(_slug, _name.title())})
     else:
         for _nm, _p in _items:
             if _nm == "—split—": continue
-            ITEMS.append({"n": _nm, "p": _p, "c": _name.title(), "u": _slug + "/"})
+            ITEMS.append({"n": _nm, "p": _p, "c": _name.title(), "u": _slug + "/", "ml": ITEM_ML.get(_nm, _nm), "cml": CAT_ML.get(_slug, _name.title())})
 ITEMS_JS = json.dumps(ITEMS)
+
+I18N_JS = """
+<script>
+window.OBC_LANG = 'ml';
+function obcSetLang(l) {
+  window.OBC_LANG = l;
+  try { localStorage.setItem('obc-lang', l); } catch (e) {}
+  document.querySelectorAll('[data-en]').forEach(function (el) {
+    el.textContent = (l === 'en') ? el.getAttribute('data-en') : el.getAttribute('data-ml');
+  });
+  document.querySelectorAll('[data-en-ph]').forEach(function (el) {
+    el.setAttribute('placeholder', (l === 'en') ? el.getAttribute('data-en-ph') : el.getAttribute('data-ml-ph'));
+  });
+  document.querySelectorAll('.langbtn button').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-l') === l); });
+  document.documentElement.lang = l;
+  var q = document.getElementById('q');
+  if (q && q.value) q.dispatchEvent(new Event('input'));
+}
+(function () {
+  var saved = 'ml';
+  try { saved = localStorage.getItem('obc-lang') || 'ml'; } catch (e) {}
+  document.querySelectorAll('.langbtn button').forEach(function (b) {
+    b.classList.toggle('on', b.getAttribute('data-l') === (saved === 'en' ? 'en' : 'ml'));
+    b.addEventListener('click', function () { obcSetLang(b.getAttribute('data-l')); });
+  });
+  if (saved === 'en') obcSetLang('en');
+  var lastY = 0;
+  window.addEventListener('scroll', function () {
+    var y = window.scrollY || 0;
+    var btn = document.getElementById('langbtn');
+    if (!btn) return;
+    if (y > 50 && y > lastY) btn.classList.add('hide'); else btn.classList.remove('hide');
+    lastY = y;
+  }, { passive: true });
+})();
+</script>
+"""
 
 MARQUEE_JS = """
 <script>
@@ -312,14 +384,14 @@ fetch('special.json', { cache: 'no-store' })
 
 index = HEAD.format(title="Old Bridge Cafe — Menu", desc="Old Bridge Cafe menu — shakes, fresh juices, mojitos, falooda, tea and more. Tap a category for details.", css=CSS) + f"""
 {HEADER_HTML}
-<div class="search"><input id="q" type="search" placeholder="🔍 Search items… try 'falooda'" aria-label="Search menu items"><div class="res" id="res"></div></div>
+<div class="search"><input id="q" type="search" data-en-ph="🔍 Search items… try 'falooda'" data-ml-ph="🔍 ഐറ്റങ്ങൾ തിരയൂ… 'ഫലൂദ' എന്ന് നോക്കൂ" placeholder="🔍 ഐറ്റങ്ങൾ തിരയൂ… 'ഫലൂദ' എന്ന് നോക്കൂ" aria-label="Search menu items"><div class="res" id="res"></div></div>
 <main>
   <div class="grid">
 {tiles}
   </div>
-  <div class="noresults" id="nr">No items found — try another name</div>
+  <div class="noresults" id="nr" data-en="No items found — try another name" data-ml="ഐറ്റങ്ങൾ കണ്ടെത്തിയില്ല — വേറൊരു പേര് നോക്കൂ">ഐറ്റങ്ങൾ കണ്ടെത്തിയില്ല — വേറൊരു പേര് നോക്കൂ</div>
 </main>
-<footer><a class="revbtn" href="https://share.google/u73ZKqA6gACjDoqhO" target="_blank" rel="noopener">⭐ Review us on Google</a><span class="imgnote">Images shown are for illustration only — the actual product may vary slightly.</span><div class="copy">© 2026 Old Bridge Cafe • Fresh &amp; made to order</div></footer>
+<footer><a class="revbtn" href="https://share.google/u73ZKqA6gACjDoqhO" target="_blank" rel="noopener" data-en="⭐ Review us on Google" data-ml="⭐ Google-ൽ റിവ്യൂ ചെയ്യൂ">⭐ Google-ൽ റിവ്യൂ ചെയ്യൂ</a><span class="imgnote" data-en="Images shown are for illustration only — the actual product may vary slightly." data-ml="കാണിച്ചിരിക്കുന്ന ചിത്രങ്ങൾ ഇല്ലസ്ട്രേഷനു വേണ്ടി മാത്രം — യഥാർത്ഥ ഉൽപ്പന്നം ചെറുതായി വ്യത്യാസപ്പെട്ടേക്കാം.">കാണിച്ചിരിക്കുന്ന ചിത്രങ്ങൾ ഇല്ലസ്ട്രേഷനു വേണ്ടി മാത്രം — യഥാർത്ഥ ഉൽപ്പന്നം ചെറുതായി വ്യത്യാസപ്പെട്ടേക്കാം.</span><div class="copy" data-en="© 2026 Old Bridge Cafe • Fresh &amp; made to order" data-ml="© 2026 Old Bridge Cafe • ഫ്രഷ് &amp; ഓർഡറിനനുസരിച്ച് തയ്യാറാക്കുന്നത്">© 2026 Old Bridge Cafe • ഫ്രഷ് &amp; ഓർഡറിനനുസരിച്ച് തയ്യാറാക്കുന്നത്</div></footer>
 <script>
 document.documentElement.classList.add('js');
 var io = new IntersectionObserver(function(es){{ es.forEach(function(e){{ if (e.isIntersecting) {{ e.target.classList.add('in'); io.unobserve(e.target); }} }}); }}, {{ threshold:.12 }});
@@ -328,9 +400,10 @@ var q = document.getElementById('q');
 if (q) {{ q.addEventListener('input', function(){{ var v = q.value.toLowerCase().trim(); var n = 0; document.querySelectorAll('.tile').forEach(function(t){{ var show = !v || (t.dataset.search || '').includes(v) || t.textContent.toLowerCase().includes(v); t.style.display = show ? '' : 'none'; if (show) n++; }}); document.getElementById('nr').style.display = n ? 'none' : 'block'; }}); }}
 var ITEMS = {ITEMS_JS};
 var res = document.getElementById('res');
-if (q && res) {{ q.addEventListener('input', function(){{ var v = q.value.toLowerCase().trim(); if (!v) {{ res.style.display = 'none'; res.innerHTML = ''; return; }} var m = ITEMS.filter(function(it){{ return it.n.toLowerCase().includes(v); }}).slice(0, 15); res.innerHTML = m.map(function(it){{ return '<a href="' + it.u + '">' + it.n + ' <span class="cat">' + it.c + '</span><span class="dots"></span><b><span class="rs">₹</span>' + it.p + '</b></a>'; }}).join(''); res.style.display = m.length ? 'block' : 'none'; }}); }}
+if (q && res) {{ q.addEventListener('input', function(){{ var v = q.value.toLowerCase().trim(); if (!v) {{ res.style.display = 'none'; res.innerHTML = ''; return; }} var m = ITEMS.filter(function(it){{ return it.n.toLowerCase().includes(v) || (it.ml || '').toLowerCase().includes(v) || (it.cml || '').toLowerCase().includes(v); }}).slice(0, 15); res.innerHTML = m.map(function(it){{ var isn = (window.OBC_LANG === 'en') ? it.n : (it.ml || it.n); var isc = (window.OBC_LANG === 'en') ? it.c : (it.cml || it.c); return '<a href="' + it.u + '">' + isn + ' <span class="cat">' + isc + '</span><span class="dots"></span><b><span class="rs">₹</span>' + it.p + '</b></a>'; }}).join(''); res.style.display = m.length ? 'block' : 'none'; }}); }}
 </script>
 {MARQUEE_JS}
+{I18N_JS}
 <script data-goatcounter="https://oldbridgecafe.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
@@ -339,18 +412,18 @@ open("index.html", "w", encoding="utf-8").write(index)
 
 for i, (slug, name, emo, color, dark, items, single) in enumerate(CATS):
     if single:
-        body = f'<div class="single"><div class="price"><span class="rs">₹</span>{single}</div><div class="note">{"The house special!" if slug=="kannur-cocktail" else ""}</div></div>'
+        body = f'<div class="single"><div class="price"><span class="rs">₹</span>{single}</div>' + ('<div class="note" data-en="The house special!" data-ml="ഹൗസ് സ്പെഷ്യൽ!">ഹൗസ് സ്പെഷ്യൽ!</div>' if slug == "kannur-cocktail" else '<div class="note"></div>') + '</div>'
     else:
         rows = []
         for rn, (nm, p) in enumerate(items):
             if nm == "—split—":
                 rows.append('</ul><div class="split"></div><ul>')
             else:
-                rows.append(f'<li style="--d:{rn*55}ms">{nm} <span class="dots"></span><b><span class="rs">₹</span>{p}</b></li>')
+                rows.append(f'<li style="--d:{rn*55}ms"><span data-en="{nm}" data-ml="{ITEM_ML.get(nm, nm)}">{ITEM_ML.get(nm, nm)}</span> <span class="dots"></span><b><span class="rs">₹</span>{p}</b></li>')
         body = "<ul>\n" + "\n".join(rows) + "\n</ul>"
     prev = CATS[i-1] if i > 0 else None
     nxt = CATS[i+1] if i < len(CATS)-1 else None
-    pn = '<div class="pn">' + (f'<a href="../{prev[0]}/">← {prev[1].title()}</a>' if prev else '<span></span>') + (f'<a href="../{nxt[0]}/">{nxt[1].title()} →</a>' if nxt else '<span></span>') + '</div>'
+    pn = '<div class="pn">' + (f'<a href="../{prev[0]}/">← <span data-en="{prev[1].title()}" data-ml="{CAT_ML.get(prev[0], prev[1].title())}">{CAT_ML.get(prev[0], prev[1].title())}</span></a>' if prev else '<span></span>') + (f'<a href="../{nxt[0]}/"><span data-en="{nxt[1].title()}" data-ml="{CAT_ML.get(nxt[0], nxt[1].title())}">{CAT_ML.get(nxt[0], nxt[1].title())}</span> →</a>' if nxt else '<span></span>') + '</div>'
     entry_js = "<script>try{var d=sessionStorage.getItem('obc-dir');if(d){sessionStorage.removeItem('obc-dir');document.currentScript.parentElement.classList.add(d==='next'?'enter-next':'enter-prev');}}catch(e){}</script>"
     prev_js = f"'../{prev[0]}/'" if prev else "null"
     next_js = f"'../{nxt[0]}/'" if nxt else "null"
@@ -369,15 +442,15 @@ hero.addEventListener('mouseup', function(e){ if(!on) return; on=false; done(e.c
 {HEADER_HTML}
 <main>
 {entry_js}
-  <a class="back" href="../">← All Categories</a>
+  <a class="back" href="../" data-en="← All Categories" data-ml="← എല്ലാ വിഭാഗങ്ങളും">← എല്ലാ വിഭാഗങ്ങളും</a>
   <section class="card">
     <div class="herowrap" style="--c:{color}"><img class="hero" src="../img/menu/{slug}.jpg?v=3" alt="{name.title()}"></div>
-    <span class="banner{' dark' if dark else ''}" style="background:{color}">{name} {emo}</span>
+    <span class="banner{' dark' if dark else ''}" style="background:{color}"><span data-en="{name}" data-ml="{CAT_ML.get(slug, name)}">{CAT_ML.get(slug, name)}</span> {emo}</span>
     {body}
   </section>
   {pn}
 </main>
-<footer><a class="revbtn" href="https://share.google/u73ZKqA6gACjDoqhO" target="_blank" rel="noopener">⭐ Review us on Google</a><span class="imgnote">Images shown are for illustration only — the actual product may vary slightly.</span><div class="copy">© 2026 Old Bridge Cafe • Fresh &amp; made to order</div></footer>
+<footer><a class="revbtn" href="https://share.google/u73ZKqA6gACjDoqhO" target="_blank" rel="noopener" data-en="⭐ Review us on Google" data-ml="⭐ Google-ൽ റിവ്യൂ ചെയ്യൂ">⭐ Google-ൽ റിവ്യൂ ചെയ്യൂ</a><span class="imgnote" data-en="Images shown are for illustration only — the actual product may vary slightly." data-ml="കാണിച്ചിരിക്കുന്ന ചിത്രങ്ങൾ ഇല്ലസ്ട്രേഷനു വേണ്ടി മാത്രം — യഥാർത്ഥ ഉൽപ്പന്നം ചെറുതായി വ്യത്യാസപ്പെട്ടേക്കാം.">കാണിച്ചിരിക്കുന്ന ചിത്രങ്ങൾ ഇല്ലസ്ട്രേഷനു വേണ്ടി മാത്രം — യഥാർത്ഥ ഉൽപ്പന്നം ചെറുതായി വ്യത്യാസപ്പെട്ടേക്കാം.</span><div class="copy" data-en="© 2026 Old Bridge Cafe • Fresh &amp; made to order" data-ml="© 2026 Old Bridge Cafe • ഫ്രഷ് &amp; ഓർഡറിനനുസരിച്ച് തയ്യാറാക്കുന്നത്">© 2026 Old Bridge Cafe • ഫ്രഷ് &amp; ഓർഡറിനനുസരിച്ച് തയ്യാറാക്കുന്നത്</div></footer>
 <script>
 var obcY = null;
 try {{ obcY = sessionStorage.getItem('obc-sy'); if (obcY !== null) sessionStorage.removeItem('obc-sy'); }} catch(e) {{}}
@@ -387,6 +460,7 @@ window.addEventListener('load', obcRestore);
 document.querySelectorAll('.pn a').forEach(function(a){{ a.addEventListener('click', function(){{ try {{ sessionStorage.setItem('obc-sy', String(window.scrollY)); }} catch(e) {{}} }}); }});
 </script>
 {swipe_js}
+{I18N_JS}
 <script data-goatcounter="https://oldbridgecafe.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
