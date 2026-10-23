@@ -45,7 +45,7 @@ ITEM_ML = {
 CSS = """
   * { margin:0; padding:0; box-sizing:border-box; }
   body { font-family:'Poppins',system-ui,sans-serif; background:#FFF9EF; color:#2a2320; padding-bottom:40px; }
-  .hdrwrap { position:relative; background:linear-gradient(180deg,#ffdf9e 0%,#ffc98a 50%,#ffb59e 58%,transparent 94%); transition:background 1s ease; }
+  .hdrwrap { position:relative; background:linear-gradient(180deg,#ffdf9e 0%,#ffc98a 50%,#ffb59e 58%,transparent 94%); }
   .hdrwrap.wx-night { background:linear-gradient(180deg,#1f2a5a 0%,#2c3e70 50%,#3a4a7d 58%,transparent 94%); }
   .hdrwrap.wx-night .cafe { color:#f2f5ff; } .hdrwrap.wx-night .tagline { color:#c3cdef; } .hdrwrap.wx-night .info { color:#d6ddf5; } .hdrwrap.wx-night .wxnow { color:#d6ddf5; } .hdrwrap.wx-night .mq { color:#FFCA28; } .hdrwrap.wx-night .info a.loc { color:#ffe9a8; }
   .hdrwrap.wx-storm { background:linear-gradient(180deg,#6d7f9c 0%,#55677f 50%,#46586e 58%,transparent 94%); }
@@ -150,6 +150,20 @@ CSS = """
   .langbtn .sep { opacity:.45; }
 """
 
+import re as _re
+def _wx_twins(_css):
+    _out = []
+    for _sel, _body in _re.findall(r'([^{}]+)\{([^{}]*)\}', _css):
+        _parts = []
+        for _p in _sel.split(','):
+            _m = _re.match(r'^\s*\.hdrwrap\.(wx-[a-z-]+)(.*)$', _p)
+            if _m:
+                _parts.append('html[data-wx="%s"] .hdrwrap%s' % (_m.group(1), _m.group(2).rstrip()))
+        if _parts:
+            _out.append(', '.join(_parts) + ' { ' + _body.strip() + ' }')
+    return '\n'.join(_out)
+CSS = CSS + '\n' + _wx_twins(CSS)
+
 HEAD = """<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -160,6 +174,7 @@ HEAD = """<!DOCTYPE html>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>{css}</style>
+<script>(function(){{try{{var c=localStorage.getItem('obc-wxcls');if(c)document.documentElement.setAttribute('data-wx',c);}}catch(e){{}}}})();</script>
 </head>
 <body>
 """
@@ -179,9 +194,6 @@ HEADER_HTML = """
 </div>
 <script>
 try {
-  var _c = localStorage.getItem('obc-wxcls');
-  var _w = document.querySelector('.hdrwrap');
-  if (_c && _w) _w.classList.add(_c);
   var _l = localStorage.getItem('obc-wxlbl');
   var _e = document.getElementById('wxnow');
   if (_l && _e) _e.textContent = _l;
@@ -270,7 +282,7 @@ try {
       else if(mode==='fog') cls='wx-fog';
       else if(mode==='snow') cls='wx-snow';
       if(wind>=18&&day&&(mode==='clear'||mode==='cloud'||mode==='fog')) cls='wx-wind';
-      var wrap=document.querySelector('.hdrwrap'); if(wrap){ wrap.classList.remove('wx-clear','wx-night','wx-rain','wx-drizzle','wx-storm','wx-cloud','wx-fog','wx-snow','wx-wind'); wrap.classList.add(cls); try{ localStorage.setItem('obc-wxcls', cls); }catch(e){} }
+      var wrap=document.querySelector('.hdrwrap'); if(wrap){ wrap.classList.remove('wx-clear','wx-night','wx-rain','wx-drizzle','wx-storm','wx-cloud','wx-fog','wx-snow','wx-wind'); wrap.classList.add(cls); try{ localStorage.setItem('obc-wxcls', cls); }catch(e){} try{ document.documentElement.removeAttribute('data-wx'); }catch(e){} }
       var wxEl=document.getElementById('wxnow');
       if(wxEl){
         var lbl, emo;

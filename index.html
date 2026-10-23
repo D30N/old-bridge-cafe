@@ -10,7 +10,7 @@
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
   body { font-family:'Poppins',system-ui,sans-serif; background:#FFF9EF; color:#2a2320; padding-bottom:40px; }
-  .hdrwrap { position:relative; background:linear-gradient(180deg,#ffdf9e 0%,#ffc98a 50%,#ffb59e 58%,transparent 94%); transition:background 1s ease; }
+  .hdrwrap { position:relative; background:linear-gradient(180deg,#ffdf9e 0%,#ffc98a 50%,#ffb59e 58%,transparent 94%); }
   .hdrwrap.wx-night { background:linear-gradient(180deg,#1f2a5a 0%,#2c3e70 50%,#3a4a7d 58%,transparent 94%); }
   .hdrwrap.wx-night .cafe { color:#f2f5ff; } .hdrwrap.wx-night .tagline { color:#c3cdef; } .hdrwrap.wx-night .info { color:#d6ddf5; } .hdrwrap.wx-night .wxnow { color:#d6ddf5; } .hdrwrap.wx-night .mq { color:#FFCA28; } .hdrwrap.wx-night .info a.loc { color:#ffe9a8; }
   .hdrwrap.wx-storm { background:linear-gradient(180deg,#6d7f9c 0%,#55677f 50%,#46586e 58%,transparent 94%); }
@@ -113,7 +113,46 @@
   .langbtn button { border:0; background:transparent; padding:2px 1px; font-size:14.5px; font-family:inherit; color:inherit; cursor:pointer; opacity:.5; font-weight:600; }
   .langbtn button.on { opacity:1; font-weight:800; text-decoration:underline; text-underline-offset:3px; }
   .langbtn .sep { opacity:.45; }
-</style>
+
+html[data-wx="wx-night"] .hdrwrap { background:linear-gradient(180deg,#1f2a5a 0%,#2c3e70 50%,#3a4a7d 58%,transparent 94%); }
+html[data-wx="wx-night"] .hdrwrap .cafe { color:#f2f5ff; }
+html[data-wx="wx-night"] .hdrwrap .tagline { color:#c3cdef; }
+html[data-wx="wx-night"] .hdrwrap .info { color:#d6ddf5; }
+html[data-wx="wx-night"] .hdrwrap .wxnow { color:#d6ddf5; }
+html[data-wx="wx-night"] .hdrwrap .mq { color:#FFCA28; }
+html[data-wx="wx-night"] .hdrwrap .info a.loc { color:#ffe9a8; }
+html[data-wx="wx-storm"] .hdrwrap { background:linear-gradient(180deg,#6d7f9c 0%,#55677f 50%,#46586e 58%,transparent 94%); }
+html[data-wx="wx-storm"] .hdrwrap .cafe { color:#eef2f8; }
+html[data-wx="wx-storm"] .hdrwrap .tagline { color:#c9d4e4; }
+html[data-wx="wx-storm"] .hdrwrap .info { color:#d3dce9; }
+html[data-wx="wx-storm"] .hdrwrap .wxnow { color:#d3dce9; }
+html[data-wx="wx-storm"] .hdrwrap .mq { color:#FFCA28; }
+html[data-wx="wx-storm"] .hdrwrap .info a.loc { color:#ffd98a; }
+html[data-wx="wx-rain"] .hdrwrap { background:linear-gradient(180deg,#aebfd4 0%,#93a9c4 50%,#7e97b5 58%,transparent 94%); }
+html[data-wx="wx-rain"] .hdrwrap .cafe { color:#1f3049; }
+html[data-wx="wx-rain"] .hdrwrap .tagline { color:#40597a; }
+html[data-wx="wx-rain"] .hdrwrap .info { color:#3c5878; }
+html[data-wx="wx-rain"] .hdrwrap .wxnow { color:#3c5878; }
+html[data-wx="wx-rain"] .hdrwrap .mq { color:#B71C1C; }
+html[data-wx="wx-rain"] .hdrwrap .info a.loc { color:#173a5e; }
+html[data-wx="wx-drizzle"] .hdrwrap { background:linear-gradient(180deg,#c3d2e2 0%,#a9bfd6 50%,#97aec6 58%,transparent 94%); }
+html[data-wx="wx-drizzle"] .hdrwrap .cafe { color:#243b57; }
+html[data-wx="wx-drizzle"] .hdrwrap .tagline { color:#4a6484; }
+html[data-wx="wx-drizzle"] .hdrwrap .info { color:#42607f; }
+html[data-wx="wx-drizzle"] .hdrwrap .wxnow { color:#42607f; }
+html[data-wx="wx-drizzle"] .hdrwrap .mq { color:#B71C1C; }
+html[data-wx="wx-drizzle"] .hdrwrap .info a.loc { color:#1d4266; }
+html[data-wx="wx-cloud"] .hdrwrap { background:linear-gradient(180deg,#e8e2d4 0%,#ddd3bf 50%,#cfc0a4 58%,transparent 94%); }
+html[data-wx="wx-fog"] .hdrwrap { background:linear-gradient(180deg,#dfe3e6 0%,#ccd2d6 50%,#bcc4c9 58%,transparent 94%); }
+html[data-wx="wx-snow"] .hdrwrap { background:linear-gradient(180deg,#e8f1f8 0%,#d5e6f2 50%,#bfd9ec 58%,transparent 94%); }
+html[data-wx="wx-snow"] .hdrwrap .cafe { color:#2c4a66; }
+html[data-wx="wx-snow"] .hdrwrap .tagline { color:#52748f; }
+html[data-wx="wx-snow"] .hdrwrap .info { color:#486a88; }
+html[data-wx="wx-snow"] .hdrwrap .wxnow { color:#486a88; }
+html[data-wx="wx-snow"] .hdrwrap .mq { color:#B71C1C; }
+html[data-wx="wx-snow"] .hdrwrap .info a.loc { color:#2c5a82; }
+html[data-wx="wx-wind"] .hdrwrap { background:linear-gradient(180deg,#ffe3ae 0%,#cfe8d8 50%,#a8d5ba 58%,transparent 94%); }</style>
+<script>(function(){try{var c=localStorage.getItem('obc-wxcls');if(c)document.documentElement.setAttribute('data-wx',c);}catch(e){}})();</script>
 </head>
 <body>
 
@@ -132,9 +171,6 @@
 </div>
 <script>
 try {
-  var _c = localStorage.getItem('obc-wxcls');
-  var _w = document.querySelector('.hdrwrap');
-  if (_c && _w) _w.classList.add(_c);
   var _l = localStorage.getItem('obc-wxlbl');
   var _e = document.getElementById('wxnow');
   if (_l && _e) _e.textContent = _l;
@@ -223,7 +259,7 @@ try {
       else if(mode==='fog') cls='wx-fog';
       else if(mode==='snow') cls='wx-snow';
       if(wind>=18&&day&&(mode==='clear'||mode==='cloud'||mode==='fog')) cls='wx-wind';
-      var wrap=document.querySelector('.hdrwrap'); if(wrap){ wrap.classList.remove('wx-clear','wx-night','wx-rain','wx-drizzle','wx-storm','wx-cloud','wx-fog','wx-snow','wx-wind'); wrap.classList.add(cls); try{ localStorage.setItem('obc-wxcls', cls); }catch(e){} }
+      var wrap=document.querySelector('.hdrwrap'); if(wrap){ wrap.classList.remove('wx-clear','wx-night','wx-rain','wx-drizzle','wx-storm','wx-cloud','wx-fog','wx-snow','wx-wind'); wrap.classList.add(cls); try{ localStorage.setItem('obc-wxcls', cls); }catch(e){} try{ document.documentElement.removeAttribute('data-wx'); }catch(e){} }
       var wxEl=document.getElementById('wxnow');
       if(wxEl){
         var lbl, emo;
