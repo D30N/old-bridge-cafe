@@ -75,10 +75,8 @@
   .mq { margin-top:30px; overflow:hidden; color:#C62828; padding:7px 0; border-top:1.5px solid color-mix(in srgb, currentColor 60%, transparent); border-bottom:1.5px solid color-mix(in srgb, currentColor 60%, transparent); }
   .mq[hidden] { display:none; }
   .mqwin { overflow:hidden; }
-  .mqtrack { display:inline-flex; white-space:nowrap; will-change:transform; animation:mqmove linear infinite; }
+  .mqtrack { display:inline-flex; white-space:nowrap; will-change:transform; }
   .mqtrack .mqtxt { font-size:15px; font-weight:700; padding-right:56px; }
-  @keyframes mqmove { from { transform:translateX(0); } to { transform:translateX(-50%); } }
-  @media (prefers-reduced-motion: reduce) { .mqtrack { animation:none; } }
   .search { max-width:1060px; margin:18px auto 0; padding:0 14px; }
   .search input { width:100%; padding:13px 18px; border-radius:999px; border:1.5px solid #e8dcc8; font-size:15px; font-family:inherit; background:#fff; outline:none; }
   .search input:focus { border-color:#e0a458; }
@@ -277,14 +275,32 @@ fetch('special.json', { cache: 'no-store' })
     if (!t) return;
     var mq = document.getElementById('mq');
     var tr = document.getElementById('mqtrack');
-    if (!mq || !tr) return;
+    var win = document.querySelector('.mqwin');
+    if (!mq || !tr || !win) return;
     var spans = tr.querySelectorAll('.mqtxt');
     spans[0].textContent = t;
     if (spans[1]) spans[1].textContent = t;
     mq.hidden = false;
-    requestAnimationFrame(function () {
-      tr.style.animationDuration = Math.max(6, spans[0].offsetWidth / 90) + 's';
-    });
+    var start = function () {
+      var CW = win.clientWidth;
+      var W = spans[0].offsetWidth;
+      if (!W || !CW) return;
+      var gap = Math.round(CW * 0.45);
+      spans[0].style.paddingRight = gap + 'px';
+      if (spans[1]) spans[1].style.paddingRight = gap + 'px';
+      W = spans[0].offsetWidth;
+      var dur = Math.max(4, W / 90) * 1000;
+      var anim = tr.animate(
+        [{ transform: 'translateX(0px)' }, { transform: 'translateX(' + (-W) + 'px)' }],
+        { duration: dur, iterations: Infinity });
+      var k = Math.max(1, Math.ceil(CW / W));
+      var phi = k - CW / W;
+      if (phi <= 0 || phi >= 1) phi = 0.02;
+      anim.currentTime = phi * dur;
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) anim.pause();
+    };
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { requestAnimationFrame(start); });
+    else requestAnimationFrame(start);
   })
   .catch(function () {});
 </script>

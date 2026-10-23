@@ -75,10 +75,8 @@
   .mq { margin-top:30px; overflow:hidden; color:#C62828; padding:7px 0; border-top:1.5px solid color-mix(in srgb, currentColor 60%, transparent); border-bottom:1.5px solid color-mix(in srgb, currentColor 60%, transparent); }
   .mq[hidden] { display:none; }
   .mqwin { overflow:hidden; }
-  .mqtrack { display:inline-flex; white-space:nowrap; will-change:transform; animation:mqmove linear infinite; }
+  .mqtrack { display:inline-flex; white-space:nowrap; will-change:transform; }
   .mqtrack .mqtxt { font-size:15px; font-weight:700; padding-right:56px; }
-  @keyframes mqmove { from { transform:translateX(0); } to { transform:translateX(-50%); } }
-  @media (prefers-reduced-motion: reduce) { .mqtrack { animation:none; } }
   .search { max-width:1060px; margin:18px auto 0; padding:0 14px; }
   .search input { width:100%; padding:13px 18px; border-radius:999px; border:1.5px solid #e8dcc8; font-size:15px; font-family:inherit; background:#fff; outline:none; }
   .search input:focus { border-color:#e0a458; }
