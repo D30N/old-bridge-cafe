@@ -75,9 +75,10 @@
   .mq { margin-top:30px; overflow:hidden; color:#C62828; padding:7px 0; border-top:1.5px solid color-mix(in srgb, currentColor 60%, transparent); border-bottom:1.5px solid color-mix(in srgb, currentColor 60%, transparent); }
   .mq[hidden] { display:none; }
   .mqwin { overflow:hidden; }
-  .mqscroll { display:inline-block; white-space:nowrap; padding-left:100%; font-size:15px; font-weight:700; animation:mqmove linear infinite; will-change:transform; }
-  @keyframes mqmove { from { transform:translateX(0); } to { transform:translateX(-100%); } }
-  @media (prefers-reduced-motion: reduce) { .mqscroll { animation:none; padding-left:0; } }
+  .mqtrack { display:inline-flex; white-space:nowrap; will-change:transform; animation:mqmove linear infinite; }
+  .mqtrack .mqtxt { font-size:15px; font-weight:700; padding-right:56px; }
+  @keyframes mqmove { from { transform:translateX(0); } to { transform:translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .mqtrack { animation:none; } }
   .search { max-width:1060px; margin:18px auto 0; padding:0 14px; }
   .search input { width:100%; padding:13px 18px; border-radius:999px; border:1.5px solid #e8dcc8; font-size:15px; font-family:inherit; background:#fff; outline:none; }
   .search input:focus { border-color:#e0a458; }
@@ -118,7 +119,7 @@
   <a class="insta" href="https://www.instagram.com/oldbridge_cafe/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="#fff" stroke-width="2"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.4" fill="#fff" stroke="none"/></svg>Follow us on Instagram</a>
   <div class="info">🕚 Open Daily · 11:00 AM – 11:00 PM<br><a class="loc" href="https://maps.app.goo.gl/h8bwZFAta8rJe4m89?g_st=ac" target="_blank" rel="noopener">📍 Oldbridge, Murinjapuzha</a></div>
   <div class="wxnow" id="wxnow"></div>
-  <div class="mq" id="mq" hidden><div class="mqwin"><span class="mqscroll" id="mqtext"></span></div></div>
+  <div class="mq" id="mq" hidden><div class="mqwin"><div class="mqtrack" id="mqtrack"><span class="mqtxt"></span><span class="mqtxt"></span></div></div></div>
 </header>
 <svg class="wave" viewBox="0 0 1440 90" preserveAspectRatio="none"><path d="M0,0 L1440,0 L1440,26 C1150,86 900,88 640,52 C420,22 180,58 0,34 Z" fill="none"/></svg>
 <canvas id="wxfx" aria-hidden="true"></canvas>
@@ -269,12 +270,14 @@ fetch('special.json', { cache: 'no-store' })
     var t = (j && j.text ? String(j.text) : '').trim();
     if (!t) return;
     var mq = document.getElementById('mq');
-    var sp = document.getElementById('mqtext');
-    if (!mq || !sp) return;
-    sp.textContent = t;
+    var tr = document.getElementById('mqtrack');
+    if (!mq || !tr) return;
+    var spans = tr.querySelectorAll('.mqtxt');
+    spans[0].textContent = t;
+    if (spans[1]) spans[1].textContent = t;
     mq.hidden = false;
     requestAnimationFrame(function () {
-      sp.style.animationDuration = Math.max(8, sp.scrollWidth / 90) + 's';
+      tr.style.animationDuration = Math.max(6, spans[0].offsetWidth / 90) + 's';
     });
   })
   .catch(function () {});
