@@ -126,5 +126,6 @@ var ITEMS = [{"n": "Soda Lime", "p": 25, "c": "Lime", "u": "lime/"}, {"n": "Fres
 var res = document.getElementById('res');
 if (q && res) { q.addEventListener('input', function(){ var v = q.value.toLowerCase().trim(); if (!v) { res.style.display = 'none'; res.innerHTML = ''; return; } var m = ITEMS.filter(function(it){ return it.n.toLowerCase().includes(v); }).slice(0, 15); res.innerHTML = m.map(function(it){ return '<a href="' + it.u + '">' + it.n + ' <span class="cat">' + it.c + '</span><span class="dots"></span><b><span class="rs">₹</span>' + it.p + '</b></a>'; }).join(''); res.style.display = m.length ? 'block' : 'none'; }); }
 </script>
+<script data-goatcounter="https://oldbridgecafe.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

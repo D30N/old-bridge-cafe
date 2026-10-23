@@ -172,6 +172,7 @@ var ITEMS = {ITEMS_JS};
 var res = document.getElementById('res');
 if (q && res) {{ q.addEventListener('input', function(){{ var v = q.value.toLowerCase().trim(); if (!v) {{ res.style.display = 'none'; res.innerHTML = ''; return; }} var m = ITEMS.filter(function(it){{ return it.n.toLowerCase().includes(v); }}).slice(0, 15); res.innerHTML = m.map(function(it){{ return '<a href="' + it.u + '">' + it.n + ' <span class="cat">' + it.c + '</span><span class="dots"></span><b><span class="rs">₹</span>' + it.p + '</b></a>'; }}).join(''); res.style.display = m.length ? 'block' : 'none'; }}); }}
 </script>
+<script data-goatcounter="https://oldbridgecafe.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
 """
@@ -227,6 +228,7 @@ window.addEventListener('load', obcRestore);
 document.querySelectorAll('.pn a').forEach(function(a){{ a.addEventListener('click', function(){{ try {{ sessionStorage.setItem('obc-sy', String(window.scrollY)); }} catch(e) {{}} }}); }});
 </script>
 {swipe_js}
+<script data-goatcounter="https://oldbridgecafe.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
 """
