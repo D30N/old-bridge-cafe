@@ -22,17 +22,17 @@ CSS = """
   body { font-family:'Poppins',system-ui,sans-serif; background:#FFF9EF; color:#2a2320; padding-bottom:40px; }
   .hdrwrap { position:relative; background:linear-gradient(180deg,#ffdf9e 0%,#ffc98a 50%,#ffb59e 76%,transparent 100%); transition:background 1s ease; }
   .hdrwrap.wx-night { background:linear-gradient(180deg,#1f2a5a 0%,#2c3e70 50%,#3a4a7d 76%,transparent 100%); }
-  .hdrwrap.wx-night .cafe { color:#f2f5ff; } .hdrwrap.wx-night .tagline { color:#c3cdef; } .hdrwrap.wx-night .info { color:#d6ddf5; } .hdrwrap.wx-night .wxnow { color:#d6ddf5; } .hdrwrap.wx-night .mq { color:#d6ddf5; } .hdrwrap.wx-night .info a.loc { color:#ffe9a8; }
+  .hdrwrap.wx-night .cafe { color:#f2f5ff; } .hdrwrap.wx-night .tagline { color:#c3cdef; } .hdrwrap.wx-night .info { color:#d6ddf5; } .hdrwrap.wx-night .wxnow { color:#d6ddf5; } .hdrwrap.wx-night .mq { color:#FFCA28; } .hdrwrap.wx-night .info a.loc { color:#ffe9a8; }
   .hdrwrap.wx-storm { background:linear-gradient(180deg,#6d7f9c 0%,#55677f 50%,#46586e 76%,transparent 100%); }
-  .hdrwrap.wx-storm .cafe { color:#eef2f8; } .hdrwrap.wx-storm .tagline { color:#c9d4e4; } .hdrwrap.wx-storm .info { color:#d3dce9; } .hdrwrap.wx-storm .wxnow { color:#d3dce9; } .hdrwrap.wx-storm .mq { color:#d3dce9; } .hdrwrap.wx-storm .info a.loc { color:#ffd98a; }
+  .hdrwrap.wx-storm .cafe { color:#eef2f8; } .hdrwrap.wx-storm .tagline { color:#c9d4e4; } .hdrwrap.wx-storm .info { color:#d3dce9; } .hdrwrap.wx-storm .wxnow { color:#d3dce9; } .hdrwrap.wx-storm .mq { color:#FFCA28; } .hdrwrap.wx-storm .info a.loc { color:#ffd98a; }
   .hdrwrap.wx-rain { background:linear-gradient(180deg,#aebfd4 0%,#93a9c4 50%,#7e97b5 76%,transparent 100%); }
-  .hdrwrap.wx-rain .cafe { color:#1f3049; } .hdrwrap.wx-rain .tagline { color:#40597a; } .hdrwrap.wx-rain .info { color:#3c5878; } .hdrwrap.wx-rain .wxnow { color:#3c5878; } .hdrwrap.wx-rain .mq { color:#3c5878; } .hdrwrap.wx-rain .info a.loc { color:#173a5e; }
+  .hdrwrap.wx-rain .cafe { color:#1f3049; } .hdrwrap.wx-rain .tagline { color:#40597a; } .hdrwrap.wx-rain .info { color:#3c5878; } .hdrwrap.wx-rain .wxnow { color:#3c5878; } .hdrwrap.wx-rain .mq { color:#B71C1C; } .hdrwrap.wx-rain .info a.loc { color:#173a5e; }
   .hdrwrap.wx-drizzle { background:linear-gradient(180deg,#c3d2e2 0%,#a9bfd6 50%,#97aec6 76%,transparent 100%); }
-  .hdrwrap.wx-drizzle .cafe { color:#243b57; } .hdrwrap.wx-drizzle .tagline { color:#4a6484; } .hdrwrap.wx-drizzle .info { color:#42607f; } .hdrwrap.wx-drizzle .wxnow { color:#42607f; } .hdrwrap.wx-drizzle .mq { color:#42607f; } .hdrwrap.wx-drizzle .info a.loc { color:#1d4266; }
+  .hdrwrap.wx-drizzle .cafe { color:#243b57; } .hdrwrap.wx-drizzle .tagline { color:#4a6484; } .hdrwrap.wx-drizzle .info { color:#42607f; } .hdrwrap.wx-drizzle .wxnow { color:#42607f; } .hdrwrap.wx-drizzle .mq { color:#B71C1C; } .hdrwrap.wx-drizzle .info a.loc { color:#1d4266; }
   .hdrwrap.wx-cloud { background:linear-gradient(180deg,#e8e2d4 0%,#ddd3bf 50%,#cfc0a4 76%,transparent 100%); }
   .hdrwrap.wx-fog { background:linear-gradient(180deg,#dfe3e6 0%,#ccd2d6 50%,#bcc4c9 76%,transparent 100%); }
   .hdrwrap.wx-snow { background:linear-gradient(180deg,#e8f1f8 0%,#d5e6f2 50%,#bfd9ec 76%,transparent 100%); }
-  .hdrwrap.wx-snow .cafe { color:#2c4a66; } .hdrwrap.wx-snow .tagline { color:#52748f; } .hdrwrap.wx-snow .info { color:#486a88; } .hdrwrap.wx-snow .wxnow { color:#486a88; } .hdrwrap.wx-snow .mq { color:#486a88; } .hdrwrap.wx-snow .info a.loc { color:#2c5a82; }
+  .hdrwrap.wx-snow .cafe { color:#2c4a66; } .hdrwrap.wx-snow .tagline { color:#52748f; } .hdrwrap.wx-snow .info { color:#486a88; } .hdrwrap.wx-snow .wxnow { color:#486a88; } .hdrwrap.wx-snow .mq { color:#B71C1C; } .hdrwrap.wx-snow .info a.loc { color:#2c5a82; }
   .hdrwrap.wx-wind { background:linear-gradient(180deg,#ffe3ae 0%,#cfe8d8 50%,#a8d5ba 76%,transparent 100%); }
   header { position:relative; z-index:2; text-align:center; padding:30px 16px 22px; }
   #wxfx { position:absolute; inset:0; width:100%; height:100%; z-index:1; pointer-events:none; }
@@ -82,10 +82,10 @@ CSS = """
   .insta svg { flex:none; }
   .insta:active { opacity:.85; }
   .tile .price { position:absolute; top:7px; right:7px; background:#c22e2e; color:#fff; font-size:11px; font-weight:700; padding:3px 9px; border-radius:999px; box-shadow:0 2px 6px rgba(0,0,0,.25); }
-  .mq { margin-top:12px; overflow:hidden; color:#6b4423; }
+  .mq { margin-top:30px; overflow:hidden; color:#C62828; padding:7px 0; border-top:1.5px solid color-mix(in srgb, currentColor 60%, transparent); border-bottom:1.5px solid color-mix(in srgb, currentColor 60%, transparent); }
   .mq[hidden] { display:none; }
   .mqwin { overflow:hidden; }
-  .mqscroll { display:inline-block; white-space:nowrap; padding-left:100%; font-size:14.5px; font-weight:600; animation:mqmove linear infinite; will-change:transform; }
+  .mqscroll { display:inline-block; white-space:nowrap; padding-left:100%; font-size:15px; font-weight:700; animation:mqmove linear infinite; will-change:transform; }
   @keyframes mqmove { from { transform:translateX(0); } to { transform:translateX(-100%); } }
   @media (prefers-reduced-motion: reduce) { .mqscroll { animation:none; padding-left:0; } }
   .search { max-width:1060px; margin:18px auto 0; padding:0 14px; }
