@@ -10,7 +10,9 @@
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
   body { font-family:'Poppins',system-ui,sans-serif; background:#FFF9EF; color:#2a2320; padding-bottom:40px; }
-  header { text-align:center; padding:30px 16px 22px; background:linear-gradient(160deg,#ffdf9e 0%,#ffc98a 45%,#ffb59e 100%); }
+  header { position:relative; overflow:hidden; text-align:center; padding:30px 16px 22px; background:linear-gradient(160deg,#ffdf9e 0%,#ffc98a 45%,#ffb59e 100%); }
+  #wxfx { position:absolute; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; }
+  header > :not(#wxfx) { position:relative; z-index:1; }
   .wave { display:block; width:100%; height:44px; margin-top:-1px; }
   header .cafe { font-family:'Pacifico',cursive; font-size:clamp(34px,8vw,52px); line-height:1.1; color:#3b2314; }
   header .cafe span { color:inherit; }
@@ -90,12 +92,90 @@
 
 
 <header>
+  <canvas id="wxfx" aria-hidden="true"></canvas>
   <div class="cafe">Old <span>Bridge</span> Cafe</div>
   <div class="tagline">Fresh • Juices • Shakes • Snacks</div>
   <a class="insta" href="https://www.instagram.com/oldbridge_cafe/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="#fff" stroke-width="2"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.4" fill="#fff" stroke="none"/></svg>Follow us on Instagram</a>
   <div class="info">🕚 Open Daily · 11:00 AM – 11:00 PM<br><a class="loc" href="https://maps.app.goo.gl/h8bwZFAta8rJe4m89?g_st=ac" target="_blank" rel="noopener">📍 Oldbridge, Murinjapuzha</a></div>
 </header>
 <svg class="wave" viewBox="0 0 1440 90" preserveAspectRatio="none"><path d="M0,0 L1440,0 L1440,26 C1150,86 900,88 640,52 C420,22 180,58 0,34 Z" fill="#ffb59e"/></svg>
+<script>
+(function(){
+  var cv = document.getElementById('wxfx'); if(!cv) return;
+  var ctx = cv.getContext('2d');
+  var W=0,H=0, parts=[], mode='clear', partly=false, day=1, wind=0, t=0, flash=0;
+  function rnd(a,b){ return a+Math.random()*(b-a); }
+  function size(){ var DPR=Math.min(window.devicePixelRatio||1,2); var r=cv.parentElement.getBoundingClientRect(); W=r.width; H=r.height; cv.width=W*DPR; cv.height=H*DPR; ctx.setTransform(DPR,0,0,DPR,0,0); }
+  size(); window.addEventListener('resize', function(){ size(); make(); });
+  function make(){
+    parts=[]; var i;
+    if(mode==='rain'||mode==='storm'){ var n=(mode==='storm'?130:85); for(i=0;i<n;i++) parts.push({k:'r',x:rnd(0,W),y:rnd(0,H),l:rnd(9,18),s:rnd(9,15)}); }
+    else if(mode==='drizzle'){ for(i=0;i<38;i++) parts.push({k:'r',x:rnd(0,W),y:rnd(0,H),l:rnd(5,9),s:rnd(5,8)}); }
+    else if(mode==='snow'){ for(i=0;i<70;i++) parts.push({k:'s',x:rnd(0,W),y:rnd(0,H),r:rnd(1,2.6),s:rnd(.4,1.1),ph:rnd(0,6.3)}); }
+    else if(mode==='cloud'||mode==='fog'){ for(i=0;i<7;i++) parts.push({k:'c',x:rnd(-80,W),y:rnd(2,Math.max(10,H*.5)),w:rnd(70,150),s:rnd(.14,.4)}); }
+    else if(mode==='clear'&&day){ for(i=0;i<26;i++) parts.push({k:'m',x:rnd(0,W),y:rnd(0,H),r:rnd(.8,2),s:rnd(.1,.35),ph:rnd(0,6.3)}); }
+    else if(mode==='clear'&&!day){ for(i=0;i<55;i++) parts.push({k:'t',x:rnd(0,W),y:rnd(0,H*.85),r:rnd(.5,1.4),ph:rnd(0,6.3)}); }
+    if(wind>=18){ for(i=0;i<14;i++) parts.push({k:'w',x:rnd(0,W),y:rnd(0,H),l:rnd(24,54),s:rnd(2.2,4.2)}); }
+  }
+  function blob(x,y,w){ var h=w*.30; ctx.beginPath(); ctx.arc(x,y+h*.5,h*.5,0,6.3); ctx.arc(x+w*.3,y+h*.28,h*.68,0,6.3); ctx.arc(x+w*.62,y+h*.5,h*.52,0,6.3); ctx.arc(x+w*.85,y+h*.62,h*.36,0,6.3); ctx.fill(); }
+  function drawSun(){
+    var x=W-64,y=44,r=25; var g=ctx.createRadialGradient(x,y,4,x,y,64);
+    g.addColorStop(0,'rgba(255,214,90,.85)'); g.addColorStop(.35,'rgba(255,196,64,.35)'); g.addColorStop(1,'rgba(255,196,64,0)');
+    ctx.fillStyle=g; ctx.beginPath(); ctx.arc(x,y,64,0,6.3); ctx.fill();
+    ctx.save(); ctx.translate(x,y); ctx.rotate(t*.0015);
+    ctx.strokeStyle='rgba(255,170,40,.55)'; ctx.lineWidth=2.4; ctx.lineCap='round';
+    for(var i=0;i<8;i++){ ctx.rotate(Math.PI/4); ctx.beginPath(); ctx.moveTo(0,-r-5); ctx.lineTo(0,-r-13); ctx.stroke(); }
+    ctx.restore();
+    ctx.fillStyle='#FFD54A'; ctx.beginPath(); ctx.arc(x,y,r,0,6.3); ctx.fill();
+    ctx.fillStyle='#FFCA28'; ctx.beginPath(); ctx.arc(x,y,r-4,0,6.3); ctx.fill();
+  }
+  function drawMoon(){
+    var x=W-58,y=40; var g=ctx.createRadialGradient(x,y,4,x,y,52);
+    g.addColorStop(0,'rgba(220,230,255,.5)'); g.addColorStop(1,'rgba(220,230,255,0)');
+    ctx.fillStyle=g; ctx.beginPath(); ctx.arc(x,y,52,0,6.3); ctx.fill();
+    ctx.fillStyle='#F4F7FF'; ctx.beginPath(); ctx.arc(x,y,17,0,6.3); ctx.fill();
+    ctx.fillStyle='rgba(190,205,235,.8)'; ctx.beginPath(); ctx.arc(x-5,y-4,3.4,0,6.3); ctx.arc(x+6,y+6,2.4,0,6.3); ctx.fill();
+  }
+  function frame(){
+    t++;
+    ctx.clearRect(0,0,W,H);
+    if(mode==='rain'||mode==='storm'||mode==='drizzle'){ ctx.fillStyle='rgba(90,110,140,.10)'; ctx.fillRect(0,0,W,H); }
+    if(mode==='cloud'||mode==='fog'){ ctx.fillStyle='rgba(120,120,130,.07)'; ctx.fillRect(0,0,W,H); }
+    if(!day){ ctx.fillStyle='rgba(30,35,80,.16)'; ctx.fillRect(0,0,W,H); }
+    if((mode==='clear'&&day)||partly) drawSun();
+    if(mode==='clear'&&!day) drawMoon();
+    if(flash>0){ ctx.fillStyle='rgba(255,255,240,'+(flash*.5)+')'; ctx.fillRect(0,0,W,H); flash-=.04; }
+    if(mode==='storm'&&Math.random()<.004) flash=.8;
+    var drift=(wind>=18)?1.6:.5;
+    for(var i=0;i<parts.length;i++){ var p=parts[i];
+      if(p.k==='r'){ p.y+=p.s; p.x+=drift; if(p.y>H){p.y=-20;p.x=rnd(0,W);} ctx.strokeStyle='rgba(255,255,255,.5)'; ctx.lineWidth=1.1; ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(p.x-drift*1.2,p.y+p.l); ctx.stroke(); }
+      else if(p.k==='s'){ p.y+=p.s; p.x+=Math.sin(t*.02+p.ph)*.4+drift*.4; if(p.y>H){p.y=-4;p.x=rnd(0,W);} ctx.fillStyle='rgba(255,255,255,.85)'; ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,6.3); ctx.fill(); }
+      else if(p.k==='c'){ p.x+=p.s+drift*.35; if(p.x-p.w>W){p.x=-p.w;} ctx.fillStyle=(mode==='fog')?'rgba(255,255,255,.30)':'rgba(255,255,255,.38)'; blob(p.x,p.y,p.w); }
+      else if(p.k==='m'){ p.y-=p.s; p.x+=Math.sin(t*.015+p.ph)*.3; if(p.y<-4){p.y=H+4;p.x=rnd(0,W);} ctx.fillStyle='rgba(255,240,190,'+(.35+.3*Math.sin(t*.05+p.ph))+')'; ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,6.3); ctx.fill(); }
+      else if(p.k==='t'){ ctx.fillStyle='rgba(255,255,255,'+(.35+.4*Math.abs(Math.sin(t*.03+p.ph)))+')'; ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,6.3); ctx.fill(); }
+      else if(p.k==='w'){ p.x+=p.s; p.y+=Math.sin(t*.05+p.x*.01)*.3; if(p.x-p.l>W){p.x=-p.l;p.y=rnd(0,H);} ctx.strokeStyle='rgba(255,255,255,.4)'; ctx.lineWidth=1.4; ctx.lineCap='round'; ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(p.x+p.l,p.y); ctx.stroke(); }
+    }
+    if(!document.hidden) requestAnimationFrame(frame); else setTimeout(function(){ requestAnimationFrame(frame); },400);
+  }
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  fetch('https://api.open-meteo.com/v1/forecast?latitude=9.807&longitude=76.402&current=weather_code,wind_speed_10m,is_day&timezone=Asia%2FKolkata')
+    .then(function(r){ return r.json(); })
+    .then(function(j){
+      var c=j.current||{}; var code=c.weather_code||0; wind=c.wind_speed_10m||0; day=(c.is_day===0?0:1);
+      if([51,53,55].indexOf(code)>=0) mode='drizzle';
+      else if([61,63,65,66,67,80,81,82].indexOf(code)>=0) mode='rain';
+      else if([95,96,99].indexOf(code)>=0) mode='storm';
+      else if([71,73,75,77,85,86].indexOf(code)>=0) mode='snow';
+      else if([45,48].indexOf(code)>=0) mode='fog';
+      else if(code===3) mode='cloud';
+      else if(code===2){ mode='cloud'; partly=day===1; }
+      else mode='clear';
+      make();
+      if(!reduced) requestAnimationFrame(frame);
+    })
+    .catch(function(){});
+})();
+</script>
 
 <div class="search"><input id="q" type="search" placeholder="🔍 Search items… try 'falooda'" aria-label="Search menu items"><div class="res" id="res"></div></div>
 <main>
