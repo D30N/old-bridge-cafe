@@ -363,6 +363,16 @@ function obcSetLang(l) {
 </script>
 """
 
+JIGGLE_JS = """
+<script>
+var _bn = document.querySelector('.banner');
+if (_bn) {
+  _bn.addEventListener('pointerdown', function () { _bn.classList.remove('jig'); void _bn.offsetWidth; _bn.classList.add('jig'); });
+  _bn.addEventListener('animationend', function () { _bn.classList.remove('jig'); });
+}
+</script>
+"""
+
 MARQUEE_JS = """
 <script>
 fetch('special.json', { cache: 'no-store' })
@@ -474,13 +484,7 @@ hero.addEventListener('mouseup', function(e){ if(!on) return; on=false; done(e.c
   {pn}
 </main>
 <footer><a class="revbtn" href="https://share.google/u73ZKqA6gACjDoqhO" target="_blank" rel="noopener" data-en="⭐ Review us on Google" data-ml="⭐ Google-ൽ റിവ്യൂ ചെയ്യൂ">⭐ Review us on Google</a><span class="imgnote" data-en="Images shown are for illustration only — the actual product may vary slightly." data-ml="കാണിച്ചിരിക്കുന്ന ചിത്രങ്ങൾ ഇല്ലസ്ട്രേഷനു വേണ്ടി മാത്രം — യഥാർത്ഥ ഉൽപ്പന്നം ചെറുതായി വ്യത്യാസപ്പെട്ടേക്കാം.">Images shown are for illustration only — the actual product may vary slightly.</span><div class="copy">© 2026 Old Bridge Cafe</div></footer>
-<script>
-var _bn = document.querySelector('.banner');
-if (_bn) {
-  _bn.addEventListener('pointerdown', function () { _bn.classList.remove('jig'); void _bn.offsetWidth; _bn.classList.add('jig'); });
-  _bn.addEventListener('animationend', function () { _bn.classList.remove('jig'); });
-}
-</script>
+{JIGGLE_JS}
 <script>
 var obcY = null;
 try {{ obcY = sessionStorage.getItem('obc-sy'); if (obcY !== null) sessionStorage.removeItem('obc-sy'); }} catch(e) {{}}

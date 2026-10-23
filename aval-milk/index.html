@@ -88,6 +88,9 @@
   .res b { color:#c22e2e; white-space:nowrap; }
   section.card { background:#fff; border-radius:18px; padding:20px 18px 14px; box-shadow:0 3px 14px rgba(90,60,20,.08); border:1px solid #f1e6d2; max-width:640px; margin:0 auto; }
   .banner { display:inline-block; font-weight:700; letter-spacing:1px; font-size:20px; color:#fff; padding:5px 18px 6px; border-radius:6px; transform:rotate(-1.2deg); margin-bottom:12px; box-shadow:0 2px 6px rgba(0,0,0,.15); }
+  .banner { cursor:pointer; -webkit-tap-highlight-color:transparent; user-select:none; }
+  .banner.jig { animation:jiggle .38s ease; }
+  @keyframes jiggle { 0% { transform:rotate(-1.2deg); } 15% { transform:rotate(-3.2deg) translateX(-2px); } 35% { transform:rotate(.6deg) translateX(2px); } 55% { transform:rotate(-2.8deg) translateX(-1.5px); } 75% { transform:rotate(-.2deg) translateX(1.5px); } 100% { transform:rotate(-1.2deg); } }
   .dark { color:#4a3200; }
   ul { list-style:none; }
   li { display:flex; align-items:baseline; gap:8px; padding:5px 0; font-size:16px; }
@@ -258,6 +261,15 @@ try {
   <div class="pn"><a href="../kannur-cocktail/">← <span data-en="Kannur Cocktail" data-ml="കണ്ണൂർ കോക്ടെയിൽ">Kannur Cocktail</span></a><a href="../cold-coffee/"><span data-en="Cold Coffee" data-ml="കോൾഡ് കോഫി">Cold Coffee</span> →</a></div>
 </main>
 <footer><a class="revbtn" href="https://share.google/u73ZKqA6gACjDoqhO" target="_blank" rel="noopener" data-en="⭐ Review us on Google" data-ml="⭐ Google-ൽ റിവ്യൂ ചെയ്യൂ">⭐ Review us on Google</a><span class="imgnote" data-en="Images shown are for illustration only — the actual product may vary slightly." data-ml="കാണിച്ചിരിക്കുന്ന ചിത്രങ്ങൾ ഇല്ലസ്ട്രേഷനു വേണ്ടി മാത്രം — യഥാർത്ഥ ഉൽപ്പന്നം ചെറുതായി വ്യത്യാസപ്പെട്ടേക്കാം.">Images shown are for illustration only — the actual product may vary slightly.</span><div class="copy">© 2026 Old Bridge Cafe</div></footer>
+
+<script>
+var _bn = document.querySelector('.banner');
+if (_bn) {
+  _bn.addEventListener('pointerdown', function () { _bn.classList.remove('jig'); void _bn.offsetWidth; _bn.classList.add('jig'); });
+  _bn.addEventListener('animationend', function () { _bn.classList.remove('jig'); });
+}
+</script>
+
 <script>
 var obcY = null;
 try { obcY = sessionStorage.getItem('obc-sy'); if (obcY !== null) sessionStorage.removeItem('obc-sy'); } catch(e) {}
